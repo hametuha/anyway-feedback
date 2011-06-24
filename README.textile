@@ -1,0 +1,23 @@
+h1. Anyway Feedback
+
+Simple WordPress plugin to gather user feedback.
+
+h2. Install
+
+# Upload anyway-feedback folder to wp-content/plugins
+# Enable it from plugin page of admin-panel.
+# That's all.
+
+h2. Usage
+
+Currently this plugin needs template tags.
+
+<pre><code>
+<?php afb_display(); ?>
+</code></pre>
+
+h2. Change Logs
+
+h3. Version 0.3
+
+- 2011.06.24 := Initial Commit.
