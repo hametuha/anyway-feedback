@@ -31,6 +31,7 @@
 
 //Load required files
 require_once dirname(__FILE__).DIRECTORY_SEPARATOR."anyway-feedback.class.php";
+require_once dirname(__FILE__).DIRECTORY_SEPARATOR."widgets".DIRECTORY_SEPARATOR."popular.php";
 require_once dirname(__FILE__).DIRECTORY_SEPARATOR."functions.php";
 
 //Make Instance
@@ -39,4 +40,3 @@ $afb = new Anyway_Feedback();
 
 //Register Activation Hook.
 register_activation_hook(__FILE__, array($afb, "activate"));
-

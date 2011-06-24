@@ -187,6 +187,8 @@ EOS;
 		$this->db_version = get_option('afb_db_version', 0);
 		//Add action hook to load assets.
 		add_action("wp_enqueue_scripts", array($this, "load_asset"));
+		//Register Widgets
+		add_action("widgets_init", array($this, "register_widgets"));
 		//Add ajax handler
 		//TODO: Despite Ajax request, this use init hook because Theme My Login prepend.
 		add_action('init', array($this, "ajax"));
@@ -268,5 +270,14 @@ EOS;
 	 */
 	function _($string){
 		return __($string, self::$domain);
+	}
+	
+	/**
+	 * register widgets
+	 *
+	 * @return void
+	 */
+	function register_widgets(){
+		return register_widget('Anyway_Feedback_Popular');
 	}
 }
