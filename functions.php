@@ -23,7 +23,7 @@ function afb_display($class_name = null){
 	}
 	global $afb, $post; if($post)
 	?>
-	<div class="<?php echo htmlspecialchars($class, ENT_QUOTES, "utf-8");?>">
+	<div class="<?php echo htmlspecialchars($class, ENT_QUOTES, "utf-8");?>" id="afb_comment_container_<?php the_ID(); ?>">
 		<span class="message"><?php $afb->e("Is this article usefull?");?></span>
 		<a class="good" href="<?php the_permalink(); ?>"><?php $afb->e("Useful"); ?></a>
 		<a class="bad" href="<?php the_permalink(); ?>"><?php $afb->e("Useless"); ?></a>
@@ -38,15 +38,44 @@ function afb_display($class_name = null){
 }
 
 /**
+ * Display Anyway Feedback buttons for comment.
+ * @param int $comment_id
+ * @return void
+ */
+function afb_comment_display($comment_id){
+	$class = "afb_container";
+	global $afb;
+	?>
+	<div class="<?php echo $class; ?>" id="afb_comment_container_<?php echo $comment_id; ?>">
+		<span class="message"><?php $afb->e("Is this comment usefull?");?></span>
+		<a class="good" href="<?php the_permalink(); ?>"><?php $afb->e("Useful"); ?></a>
+		<a class="bad" href="<?php the_permalink(); ?>"><?php $afb->e("Useless"); ?></a>
+		<input type="hidden" name="post_type" value="comment" />
+		<input type="hidden" name="object_id" value="<?php echo $comment_id; ?>" />
+		<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("anyway_feedback");?>" />
+		<span class="status">
+			<?php printf($afb->_("%d of %d people say this comment is usefull."), afb_affirmative(false, $comment_id, "comment"), afb_total(false, $comment_id, "comment"));?>
+		</span>
+	</div>
+	<?php
+}
+
+/**
  * Retrieve total feedback count. Use inside loop.
  *
  * @param boolean $echo (optional) Return value if false. 
  * @return void|int
  */
-function afb_total($echo = true){
+function afb_total($echo = true, $object_id = null, $post_type = null){
 	global $wpdb, $afb;
 	$sql = "SELECT (positive + negative) as total FROM {$afb->table} WHERE object_id = %d AND post_type = %d";
-	$total = (int) $wpdb->get_var($wpdb->prepare($sql, get_the_ID(), get_post_type()));
+	if(is_null($object_id)){
+		$object_id = get_the_ID();
+	}
+	if(is_null($post_type)){
+		$post_type = get_post_type();
+	}
+	$total = (int) $wpdb->get_var($wpdb->prepare($sql, $object_id, $post_type));
 	if($echo){
 		echo $total;
 	}else{
@@ -60,10 +89,16 @@ function afb_total($echo = true){
  * @param boolean $echo (optional) Return value if false. 
  * @return void|int
  */
-function afb_affirmative($echo = true){
+function afb_affirmative($echo = true, $object_id = null, $post_type = null){
 	global $wpdb, $afb;
 	$sql = "SELECT positive FROM {$afb->table} WHERE object_id = %d AND post_type = %d";
-	$total = (int) $wpdb->get_var($wpdb->prepare($sql, get_the_ID(), get_post_type()));
+	if(is_null($object_id)){
+		$object_id = get_the_ID();
+	}
+	if(is_null($post_type)){
+		$post_type = get_post_type();
+	}
+	$total = (int) $wpdb->get_var($wpdb->prepare($sql, $object_id, $post_type));
 	if($echo){
 		echo $total;
 	}else{

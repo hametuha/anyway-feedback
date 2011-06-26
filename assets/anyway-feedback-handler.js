@@ -8,16 +8,17 @@ jQuery(document).ready(function($){
 			nonce: $(this).nextAll("input[name=nonce]").val(),
 			class_name: $(this).attr('class') 
 		};
+		var target = $(this).parent(".afb_container");
 		$.post(
 			endpoint,
 			data,
 			function(response){
 				if(response.success){
-					$('.afb_container a, .afb_container input').remove();
-					$('.afb_container .message').addClass('success').text(response.message);
+					target.find('a, .input').remove();
+					target.find('.message').addClass('success').text(response.message);
 				}else{
-					$('.afb_container a, .afb_container input').remove();
-					$('.afb_container .message').addClass('error').text(response.message);
+					target.find('a, .input').remove();
+					target.find('.message').addClass('error').text(response.message);
 				}
 			}
 		);
