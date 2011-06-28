@@ -39,6 +39,34 @@ class Anyway_Feedback{
 	static $domain = "anyway-feedback";
 	
 	/**
+	 * Default option
+	 * @var array
+	 */
+	var $default_option = array(
+		"style" => 0,
+		"post_types" => array(),
+		"comment" => 0
+	);
+	
+	/**
+	 * undocumented class variable
+	 *
+	 * @var array
+	 */
+	var $option;
+	
+	/**
+	 * Message for admin panel
+	 * @var array
+	 */
+	var $message = array();
+	
+	/**
+	 * Error message for admin panel
+	 */
+	var $error = array();
+	
+	/**
 	 * Retrieve data from table
 	 * @param int $object_id
 	 * @param string $post_type
@@ -179,6 +207,16 @@ EOS;
 		global $wpdb;
 		//Set directory
 		$this->dir = dirname(__FILE__);
+		//option
+		$this->option = get_option('afb_setting', $this->default_option);
+		//Set required options for upgrade
+		if(count($this->option) != count($this->default_option)){
+			foreach($this->default_option as $key => $val){
+				if(!isset($this->option[$key])){
+					$this->option[$key] = $val;
+				}
+			}
+		}
 		//Set Text Domain
 		load_plugin_textdomain(self::$domain, false, basename($this->dir).DIRECTORY_SEPARATOR."language");
 		//Define table name.
@@ -192,6 +230,8 @@ EOS;
 		//Add ajax handler
 		//TODO: Despite Ajax request, this use init hook because Theme My Login prepend.
 		add_action('init', array($this, "ajax"));
+		//Add admin menu
+		add_action('admin_menu', array($this, "create_admin"));
 	}
 	
 	/**
@@ -236,6 +276,90 @@ EOS;
 			echo json_encode($response);
 			//Don't forget exit.
 			exit;
+		}
+	}
+	
+	/**
+	 * Create Admin Panel
+	 * @return void
+	 */
+	function create_admin(){
+		//Create Page
+		add_options_page($this->_("Anyway Feedback Option: "), $this->_('Anyway Feedback'), 8, "anyway-feedback", array($this, "render_admin"), plugin_dir_url(__FILE__)."assets/undo.png");
+		//Add admin action
+		add_action("admin_init", array($this, "admin_header"));
+		//Load Assets for admin
+		add_action("admin_enqueue_scripts", array($this, "admin_assets"));
+		//Show message for Admin Panel
+		add_action("admin_notice", array($this, "admin_notice"));
+	}
+	
+	/**
+	 * Render admin panel
+	 * @return void
+	 */
+	function render_admin(){
+		require_once dirname(__FILE__).DIRECTORY_SEPARATOR."admin".DIRECTORY_SEPARATOR."admin-template.php";
+	}
+	
+	/**
+	 * Load header file for admin panel
+	 * @return void
+	 */
+	function admin_header(){
+		if(isset($_GET["page"]) && $_GET["page"] == "anyway-feedback"){
+			require_once dirname(__FILE__).DIRECTORY_SEPARATOR."admin".DIRECTORY_SEPARATOR."admin-header.php";
+		}
+	}
+	
+	/**
+	 * Load assets for admin panel
+	 * @return void
+	 */
+	function admin_assets(){
+		if(isset($_GET["page"]) && $_GET["page"] == "anyway-feedback"){
+			$asset_dir = plugin_dir_url(__FILE__)."assets";
+			//Main Style sheet
+			wp_enqueue_style('afb-admin', $asset_dir."/admin-style.css", false, $this->version, 'screen');
+			//jQuery-UI-Tabs
+			wp_enqueue_style('afb-jquery-ui-tabs', $asset_dir."/smoothness/jquery-ui-1.8.13.custom.css", false, "1.8.13", 'screen');
+			wp_enqueue_script(
+				"afb-util",
+				$asset_dir."/admin-script.js",
+				array('jquery-ui-tabs'),
+				$this->version
+			);
+		}
+	}
+	
+	/**
+	 * Show notice on admin panel
+	 * @return void
+	 */
+	function admin_notice(){
+		if(isset($_GET["page"]) && $_GET["page"] == "anyway-feedback"){
+			if(!empty($this->error)){
+				?>
+				<div class="error">
+					<ul>
+						<?php foreach($this->error as $error): ?>
+							<li><?php echo $error; ?></li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+				<?php
+			}
+			if(!empty($this->message)){
+				?>
+				<div class="updated">
+					<ul>
+						<?php foreach($this->message as $message): ?>
+							<li><?php echo $message; ?></li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+				<?php
+			}
 		}
 	}
 	

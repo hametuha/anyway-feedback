@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+/* Error message */
+.updated ul li,
+.error ul li{
+	margin:5px 0 5px 20px;
+	list-style: outside disc;
+}
+
+
+
