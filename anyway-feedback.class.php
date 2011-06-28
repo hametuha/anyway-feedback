@@ -76,7 +76,58 @@ class Anyway_Feedback{
 		global $wpdb;
 		return $wpdb->get_row($wpdb->prepare("SELECT * FROM {$this->table} WHERE object_id = %d AND post_type = %s", $object_id, $post_type));
 	}
-		
+	
+	/**
+	 * Retrieve recorded post_types
+	 * @return array
+	 */
+	function recorded_post_types(){
+		$recorded = array();
+		global $wpdb;
+		$sql = <<<EOS
+			SELECT DISTINCT post_type FROM {$this->table}
+			GROUP BY post_type
+EOS;
+		foreach($wpdb->get_results($sql) as $r){
+			$recorded[] = $r->post_type;
+		}
+		sort($recorded);
+		return $recorded;
+	}
+	
+	/**
+	 * Retrive statistic inforamtion
+	 * @param string $case 
+	 * @param mixed $post_type string or array
+	 * @return mixed
+	 */
+	function statistic($case, $post_type = ""){
+		global $wpdb;
+		switch($case){
+			case "total":
+				$sql = <<<EOS
+					SELECT SUM(positive) AS positive, SUM(negative) AS negative
+					FROM {$this->table}
+EOS;
+				break;
+		}
+		if(empty($post_type)){
+			
+		}elseif(is_array($post_type)){
+			$where = " WHERE post_type IN (";
+			$counter = 0;
+			foreach($post_type as $p){
+				$where .= $wpdb->prepare("%s", $p);
+				$counter++;
+			}
+			$where .= ")";
+			$sql .= $where;
+		}else{
+			$sql .= $wpdb->prepare(" WHERE post_type = %s", $post_type);
+		}
+		return $wpdb->get_row($sql);
+	}
+	
 	/**
 	 * Add new data
 	 * 
