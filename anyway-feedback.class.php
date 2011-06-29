@@ -78,6 +78,38 @@ class Anyway_Feedback{
 	}
 	
 	/**
+	 * Retrieve all type of data 
+	 * @param string $post_type
+	 * @return array
+	 */
+	function get_all($post_type = "post"){
+		global $wpdb;
+		if($post_type == "comment"){
+			$sql = <<<EOS
+				SELECT post.ID, post.post_title, comment.comment_ID, comment.comment_author, comment.user_id, afb.positive, afb.negative, (afb.positive + afb.negative) AS total, afb.updated
+				FROM {$this->table} AS afb
+				LEFT JOIN {$wpdb->comments} AS comment
+				ON afb.object_id = comment.comment_ID
+				LEFT JOIN {$wpdb->posts} AS post
+				ON comment.comment_post_ID = post.ID
+				WHERE afb.post_type = %s
+				ORDER BY (afb.positive + afb.negative) DESC
+EOS;
+			return $wpdb->get_results($wpdb->prepare($sql, $post_type));
+		}else{
+			$sql = <<<EOS
+				SELECT post.ID, post.post_title, afb.positive, afb.negative, (afb.positive + afb.negative) AS total, afb.updated
+				FROM {$this->table} AS afb
+				LEFT JOIN {$wpdb->posts} AS post
+				ON afb.object_id = post.ID
+				WHERE afb.post_type = %s
+				ORDER BY (afb.positive + afb.negative) DESC
+EOS;
+			return $wpdb->get_results($wpdb->prepare($sql, $post_type));
+		}
+	}
+	
+	/**
 	 * Retrieve recorded post_types
 	 * @return array
 	 */
@@ -427,6 +459,16 @@ EOS;
 			$this->version,
 			true
 		);
+		//Load CSS
+		if(!is_admin() && $this->option["style"]){
+			wp_enqueue_style(
+				'afb-controller',
+				plugin_dir_url(__FILE__).'assets/afb-style.css',
+				false,
+				$this->version,
+				'screen'
+			);
+		}
 	}
 	
 	/**

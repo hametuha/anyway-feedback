@@ -32,11 +32,58 @@ global $wp_post_types;
 					</p>
 					<img class="total-chart" alt="<?php printf($this->_("Statistic of %s"), $post_typa_name); ?>" width="300" height="300" src="https://chart.googleapis.com/chart?cht=p3&amp;chs=300x300&amp;chd=t:<?php echo $total->positive;?>,<?php echo $total->negative;?>&amp;chdl=<?php echo rawurlencode($this->_("Positive")."({$total->positive})"); ?>|<?php echo rawurlencode($this->_("Negative")."({$total->negative})"); ?>&amp;chco=13455B" />
 				</div>
-				<hr />
+				<?php $rows = $this->get_all($r); ?>
+				<div class="afb-table">
+					<table>
+						<thead>
+							<tr>
+								<th scope="col"><?php $this->e("Object"); ?></th>
+								<th scope="col"><?php $this->e("Positive"); ?></th>
+								<th scope="col"><?php printf($this->_("%s Ratio"), $this->_("Positive")); ?></th>
+								<th scope="col"><?php $this->e("Negative"); ?></th>
+								<th scope="col"><?php printf($this->_("%s Ratio"), $this->_("Negative")); ?></th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<td>&nbsp;</td>
+								<th scope="row"><?php $this->e("Total"); ?></th>
+								<td>
+									<?php global $wpdb; $post_count = ($r == "comment") ? $wpdb->get_var("SELECT COUNT(comment_ID) FROM {$wpdb->comments} WHERE comment_approved = 1") :$wpdb->get_var($wpdb->prepare("SELECT COUNT(ID) FROM {$wpdb->posts} WHERE post_type = %s AND post_status = 'publish'", $r));?>
+									<?php echo number_format($post_count); ?>
+								</td>
+								<th scope="row"><?php $this->e("Feedbacked");?></th>
+								<td><?php echo number_format(count($rows));?></td>
+							</tr>
+						</tfoot>
+						<tbody>
+							<?php $counter = 0; foreach($rows as $row):  ?>
+								<tr<?php if($counter % 2 == 0) echo ' class="alternate"'; ?>>
+									<td>
+										<?php if($r == "comment"): ?>
+											<?php printf($this->_("<a href=\"%1\$s\">%2\$s</a> comments <a href=\"%3\$s\">%4\$s</a>"), admin_url("user-edit.php?user_id={$row->user_id}"), $row->comment_author, get_permalink($row->ID), $row->post_title); ?><br />
+											<small>
+												<a href="<?php echo admin_url("comment.php?c={$row->comment_ID}&amp;action=editcomment");?>"><?php $this->e("edit"); ?></a>
+											</small>
+										<?php else: ?>
+											<?php echo $row->post_title; ?><br />
+											<small><a href="<?php echo admin_url("post.php?post={$row->ID}&amp;action=edit");?>"><?php $this->e("edit"); ?></a> | <a href="<?php echo get_permalink($row->ID);  ?>" target="_blank"><?php $this->e('show'); ?></a></small>
+										<?php endif; ?>
+									</td>
+									<td><?php echo $row->positive; ?></td>
+									<td><?php echo floor($row->positive / $row->total * 100); ?>%</td>
+									<td><?php echo $row->negative; ?></td>
+									<td><?php echo floor($row->negative / $row->total * 100); ?>%</td>
+								</tr>
+							<?php $counter++; endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+				<hr style="clear:left;" />
 			<?php endforeach; endif; ?>
 		</div>
 		<div id="tabs-2">
-			<form method="post">
+			<form method="post" action="#tabs-2">
 				<?php wp_nonce_field("afb_option", "_afb_nonce");?>
 				<table class="form-table">
 					<tbody>

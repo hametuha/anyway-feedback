@@ -7,5 +7,34 @@
 	list-style: outside disc;
 }
 
-
-
+/*Statistic table*/
+.afb-summery{
+	width:300px;
+	float:left;
+}
+.afb-table{
+	float:left;
+	margin-left:-300px;
+}
+.afb-table table{
+	margin-left:320px;
+	border-collapse: collapse;
+}
+.afb-table td, 
+.afb-table th{
+	padding:5px 10px;
+}
+.afb-table tbody td, 
+.afb-table tbody th{
+	border-bottom:1px solid #ddd;
+}
+.afb-table thead th{
+	font-size:1.2em;
+	color:#444;
+	border-bottom:1px solid #444;
+}
+.afb-table tfoot th,
+.afb-table tfoot td{
+	background: #ddd;
+	border-bottom:#444 solid 1px;
+}
