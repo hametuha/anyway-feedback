@@ -315,6 +315,10 @@ EOS;
 		add_action('init', array($this, "ajax"));
 		//Add admin menu
 		add_action('admin_menu', array($this, "create_admin"));
+		//Add contorller
+		if(!empty($this->option["post_types"])){
+			add_filter("the_content", array($this, "the_content"));
+		}
 	}
 	
 	/**
@@ -469,6 +473,47 @@ EOS;
 				'screen'
 			);
 		}
+	}
+	
+	/**
+	 * Make controller
+	 * @param int $object_id
+	 * @param string $post_type
+	 * @return string
+	 */
+	function get_conroller_tag($object_id, $post_type){
+		global $wp_post_types;
+		$nonce = wp_create_nonce("anyway_feedback");
+		$post_type_name = ($post_type == "comment") ? __("Comment") : $wp_post_types[$post_type]->labels->name;
+		$message = sprintf($this->_("Is this %s usefull?"), $post_type_name);
+		$status = sprintf($this->_("%1\$d of %2\$d people say this %3\$s is usefull."), afb_affirmative(false, $object_id, $post_type), afb_total(false, $object_id, $post_type), $post_type_name);
+		$usefull = $this->_("Usefull");
+		$userless = $this->_("Useless");
+		$url = $post_type == "comment" ? get_permalink() : get_permalink($object_id);
+		return <<<EOS
+<div class="afb_container" id="afb_comment_container_{$object_id}">
+	<span class="message">{$message}</span>
+	<a class="good" href="{$url}">{$usefull}</a>
+	<a class="bad" href="{$url}">{$userless}</a>
+	<input type="hidden" name="post_type" value="{$post_type}" />
+	<input type="hidden" name="object_id" value="{$object_id}" />
+	<input type="hidden" name="nonce" value="{$nonce}" />
+	<span class="status">{$status}</span>
+</div>
+EOS;
+	}
+	
+	/**
+	 * Add controller panel to the_content()
+	 * 
+	 * @param string $content
+	 * @return string
+	 */
+	function the_content($content){
+		if(false !== array_search(get_post_type(), $this->option["post_types"])){
+			$content .= $this->get_conroller_tag(get_the_ID(), get_post_type());
+		}
+		return $content;
 	}
 	
 	/**
