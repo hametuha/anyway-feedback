@@ -34,6 +34,8 @@ global $wp_post_types;
 				</div>
 				<?php $rows = $this->get_all($r); ?>
 				<div class="afb-table">
+				<div class="floater">
+				<div class="table-wrap">
 					<table>
 						<thead>
 							<tr>
@@ -79,6 +81,8 @@ global $wp_post_types;
 						</tbody>
 					</table>
 				</div>
+				</div>
+				</div>
 				<hr style="clear:left;" />
 			<?php endforeach; endif; ?>
 		</div>
@@ -95,7 +99,7 @@ global $wp_post_types;
 									<label><input type="radio" name="afb_style" value="1" <?php if($this->option["style"] == 1) echo 'checked="checked" ';?>/><?php $this->e("Auto load"); ?></label>
 								</p>
 								<p class="description">
-									<?php printf($this->_("If you select &quot;No style&quot;, you need stylize skin. Skin s mark up is in <a class=\"change-tab\" href=\"%s\">How to use</a> section"), "#tabs-3"); ?>
+									<?php printf($this->_("If you select &quot;No style&quot;, you need stylize skin. Skin s mark up can be specified at <strong>%s</strong> section"), $this->_("Custom markup")) ; ?>
 								</p>
 							</td>
 						</tr>
@@ -150,7 +154,7 @@ global $wp_post_types;
 		<div id="tabs-3">
 			<h3><?php $this->e("Detailed description"); ?></h3>
 			<p>
-				<?php $this->e("This plugin enables user to feed back to post or comment.<br />It may help you to analyze your subscriber's ");?>
+				<?php $this->e("This plugin enables user to feed back to post or comment.<br />It may help you to analyze your subscriber's feeling.");?>
 			</p>
 			<h3><?php $this->e("Who made this plugin"); ?></h3>
 			<p>

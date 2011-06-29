@@ -14,10 +14,17 @@
 }
 .afb-table{
 	float:left;
+	width:100%;
 	margin-left:-300px;
 }
-.afb-table table{
+.afb-table .floater{
 	margin-left:320px;
+}
+.afb-table .table-wrap{
+	width:100%;
+}
+.afb-table table{
+	width:100%;
 	border-collapse: collapse;
 }
 .afb-table td, 

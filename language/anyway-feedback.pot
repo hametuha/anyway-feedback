@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Anyway Feedback 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-24 15:24+0900\n"
-"PO-Revision-Date: 2011-06-24 15:25+0900\n"
+"POT-Creation-Date: 2011-06-29 17:51+0900\n"
+"PO-Revision-Date: 2011-06-29 17:51+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "MIME-Version: 1.0\n"
@@ -17,29 +17,280 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: anyway-feedback.class.php:205
+#: ../anyway-feedback.class.php:344
 msgid "Thank you for your feedback."
 msgstr ""
 
-#: anyway-feedback.class.php:218
-#: anyway-feedback.class.php:230
+#: ../anyway-feedback.class.php:357
+#: ../anyway-feedback.class.php:369
 msgid "Request is invalid."
 msgstr ""
 
-#: functions.php:27
-msgid "Is this article usefull?"
+#: ../anyway-feedback.class.php:385
+msgid "Anyway Feedback Option: "
 msgstr ""
 
-#: functions.php:28
-msgid "Useful"
+#: ../anyway-feedback.class.php:385
+msgid "Anyway Feedback"
 msgstr ""
 
-#: functions.php:29
+#: ../anyway-feedback.class.php:498
+#: ../admin/admin-template.php:139
+#, php-format
+msgid "Is this %s usefull?"
+msgstr ""
+
+#: ../anyway-feedback.class.php:499
+#, php-format
+msgid "%1$d of %2$d people say this %3$s is usefull."
+msgstr ""
+
+#: ../anyway-feedback.class.php:500
+#: ../admin/admin-template.php:140
+msgid "Usefull"
+msgstr ""
+
+#: ../anyway-feedback.class.php:501
+#: ../admin/admin-template.php:141
 msgid "Useless"
 msgstr ""
 
-#: functions.php:34
+#: ../admin/admin-header.php:12
+#: ../admin/admin-header.php:24
 #, php-format
-msgid "%d of %d people say this article is usefull."
+msgid "%s is invalid."
+msgstr ""
+
+#: ../admin/admin-header.php:12
+#: ../admin/admin-template.php:95
+msgid "Styling"
+msgstr ""
+
+#: ../admin/admin-header.php:24
+#: ../admin/admin-template.php:120
+msgid "Comment setting"
+msgstr ""
+
+#: ../admin/admin-header.php:35
+msgid "Option updated."
+msgstr ""
+
+#: ../admin/admin-header.php:37
+msgid "Update option failed because of list above."
+msgstr ""
+
+#: ../admin/admin-template.php:9
+msgid "Anyway Feedback Option"
+msgstr ""
+
+#: ../admin/admin-template.php:17
+msgid "Statistics"
+msgstr ""
+
+#: ../admin/admin-template.php:18
+msgid "General Setting"
+msgstr ""
+
+#: ../admin/admin-template.php:19
+msgid "About"
+msgstr ""
+
+#: ../admin/admin-template.php:20
+msgid "Advanced Usage"
+msgstr ""
+
+#: ../admin/admin-template.php:25
+msgid "There is no record."
+msgstr ""
+
+#: ../admin/admin-template.php:31
+#, php-format
+msgid "There are %d feedbacks."
+msgstr ""
+
+#: ../admin/admin-template.php:33
+#, php-format
+msgid "Statistic of %s"
+msgstr ""
+
+#: ../admin/admin-template.php:33
+#: ../admin/admin-template.php:43
+#: ../admin/admin-template.php:44
+msgid "Positive"
+msgstr ""
+
+#: ../admin/admin-template.php:33
+#: ../admin/admin-template.php:45
+#: ../admin/admin-template.php:46
+msgid "Negative"
+msgstr ""
+
+#: ../admin/admin-template.php:42
+msgid "Object"
+msgstr ""
+
+#: ../admin/admin-template.php:44
+#: ../admin/admin-template.php:46
+#, php-format
+msgid "%s Ratio"
+msgstr ""
+
+#: ../admin/admin-template.php:52
+msgid "Total"
+msgstr ""
+
+#: ../admin/admin-template.php:57
+msgid "Feedbacked"
+msgstr ""
+
+#: ../admin/admin-template.php:66
+#, php-format
+msgid "<a href=\"%1$s\">%2$s</a> comments <a href=\"%3$s\">%4$s</a>"
+msgstr ""
+
+#: ../admin/admin-template.php:68
+#: ../admin/admin-template.php:72
+msgid "edit"
+msgstr ""
+
+#: ../admin/admin-template.php:72
+msgid "show"
+msgstr ""
+
+#: ../admin/admin-template.php:98
+msgid "No style"
+msgstr ""
+
+#: ../admin/admin-template.php:99
+msgid "Auto load"
+msgstr ""
+
+#: ../admin/admin-template.php:102
+#, php-format
+msgid "If you select &quot;No style&quot;, you need stylize skin. Skin s mark up can be specified at <strong>%s</strong> section"
+msgstr ""
+
+#: ../admin/admin-template.php:102
+#: ../admin/admin-template.php:132
+msgid "Custom markup"
+msgstr ""
+
+#: ../admin/admin-template.php:107
+msgid "Post type setting"
+msgstr ""
+
+#: ../admin/admin-template.php:115
+msgid "Checked post type will have feedback controller inside post content"
+msgstr ""
+
+#: ../admin/admin-template.php:123
+msgid "Not show"
+msgstr ""
+
+#: ../admin/admin-template.php:124
+msgid "Show in comment loop"
+msgstr ""
+
+#: ../admin/admin-template.php:127
+msgid "This option decide to display feedback controller in comment loop."
+msgstr ""
+
+#: ../admin/admin-template.php:136
+msgid "You can customize markup of Feedback controller.<br />If you don't want, leave it blank.<br />In case of customization, You can use variables(%POSITIVE%, %TOTAL%, %NEGATIVE%, %POST_TYPE%) and <strong>2 link tags(&lt;a&gt;) must have class name &quot;good&quot; and &quot;bad&quot; and %LINK% as href attribute</strong>.<br />Default markup is below."
+msgstr ""
+
+#: ../admin/admin-template.php:142
+#, php-format
+msgid "%1$s of %2$s people say this %3$s is usefull."
+msgstr ""
+
+#: ../admin/admin-template.php:149
+msgid "Update"
+msgstr ""
+
+#: ../admin/admin-template.php:155
+msgid "Detailed description"
+msgstr ""
+
+#: ../admin/admin-template.php:157
+msgid "This plugin enables user to feed back to post or comment.<br />It may help you to analyze your subscriber's feeling."
+msgstr ""
+
+#: ../admin/admin-template.php:159
+msgid "Who made this plugin"
+msgstr ""
+
+#: ../admin/admin-template.php:161
+msgid "Takahashi Fumiki did. I am a wordpress developer and novelist. See detail at <a href=\"http://takahashifumiki.com\">takahashifumiki.com</a>"
+msgstr ""
+
+#: ../admin/admin-template.php:163
+msgid "Feedback"
+msgstr ""
+
+#: ../admin/admin-template.php:165
+msgid "If you have some request, please feel free to contact with <a href=\"mailto:takahashi.fumiki@hametuha.co.jp\">takahashi.fumiki@hametuha.co.jp</a>. Japanese, English and French are welcomed."
+msgstr ""
+
+#: ../admin/admin-template.php:167
+msgid "Donation"
+msgstr ""
+
+#: ../admin/admin-template.php:169
+msgid "If you think this plugin is usefull, please donate for it and make me motivated. In other words, buy me a beer."
+msgstr ""
+
+#: ../admin/admin-template.php:196
+msgid "Template Tags"
+msgstr ""
+
+#: ../admin/admin-template.php:198
+msgid "If you are experienced developper, you may need customazation. Ofcourse, you can edit your theme and get your own appearance."
+msgstr ""
+
+#: ../admin/admin-template.php:204
+msgid "Display controller of post feedback. Use inside loop."
+msgstr ""
+
+#: ../admin/admin-template.php:210
+msgid "Display controller of comment feedback. You must pass comment_ID as 1st argument."
+msgstr ""
+
+#: ../admin/admin-template.php:216
+msgid "Display number of affirmative feedbacks of specified post. In loop, you don't have to specify $object_id and $post_type. $echo set true, value won't displayed and just return."
+msgstr ""
+
+#: ../admin/admin-template.php:222
+msgid "Display number of negative feedbacks of specified post. Same as afb_affirmative."
+msgstr ""
+
+#: ../admin/admin-template.php:228
+msgid "Display number of total feedbacks of specified post. Same as afb_affirmative."
+msgstr ""
+
+#: ../admin/admin-template.php:233
+#, php-format
+msgid "All these template tags above should be wrapped inside if declaration for compatibility. If not, stopping this plugin will break your theme's display.<br />ex.&lt?php if(function_exists(&quot;afb_display&quot;)){afb_display();} ?&gt;<br />See function detail at <em>%s</em>"
+msgstr ""
+
+#: ../widgets/popular.php:21
+msgid "This widget shows most popular post per post type."
+msgstr ""
+
+#: ../widgets/popular.php:54
+msgid "There is no feedback."
+msgstr ""
+
+#: ../widgets/popular.php:56
+#, php-format
+msgid "%d sais usefull."
+msgstr ""
+
+#: ../widgets/popular.php:90
+msgid "Post Type:"
+msgstr ""
+
+#: ../widgets/popular.php:98
+msgid "Number of posts:"
 msgstr ""
 
