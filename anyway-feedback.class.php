@@ -12,7 +12,7 @@ class Anyway_Feedback{
 	 * Version of this plugin
 	 * @var float
 	 */
-	var $version = 0.3;
+	var $version = 0.5;
 	
 	/**
 	 * Version of database
@@ -556,7 +556,7 @@ EOS;
 	 */
 	function comment_text($comment_text, $comment){
 		if(false !== array_search(get_post_type(), $this->option["post_types"])){
-			$comment_text .= str_replace("\n", "", $this->get_conroller_tag($comment->comment_ID, "comment"));
+			$comment_text .= str_replace("¥n", "", $this->get_conroller_tag($comment->comment_ID, "comment"));
 		}
 		return $comment_text;
 	}

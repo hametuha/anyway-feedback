@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Anyway Feedback 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-29 17:51+0900\n"
-"PO-Revision-Date: 2011-06-29 17:53+0900\n"
+"PO-Revision-Date: 2011-06-29 20:47+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr "この%sは役に立ちましたか？"
 #: ../anyway-feedback.class.php:499
 #, php-format
 msgid "%1$d of %2$d people say this %3$s is usefull."
-msgstr "%2$d人中%1$d人がこの%3$sは役に立ったと言っています。"
+msgstr "%2$d 人中 %1$d 人がこの %3$s は役に立ったと言っています。"
 
 #: ../anyway-feedback.class.php:500
 #: ../admin/admin-template.php:140
