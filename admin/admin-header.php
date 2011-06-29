@@ -25,6 +25,9 @@ if(isset($_POST['_afb_nonce'], $_POST['_wp_http_referer']) && wp_verify_nonce($_
 	}else{
 		$option["comment"] = (int)$_POST["afb_comment"];
 	}
+	//controlelr
+	$option["controller"] = (empty($_POST["afb_text"])) ? "" : $_POST["afb_text"];
+	
 	//update
 	if(empty($this->error)){
 		update_option("afb_setting", $option);

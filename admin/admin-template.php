@@ -124,6 +124,21 @@ global $wp_post_types;
 								</p>
 							</td>
 						</tr>
+						<tr>
+							<th><label for="afb_text"><?php $this->e("Custom markup"); ?></label></th>
+							<td>
+								<textarea id="afb_text" name="afb_text" rows="5" cols="40"><?php if(!empty($this->option['controller'])) echo $this->option['controller']; ?></textarea>
+								<p class="description">
+									<?php $this->e("You can customize markup of Feedback controller.<br />If you don't want, leave it blank.<br />In case of customization, You can use variables(%POSITIVE%, %TOTAL%, %NEGATIVE%, %POST_TYPE%) and <strong>2 link tags(&lt;a&gt;) must have class name &quot;good&quot; and &quot;bad&quot; and %LINK% as href attribute</strong>.<br />Default markup is below.");  ?>
+								</p>
+								<pre>
+&lt;span class=&quot;message"&gt;<?php printf($this->_("Is this %s usefull?"), "%POST_TYPE%"); ?>&lt;/span&gt;
+&lt;a class=&quot;good&quot; href=&quot;%LINK%"&gt;<?php $this->e("Usefull"); ?>&lt;/a&gt;
+&lt;a class=&quot;bad&quot; href=&quot;%LINK%"&gt;<?php $this->e("Useless"); ?>&lt;/a&gt;
+&lt;span class=&quot;status&quot;&gt;<?php printf($this->_("%1\$s of %2\$s people say this %3\$s is usefull."), "%POSITIVE%", "%TOTAL%", "%POST_TYPE%"); ?>&lt;/span&gt;
+								</pre>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 				<p class="submit">
@@ -176,14 +191,43 @@ global $wp_post_types;
 		<div id="tabs-4">
 			<h3><?php $this->e("Template Tags");?></h3>
 			<p>
-				<?php $this->e("If you are experienced developper, you may need customazation. Ofcourse, you can edit your theme and get your own appearance"); ?>
+				<?php $this->e("If you are experienced developper, you may need customazation. Ofcourse, you can edit your theme and get your own appearance."); ?>
 			</p>
 			<dl>
-				<dt></dt>
+				<dt><span class="blue">afb_display</span>()</dt>
 				<dd>
-					
+					<p>
+						<?php $this->e("Display controller of post feedback. Use inside loop.");?>
+					</p>
+				</dd>
+				<dt><span class="blue">afb_comment_display</span>( (int) <span class="yellow">$comment_id</span> )</dt>
+				<dd>
+					<p>
+						<?php $this->e("Display controller of comment feedback. You must pass comment_ID as 1st argument.");?>
+					</p>
+				</dd>
+				<dt><span class="blue">afb_affirmative</span>( (boolean) <span class="yellow">$echo</span> = <span class="red">true</span>, (int) <span class="yellow">$object_id</span> = <sapn class="red">null</sapn>, (string) <span class="yellow">$post_type</span> = <sapn class="red">null</sapn>)</dt>
+				<dd>
+					<p>
+					<?php $this->e("Display number of affirmative feedbacks of specified post. In loop, you don't have to specify \$object_id and \$post_type. \$echo set true, value won't displayed and just return."); ?>
+					</p>
+				</dd>
+				<dt><span class="blue">afb_negative</span>( (boolean) <span class="yellow">$echo</span> = <span class="red">true</span>, (int) <span class="yellow">$object_id</span> = <sapn class="red">null</sapn>, (string) <span class="yellow">$post_type</span> = <sapn class="red">null</sapn>)</dt>
+				<dd>
+					<p>
+					<?php $this->e("Display number of negative feedbacks of specified post. Same as afb_affirmative."); ?>
+					</p>
+				</dd>
+				<dt><span class="blue">afb_total</span>( (boolean) <span class="yellow">$echo</span> = <span class="red">true</span>, (int) <span class="yellow">$object_id</span> = <sapn class="red">null</sapn>, (string) <span class="yellow">$post_type</span> = <sapn class="red">null</sapn>)</dt>
+				<dd>
+					<p>
+					<?php $this->e("Display number of total feedbacks of specified post. Same as afb_affirmative."); ?>
+					</p>
 				</dd>
 			</dl>
+			<p class="description">
+				<?php printf($this->_("All these template tags above should be wrapped inside if declaration for compatibility. If not, stopping this plugin will break your theme's display.<br />ex.&lt?php if(function_exists(&quot;afb_display&quot;)){afb_display();} ?&gt;<br />See function detail at <em>%s</em>"), dirname(plugin_dir_path(__FILE__)).DIRECTORY_SEPARATOR."functions.php"); ?>
+			</p>
 		</div>
 	</div>
 	<!-- // contents -->

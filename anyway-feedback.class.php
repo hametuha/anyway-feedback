@@ -45,7 +45,8 @@ class Anyway_Feedback{
 	var $default_option = array(
 		"style" => 0,
 		"post_types" => array(),
-		"comment" => 0
+		"comment" => 0,
+		"controller" => ''
 	);
 	
 	/**
@@ -300,6 +301,10 @@ EOS;
 				}
 			}
 		}
+		//Strip slashed
+		if(!empty($this->option["controller"])){
+			$this->option["controller"] = stripslashes($this->option["controller"]);
+		}
 		//Set Text Domain
 		load_plugin_textdomain(self::$domain, false, basename($this->dir).DIRECTORY_SEPARATOR."language");
 		//Define table name.
@@ -317,7 +322,12 @@ EOS;
 		add_action('admin_menu', array($this, "create_admin"));
 		//Add contorller
 		if(!empty($this->option["post_types"])){
+			//...to post
 			add_filter("the_content", array($this, "the_content"));
+			//...to comment
+			if($this->option["comment"]){
+				add_filter("comment_text", array($this, "comment_text"), 10, 2);
+			}
 		}
 	}
 	
@@ -490,18 +500,42 @@ EOS;
 		$usefull = $this->_("Usefull");
 		$userless = $this->_("Useless");
 		$url = $post_type == "comment" ? get_permalink() : get_permalink($object_id);
-		return <<<EOS
+		$before = <<<EOS
+<!-- Anyway Feedback Container //-->
 <div class="afb_container" id="afb_comment_container_{$object_id}">
-	<span class="message">{$message}</span>
-	<a class="good" href="{$url}">{$usefull}</a>
-	<a class="bad" href="{$url}">{$userless}</a>
-	<input type="hidden" name="post_type" value="{$post_type}" />
-	<input type="hidden" name="object_id" value="{$object_id}" />
-	<input type="hidden" name="nonce" value="{$nonce}" />
-	<span class="status">{$status}</span>
-</div>
 EOS;
+		if(empty($this->option["controller"])){
+			$before .= <<<EOS
+<span class="message">{$message}</span>
+<a class="good" href="{$url}">{$usefull}</a>
+<a class="bad" href="{$url}">{$userless}</a>
+<span class="status">{$status}</span>
+EOS;
+		}else{
+			$replaces = array(
+				"POST_TYPE" => $post_type_name,
+				"LINK" => $url,
+				"POSITIVE" =>  afb_affirmative(false, $object_id, $post_type),
+				"TOTAL" => afb_total(false, $object_id, $post_type),
+				"NEGATIVE" => afb_negative(false, $object_id, $post_type)
+			);
+			$content = $this->option["controller"];
+			foreach($replaces as $needle => $repl){
+				$content = str_replace("%{$needle}%", $repl, $content);
+			}
+			$before .= $content;
+		}
+		$after = <<<EOS
+<input type="hidden" name="post_type" value="{$post_type}" />
+<input type="hidden" name="object_id" value="{$object_id}" />
+<input type="hidden" name="nonce" value="{$nonce}" />
+</div>
+<!-- //Anyway Feedback Container -->
+EOS;
+		return $before.$after;
 	}
+	
+	
 	
 	/**
 	 * Add controller panel to the_content()
@@ -514,6 +548,17 @@ EOS;
 			$content .= $this->get_conroller_tag(get_the_ID(), get_post_type());
 		}
 		return $content;
+	}
+	
+	
+	/**
+	 * 
+	 */
+	function comment_text($comment_text, $comment){
+		if(false !== array_search(get_post_type(), $this->option["post_types"])){
+			$comment_text .= str_replace("\n", "", $this->get_conroller_tag($comment->comment_ID, "comment"));
+		}
+		return $comment_text;
 	}
 	
 	/**

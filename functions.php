@@ -73,3 +73,26 @@ function afb_affirmative($echo = true, $object_id = null, $post_type = null){
 		return $total;
 	}
 }
+
+/**
+ * Retrieve negative feedback count. Use inside loop.
+ * 
+ * @param boolean $echo (optional) Return value if false. 
+ * @return void|int
+ */
+function afb_negative($echo = true, $object_id = null, $post_type = null){
+	global $wpdb, $afb;
+	$sql = "SELECT negative FROM {$afb->table} WHERE object_id = %d AND post_type = %d";
+	if(is_null($object_id)){
+		$object_id = get_the_ID();
+	}
+	if(is_null($post_type)){
+		$post_type = get_post_type();
+	}
+	$total = (int) $wpdb->get_var($wpdb->prepare($sql, $object_id, $post_type));
+	if($echo){
+		echo $total;
+	}else{
+		return $total;
+	}
+}

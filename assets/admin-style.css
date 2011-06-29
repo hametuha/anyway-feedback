@@ -38,3 +38,30 @@
 	background: #ddd;
 	border-bottom:#444 solid 1px;
 }
+
+/*Function reference*/
+#tabs-4 dl{
+	background:#444;
+	color:#fff;
+	border-radius:10px;
+	padding:10px;
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+	margin-bottom:10px;
+}
+#tabs-4 dt{
+	margin-bottom:5px;
+	font-size:1.2em;
+}
+#tabs-4 dd{
+	margin-bottom:20px;
+}
+dt .blue{
+	color:lightskyblue;
+}
+dt .yellow{
+	color:lightyellow;
+}
+dt .red{
+	color:tomato;
+}
