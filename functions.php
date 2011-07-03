@@ -96,3 +96,13 @@ function afb_negative($echo = true, $object_id = null, $post_type = null){
 		return $total;
 	}
 }
+
+/**
+ * Just define for tarnsalation.
+ * @global Anyway_Feedbackpe $afb
+ * @return void
+ */
+function _afb_tranlation(){
+	global $afb;
+	$afb->_("Help to assemble simple feedback(negative or positive) and get statics of them.");
+}

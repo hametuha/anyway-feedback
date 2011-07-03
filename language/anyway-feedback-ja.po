@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Anyway Feedback 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-29 17:51+0900\n"
-"PO-Revision-Date: 2011-06-29 20:47+0900\n"
+"POT-Creation-Date: 2011-07-04 00:15+0900\n"
+"PO-Revision-Date: 2011-07-04 00:16+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "MIME-Version: 1.0\n"
@@ -54,6 +54,10 @@ msgstr "役に立った"
 #: ../admin/admin-template.php:141
 msgid "Useless"
 msgstr "役に立たなかった"
+
+#: ../functions.php:107
+msgid "Help to assemble simple feedback(negative or positive) and get statics of them."
+msgstr "肯定的または否定的というだけのシンプルなフィードバックの集計ができるようになるプラグインです。"
 
 #: ../admin/admin-header.php:12
 #: ../admin/admin-header.php:24
