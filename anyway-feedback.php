@@ -1,13 +1,12 @@
 <?php
  /*
 	Plugin Name: Anyway Feedback
-	Plugin URI: https://github.com/fumikito/Anyway-Feedback
+	Plugin URI: http://wordpress.org/extend/plugins/anyway-feedback/
 	Description: Help to assemble simple feedback(negative or positive) and get statics of them.
-	Version: 0.5
+	Version: 0.6
 	Author: Takahashi Fumiki (Hametuha inc.)
-	Author URI: http://hametuha.co.jp
-	Copyright 2011 hametuha(email : info@hametuha.co.jp)
- 	TextDomain: anyway-feedback
+	Author URI: http://takahashifumiki.com
+	TextDomain: anyway-feedback
   
   
   

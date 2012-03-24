@@ -1,9 +1,9 @@
 === Anyway Feedback ===
 Contributors: Takahashi_Fumiki
-Tags: feedback, analystic
+Tags: feedback, analytic
 Requires at least: 3.0
-Tested up to: 3.1
-Stable tag: 0.5
+Tested up to: 3.3.1
+Stable tag: 0.6
 
 This plugin enbale users to send feedback with single click. This may support you to analyze your user's opinion.
 
@@ -50,7 +50,12 @@ There are currently 2 ways. 1st is a feedback controller which displays number o
 
 == Changelog ==
 
+= 0.6 =
+
+* Use $_SESSION to avoid user from repeated feedback.
+
 = 0.5 =
+
 * 1st release.
 
 == Upgrade Notice ==
