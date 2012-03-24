@@ -31,3 +31,7 @@
 .afb_container .status{
 	font-size:10px; margin-left:20px;
 }
+.afb_posted .good,
+.afb_posted .bad{
+	display: none;
+}

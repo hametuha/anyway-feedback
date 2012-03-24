@@ -12,7 +12,7 @@ class Anyway_Feedback{
 	 * Version of this plugin
 	 * @var float
 	 */
-	var $version = 0.5;
+	var $version = 0.6;
 	
 	/**
 	 * Version of database
@@ -31,6 +31,12 @@ class Anyway_Feedback{
 	 * @var string
 	 */
 	var $dir;
+	
+	/**
+	 * Name of Session key
+	 * @var string
+	 */
+	private $session = 'afb_session';
 	
 	/**
 	 * Domain name for i18n
@@ -289,6 +295,13 @@ EOS;
 	 */
 	function __construct(){
 		global $wpdb;
+		//Start Session
+		if(!isset($_SESSION)){
+			session_start();
+		}
+		if(!isset($_SESSION[$this->session]) || empty($_SESSION[$this->session])){
+			$_SESSION[$this->session] = array();
+		}
 		//Set directory
 		$this->dir = dirname(__FILE__);
 		//option
@@ -343,7 +356,7 @@ EOS;
 				"success" => true,
 				"message" => $this->_("Thank you for your feedback.")
 			);
-			if(wp_verify_nonce($nonce, "anyway_feedback")){
+			if(wp_verify_nonce($nonce, "anyway_feedback") && !$this->does_current_user_posted($_REQUEST['post_type'], $_REQUEST['object_id'])){
 				//Feedback request is valid.
 				switch($_POST["class_name"]){
 					case "good":
@@ -362,6 +375,7 @@ EOS;
 					if(!$this->update($_POST["object_id"], $_POST["post_type"], $affirmative)){
 						$this->add($_POST["object_id"], $_POST["post_type"], $affirmative);
 					}
+					$_SESSION[$this->session][] = (string)$_POST['post_type'].'_'.$_POST['object_id'];
 				}
 			}else{
 				//Error.
@@ -500,9 +514,10 @@ EOS;
 		$usefull = $this->_("Usefull");
 		$userless = $this->_("Useless");
 		$url = $post_type == "comment" ? get_permalink() : get_permalink($object_id);
+		$already_posted = $this->does_current_user_posted($post_type, $object_id) ? ' afb_posted' : '';
 		$before = <<<EOS
 <!-- Anyway Feedback Container //-->
-<div class="afb_container" id="afb_comment_container_{$object_id}">
+<div class="afb_container{$already_posted}" id="afb_comment_container_{$object_id}">
 EOS;
 		if(empty($this->option["controller"])){
 			$before .= <<<EOS
@@ -535,7 +550,19 @@ EOS;
 		return $before.$after;
 	}
 	
-	
+	/**
+	 * 現在のユーザーが回答済みか否か
+	 * @param string $post_type
+	 * @param int $object_id
+	 * @return boolean 
+	 */
+	function does_current_user_posted($post_type, $object_id){
+		if(isset($_SESSION[$this->session])){
+			return (false !== array_search("{$post_type}_{$object_id}", $_SESSION[$this->session]));
+		}else{
+			return false;
+		}
+	}
 	
 	/**
 	 * Add controller panel to the_content()

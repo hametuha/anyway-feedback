@@ -13,7 +13,8 @@
  * @retun void
  */
 function afb_display(){
-	global $afb, $post; if($post){
+	global $afb, $post;
+	if($post){
 		echo $afb->get_conroller_tag(get_the_ID(), get_post_type());
 	}
 }
