@@ -39,7 +39,7 @@ class Anyway_Feedback_Popular extends WP_Widget{
 			FROM {$afb->table} AS afb
 			LEFT JOIN {$wpdb->posts} AS post
 			ON afb.object_id = post.ID AND afb.post_type = post.post_type
-			WHERE afb.post_type = %s
+			WHERE afb.post_type = %s AND post.post_status = 'publish'
 			ORDER BY positive DESC
 			LIMIT %d
 EOS;
@@ -53,7 +53,7 @@ EOS;
                   	<?php if(empty($posts)): ?>
                   		<li><?php $afb->e("There is no feedback."); ?></li>
                   	<?php else: foreach($posts as $p): ?>
-                  		<li><a href="<?php echo get_permalink($p->ID); ?>"><?php echo $p->post_title;?></a><span class="count">(<?php printf($afb->_("%d sais usefull."), $p->positive); ?>)</span></li>
+                  		<li><a href="<?php echo get_permalink($p->ID); ?>"><?php echo apply_filters('the_title', $p->post_title);?></a><span class="count">(<?php printf($afb->_("%d sais usefull."), $p->positive); ?>)</span></li>
                   	<?php endforeach; endif; ?>
                   </ul>
               <?php echo $after_widget; ?>
