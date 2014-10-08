@@ -5,6 +5,7 @@
  */
 
 /*global AFBP:true*/
+/*global ga:true*/
 
 jQuery(document).ready(function($){
 
@@ -82,11 +83,11 @@ jQuery(document).ready(function($){
                                 ga('send', {
                                     hitType: 'event',
                                     eventCategory: 'anyway-feedback/' + ( data.post_type === 'comment' ? 'comment' : 'post' ),
-                                    eventAction: data.class_name == 'good' ? 'positive' : 'negative',
+                                    eventAction: data.class_name === 'good' ? 'positive' : 'negative',
                                     eventLabel: data.object_id,
                                     eventValue: 1
                                 });
-                            }catch(err){console.log(err)}
+                            }catch(err){}
                         }
                         // Trigger event
                         target.trigger('feedback.afb', [( data.post_type === 'comment' ? 'comment' : 'post' ), data.object_id, data.class_name === 'good']);

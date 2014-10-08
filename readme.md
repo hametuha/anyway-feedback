@@ -1,6 +1,6 @@
 # Anyway Feedback
 Contributors: Takahashi_Fumiki  
-Tags: feedback, analytic  
+Tags: feedback, analytics  
 Requires at least: 3.8  
 Tested up to: 4.1-alpha  
 Stable tag: 1.0  
@@ -16,6 +16,8 @@ What you get is amount of positive feed backs and negative ones per post types. 
 Sidebar also supported. You can display sidebar which includes the most popular posts per post type.
 
 If you have some request, feel free to contact me. For experienced developper, I'm waiting  for pull requests on github.com.
+
+**NOTICE** Requires PHP 5.3 and over.
 
 ## Installation
 

@@ -1,12 +1,15 @@
 <?php
 
 namespace AFB\Widget;
-
+use AFB\Helper\i18n;
+use AFB\Model\FeedBacks;
 
 /**
  * Widget for Popular post
  *
  * @package Anyway Feedback
+ * @property-read i18n $i18n
+ * @property-read FeedBacks $feedbacks
  */
 class Popular extends \WP_Widget
 {
@@ -14,15 +17,13 @@ class Popular extends \WP_Widget
 	/**
 	 * Constructor
 	 * 
-	 * @return void
 	 */
-	function Anyway_Feedback_Popular(){
-		global $afb;
-		parent::WP_Widget(
+	public function __construct(){
+		parent::__construct(
 			"anyway-feedback-popular-widgets",
-			'Anyway_Feedback_Popular',
+			$this->i18n->_('Feedback widget'),
 			array(
-				"description" => $afb->_("This widget shows most popular post per post type."),
+				"description" => $this->i18n->_("This widget shows most popular post per post type."),
 				"classname" => "anyway-feedback-popular-widget"
 			)
 		);
@@ -30,46 +31,48 @@ class Popular extends \WP_Widget
 	
 	/**
 	 * Retrieve
+	 *
+	 * @param array $args
+	 * @param array $instance
 	 */
-	function widget($args, $instance){
-		global $wpdb, $afb;
-		extract( $args );
-        $title = empty($instance['title']) ? $this->name :apply_filters('widget_title', $instance['title']);
+	public function widget($args, $instance){
+		$title = empty($instance['title']) ? $this->name :apply_filters('widget_title', $instance['title']);
 		$post_type = empty($instance['post_type']) ? 'post' :esc_attr($instance['post_type']);
-		$num_posts = empty($instance['num_posts']) ? 5 : esc_attr($instance['num_posts']);
-		$sql = <<<SQL
-			SELECT
-				post.post_title, post.ID, afb.positive
-			FROM {$afb->table} AS afb
-			LEFT JOIN {$wpdb->posts} AS post
-			ON afb.object_id = post.ID AND afb.post_type = post.post_type
-			WHERE afb.post_type = %s
-			  AND post.post_status = 'publish'
-			ORDER BY positive DESC
-			LIMIT %d
-SQL;
-		$posts = $wpdb->get_results($wpdb->prepare($sql, $post_type, $num_posts));
+		$num_posts = empty($instance['num_posts']) ? 5 : max(1, intval($instance['num_posts']));
+		$posts = $this->feedbacks->search(array(
+			'post_type' => $post_type,
+			'post_status' => 'publish',
+			'orderby' => 'positive',
+			'order' => 'DESC'
+		), 1, $num_posts);
 		?>
-              <?php echo $before_widget; ?>
+              <?php echo $args['before_widget']; ?>
                   <?php if ( $title ): ?>
-                       <?php echo $before_title . $title . $after_title; ?>
+                       <?php echo $args['before_title'] . esc_html($title) . $args['after_title']; ?>
                   <?php endif; ?>
                   <ul>
-                  	<?php if(empty($posts)): ?>
-                  		<li><?php $afb->e("There is no feedback."); ?></li>
+                  	<?php if( empty($posts) ): ?>
+                  		<li class="empty"><?php $this->i18n->e("There is no feedback."); ?></li>
                   	<?php else: foreach($posts as $p): ?>
-                  		<li><a href="<?php echo get_permalink($p->ID); ?>"><?php echo apply_filters('the_title', $p->post_title);?></a><span class="count">(<?php printf($afb->_("%d sais usefull."), $p->positive); ?>)</span></li>
+                  		<li>
+		                    <a href="<?php echo get_permalink($p->ID); ?>"><?php echo apply_filters('the_title', $p->post_title, $p->ID) ?></a>
+		                    <span class="count">(<?php printf($this->i18n->_("%d sais usefull."), $p->positive); ?>)</span>
+	                    </li>
                   	<?php endforeach; endif; ?>
                   </ul>
-              <?php echo $after_widget; ?>
+              <?php echo $args['after_widget']; ?>
         <?php
 	}
 	
 	/**
-	 * Update function 
+	 * Update function
+	 *
 	 * @see WP_Widget
+	 * @param array $new_instance
+	 * @param array $old_instance
+	 * @return array
 	 */
-	function update($new_instance, $old_instance) {				
+	public function update($new_instance, $old_instance) {
         return $new_instance;
     }
 	
@@ -77,33 +80,51 @@ SQL;
 	 * Form to update widget
 	 * 
 	 * @see WP_Widget
+	 * @param array $instance
+	 * @return void
 	 */
-	function form($instance) {
-		global $afb, $wpdb;
-        $title = esc_attr($instance['title']);
-		$post_type = esc_attr($instance['post_type']);
-		$num_posts = esc_attr($instance['num_posts']);
-		$sql = "SELECT DISTINCT post_type FROM {$wpdb->posts} WHERE post_type NOT IN ('draft', 'revision', 'nav_menu_item', 'attachment') GROUP BY post_type ORDER BY post_type ASC";
-		$results = $wpdb->get_results($sql);
+	public function form($instance) {
+		$current_post_type = esc_attr($instance['post_type']);
+		$num_posts = max(1, intval($instance['num_posts']));
         ?>
             <p>
             	<label for="<?php echo $this->get_field_id('title'); ?>">
             		<?php _e('Title:'); ?>
-            		<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
+            		<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($instance['title']); ?>" />
             	</label>
             	<label for="<?php echo $this->get_field_id('post_type'); ?>">
-            		<?php $afb->e('Post Type:'); ?> <br />
+            		<?php $this->i18n->e('Post Type:'); ?> <br />
 	            	<select id="<?php echo $this->get_field_id('post_type'); ?>" name="<?php echo $this->get_field_name('post_type'); ?>">
-	            		<?php foreach($results as $r): ?>
-	            			<option<?php if($r->post_type == $post_type) echo ' selected="selected"'; ?> value="<?php echo $r->post_type; ?>"><?php echo $r->post_type; ?></option>
+	            		<?php foreach(get_post_types() as $post_type): $post_type = get_post_type_object($post_type); ?>
+	            			<option<?php selected($post_type->name == $current_post_type) ?> value="<?php echo esc_attr($post_type->name) ?>"><?php echo esc_html($post_type->labels->name); ?></option>
 	            		<?php endforeach; ?>
 	            	</select>
             	</label><br />
             	<label for="<?php echo $this->get_field_id('num_posts'); ?>">
-            		<?php $afb->e('Number of posts:'); ?> <br />
-            		<input type="text" id="<?php echo $this->get_field_id('num_posts'); ?>" name="<?php echo $this->get_field_name('num_posts'); ?>" value="<?php echo $num_posts;?>" />
+            		<?php $this->i18n->e('Number of posts:'); ?> <br />
+            		<input type="text" id="<?php echo $this->get_field_id('num_posts'); ?>" name="<?php echo $this->get_field_name('num_posts'); ?>" value="<?php echo $num_posts ?>" />
             	</label>
             </p>
         <?php 
     }
+
+	/**
+	 * Getter
+	 *
+     * @param string $name
+	 * @return \AFB\Pattern\Singleton|null
+	 */
+	public function __get($name){
+		switch($name){
+			case 'i18n':
+				return i18n::get_instance();
+				break;
+			case 'feedbacks':
+				return FeedBacks::get_instance();
+				break;
+			default:
+				return null;
+				break;
+		}
+	}
 }
