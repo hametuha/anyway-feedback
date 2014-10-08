@@ -1,37 +1,46 @@
 @charset "utf-8";
-.afb_container{
-	padding:15px 5px;
-	color:#888;
-	font-size:11px;
-	border-bottom:1px solid #ddd;
-	border-top:1px solid #ddd;
-	background:#E0E0E0;
-	margin:10px 0;
+
+@import "compass";
+
+.afb_container {
+  padding: 1em;
+  color: #888;
+  font-size: 12px;
+  background: #f9f9f9;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  margin: 1em 0;
+  a{
+    background: url(../img/smallbutton.png) repeat-x;
+    border: none;
+    font-size: 11px;
+    border-left: 1px solid #999;
+    border-right: 1px solid #999;
+    padding: 2px 5px;
+    text-decoration: none;
+    margin-left: 0.5em;
+    @include box-shadow(1px 1px 3px rgba(0, 0, 0, 0.2));
+    &:link{
+      color: #333;
+      text-decoration: none;
+    }
+    &:hover{
+      @include box-shadow(1px 1px 1px rgba(0, 0, 0, 0.4));
+    }
+
+  }
+  .status{
+    margin-top: 5px;
+    font-size: 11px;
+    margin-left: 1em;
+  }
 }
-.afb_container a{
-	background:url(../img/smallbutton.png) repeat-x;
-	border:none;
-	font-size:11px;
-	border-left:1px solid #999;
-	border-right:1px solid #999;
-	color:#333;
-	text-shadow:1px 1px 1px rgba(255,255,255,0.5);
-	padding:2px 5px;
-	text-decoration: none;
-	box-shadow:1px 1px 1px rgba(0, 0, 0, 0.5);
-	-webkit-box-shadow:1px 1px 1px rgba(0, 0, 0, 0.5);
-	-moz-box-shadow:1px 1px 1px rgba(0, 0, 0, 0.5);
-	margin-left:10px;
-}
-.afb_container a:hover{
-	box-shadow:1px 1px 1px rgba(0, 0, 0, 0.2);
-	-webkit-box-shadow:1px 1px 1px rgba(0, 0, 0, 0.2);
-	-moz-box-shadow:1px 1px 1px rgba(0, 0, 0, 0.2);
-}
-.afb_container .status{
-	font-size:10px; margin-left:20px;
-}
-.afb_posted .good,
-.afb_posted .bad{
-	display: none;
+
+// Posted.
+.afb_posted {
+
+  .good, .bad {
+    display: none;
+  }
+
 }

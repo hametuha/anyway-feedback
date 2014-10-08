@@ -1,17 +1,17 @@
 === Anyway Feedback ===
-Contributors: Takahashi_Fumiki
-Tags: feedback, analytic
-Requires at least: 3.0
-Tested up to: 3.3.1
-Stable tag: 0.6
+Contributors: Takahashi_Fumiki  
+Tags: feedback, analytic  
+Requires at least: 3.8  
+Tested up to: 4.1-alpha  
+Stable tag: 1.0  
 
-This plugin enbale users to send feedback with single click. This may support you to analyze your user's opinion.
+This plugin enable users to send feedback with single click. This may support you to analyze your user's opinion.
 
 == Description ==
 
-Anyway Feedback provides simple controller with 2 buttons(Usefull and Useless). Users can send feedback to specific post or comment. 
+Anyway Feedback provides simple controller with 2 buttons(Useful and Useless). Users can send feedback to specific post or comment. 
 
-What you get is amount of positive feedbacks and negative ones per post types. Typical usage is for FAQ. You could know if your FAQs are usefull or not.
+What you get is amount of positive feed backs and negative ones per post types. Typical usage is for FAQ. You could know if your FAQs are usefull or not.
 
 Sidebar also supported. You can display sidebar which includes the most popular posts per post type.
 
@@ -50,6 +50,13 @@ There are currently 2 ways. 1st is a feedback controller which displays number o
 
 == Changelog ==
 
+= 1.0 =
+
+* Quit using session. Vote history will be stored in Coolkie.
+* Refine admin screen.
+* Fix some style sheet.
+* Add Google Analytics event tracking. See detail at setting screen.
+
 = 0.6 =
 
 * Use $_SESSION to avoid user from repeated feedback.
@@ -58,7 +65,8 @@ There are currently 2 ways. 1st is a feedback controller which displays number o
 
 * 1st release.
 
-== Upgrade Notice ==
+== Upgrade Notice  ==
 
 = 0.5 =
+
 Nothing.

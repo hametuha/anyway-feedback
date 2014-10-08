@@ -51,7 +51,7 @@ function _afb_init(){
 		// Load functions
 		require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'functions.php';
 		// Load main instance.
-		//call_user_func(array('AFB\\Main', 'get_instance'));
+		call_user_func(array('AFB\\Main', 'get_instance'));
 		// Load Admin instance
 		call_user_func(array( 'AFB\\Admin\\Screen', 'get_instance'));
 	}

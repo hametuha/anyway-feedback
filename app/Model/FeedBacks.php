@@ -3,6 +3,11 @@
 namespace AFB\Model;
 
 
+/**
+ * Feedback model
+ *
+ * @package AFB\Model
+ */
 class FeedBacks extends Base
 {
 
@@ -265,5 +270,60 @@ SQL;
 		return $this->db->get_results($this->db->prepare($query, $post_type, $limit));
 	}
 
+	/**
+	 * Get all answer
+	 *
+	 * @param int $object_id
+	 * @param string $post_type
+	 *
+	 * @return int
+	 */
+	public function total_answer($object_id, $post_type = 'post'){
+		$query = <<<SQL
+			SELECT (positive + negative) as total
+			FROM {$this->table}
+			WHERE post_type = %s
+			  AND object_id = %d
+SQL;
+		return (int) $this->db->get_var($this->db->prepare($query, $post_type, $object_id));
+	}
+
+	/**
+	 * Return Affirmative count
+	 *
+	 * @param int $object_id
+	 * @param string $post_type
+	 *
+	 * @return int
+	 */
+	public function affirmative($object_id, $post_type = 'post'){
+		$query = <<<SQL
+			SELECT positive
+			FROM {$this->table}
+			WHERE post_type = %s
+			  AND object_id = %d
+SQL;
+		return (int) $this->db->get_var($this->db->prepare($query, $post_type, $object_id));
+	}
+
+
+
+	/**
+	 * Return Affirmative count
+	 *
+	 * @param int $object_id
+	 * @param string $post_type
+	 *
+	 * @return int
+	 */
+	public function negative($object_id, $post_type = 'post'){
+		$query = <<<SQL
+			SELECT negative
+			FROM {$this->table}
+			WHERE post_type = %s
+			  AND object_id = %d
+SQL;
+		return (int) $this->db->get_var($this->db->prepare($query, $post_type, $object_id));
+	}
 
 }
