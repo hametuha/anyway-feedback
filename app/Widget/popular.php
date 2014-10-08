@@ -1,11 +1,15 @@
 <?php
+
+namespace AFB\Widget;
+
+
 /**
- * Widget for 
+ * Widget for Popular post
  *
  * @package Anyway Feedback
  */
-
-class Anyway_Feedback_Popular extends WP_Widget{
+class Popular extends \WP_Widget
+{
 	
 	/**
 	 * Constructor
@@ -25,7 +29,7 @@ class Anyway_Feedback_Popular extends WP_Widget{
 	}
 	
 	/**
-	 * Retrive
+	 * Retrieve
 	 */
 	function widget($args, $instance){
 		global $wpdb, $afb;
@@ -33,16 +37,17 @@ class Anyway_Feedback_Popular extends WP_Widget{
         $title = empty($instance['title']) ? $this->name :apply_filters('widget_title', $instance['title']);
 		$post_type = empty($instance['post_type']) ? 'post' :esc_attr($instance['post_type']);
 		$num_posts = empty($instance['num_posts']) ? 5 : esc_attr($instance['num_posts']);
-		$sql = <<<EOS
+		$sql = <<<SQL
 			SELECT
 				post.post_title, post.ID, afb.positive
 			FROM {$afb->table} AS afb
 			LEFT JOIN {$wpdb->posts} AS post
 			ON afb.object_id = post.ID AND afb.post_type = post.post_type
-			WHERE afb.post_type = %s AND post.post_status = 'publish'
+			WHERE afb.post_type = %s
+			  AND post.post_status = 'publish'
 			ORDER BY positive DESC
 			LIMIT %d
-EOS;
+SQL;
 		$posts = $wpdb->get_results($wpdb->prepare($sql, $post_type, $num_posts));
 		?>
               <?php echo $before_widget; ?>
