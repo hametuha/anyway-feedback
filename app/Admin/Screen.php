@@ -31,6 +31,8 @@ class Screen extends Controller
 		add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
 		add_action('admin_init', array($this, 'admin_init'));
 		add_action('admin_notices', array($this, 'admin_notices'));
+		add_filter('manage_edit-comments_columns', array($this, 'comment_columns_name'));
+		add_action('manage_comments_custom_column', array($this, 'comment_columns'), 10, 2);
 	}
 
 	/**
@@ -112,8 +114,10 @@ class Screen extends Controller
 	 * @param string $page
 	 */
 	public function admin_enqueue_scripts($page){
-
-		if( ($is_statistic = (false !== strpos($page, 'anyway-feedback-static'))) || 'settings_page_anyway-feedback' === $page ){
+		if( ($is_statistic = (false !== strpos($page, 'anyway-feedback-static')))
+		    || 'settings_page_anyway-feedback' === $page
+		    || 'edit-comments.php' === $page
+		){
 			$deps = array('jquery');
 			if( $is_statistic ){
 				wp_register_script('google-chart-api', 'https://www.google.com/jsapi', null, null);
@@ -199,6 +203,43 @@ class Screen extends Controller
 		if( isset($_SESSION[$this->session_key]) ){
 			printf('<div class="updated"><p>%s</p></div>', esc_html($_SESSION[$this->session_key]));
 			unset($_SESSION[$this->session_key]);
+		}
+	}
+
+	/**
+	 * Add custom column to comment list
+	 *
+	 * @param array $columns
+	 *
+	 * @return array
+	 */
+	public function comment_columns_name($columns){
+		$columns['feedback'] = $this->i18n->_('Feedback');
+		return $columns;
+	}
+
+	/**
+	 * Show columun.
+	 *
+	 * @param string $column
+	 * @param int $comment_id
+	 */
+	public function comment_columns( $column, $comment_id ){
+		switch( $column ){
+			case 'feedback':
+				$feedback = $this->feedbacks->get($comment_id, 'comment');
+				if( $feedback ){
+					$total = $feedback->positive + $feedback->negative;
+					$positive = floor($feedback->positive / $total * 100);
+					printf('<div class="chart-ratio"><div style="width: %d%%"><span class="positive">%d</span><span class="negative">%d</span></div></div>',
+						$positive, $feedback->positive, $feedback->negative);
+				}else{
+					echo '<div class="chart-ratio empty"></div>';
+				}
+				break;
+			default:
+				// Do nothing
+				break;
 		}
 	}
 

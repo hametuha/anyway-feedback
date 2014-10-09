@@ -147,6 +147,7 @@ EOS;
 			's'=> '',
 			'post_type' => '',
 			'post_status' => '',
+			'allow_empty' => true,
 			'order' => 'ASC',
 			'orderby' => 'positive',
 		));
@@ -154,6 +155,7 @@ EOS;
 		$offset = (max(1, $page) - 1) * $per_page;
 		$where_clause = array();
 		if( 'comment' == $args['post_type'] ){
+			// TODO: Comment Query
 			// Comment
 			$query = <<<SQL
 
@@ -177,6 +179,10 @@ SQL;
 				$where_clause[] = $this->db->prepare($status_query, $args['post_status']);
 			}else{
 				$where_clause[] = "( p.post_status IN ('future', 'draft', 'trash', 'publish', 'private') )";
+			}
+			// Empty is allowed?
+			if( !$args['allow_empty'] ){
+				$where_clause[] = "( afb.negative + afb.positive > 0 )";
 			}
 			// Build query
 			if( empty($where_clause) ){
@@ -203,7 +209,7 @@ SQL;
 					$orderby = 'p.post_title';
 					break;
 				default:
-					$orderby = 'total';
+					$orderby = '( afb.negative + afb.positive )';
 					break;
 			}
 			$query = <<<SQL

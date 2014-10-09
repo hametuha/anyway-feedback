@@ -40,6 +40,17 @@ abstract class Controller extends Singleton
 	}
 
 	/**
+	 * Detect if this post type is allowed
+	 *
+	 * @param string $post_type
+	 *
+	 * @return bool
+	 */
+	public function is_allowed($post_type){
+		return false !== array_search($post_type, $this->option['post_type']);
+	}
+
+	/**
 	 * Getter
 	 *
 	 * @param string $key

@@ -62,7 +62,7 @@ class Main extends Controller
 	 * @return string
 	 */
 	public function get_controller_tag($object_id, $post_type){
-		$post_type_name = ($post_type == "comment") ? __("Comment") : get_post_type_object($post_type)->labels->name;
+		$post_type_name = ($post_type == "comment") ? $this->i18n->_("Comment") : get_post_type_object($post_type)->labels->name;
 		$message = sprintf($this->i18n->_("Is this %s useful?"), $post_type_name);
 		$status = sprintf($this->i18n->_('%1$d of %2$d people say this %3$s is useful.'), afb_affirmative(false, $object_id, $post_type), afb_total(false, $object_id, $post_type), $post_type_name);
 		$useful = $this->i18n->_("Useful");
@@ -114,7 +114,7 @@ HTML;
 				throw new \Exception($this->i18n->_('Sorry, but you have already voted.'));
 			}
 
-			$post_type_name = 'comment' === $post_type ? __('Comment') : get_post_type_object($post_type)->labels->name;
+			$post_type_name = 'comment' === $post_type ? $this->i18n->_('Comment') : get_post_type_object($post_type)->labels->name;
 
 			// Feedback request is valid.
 			switch( $this->input->post("class_name") ){
@@ -181,7 +181,7 @@ HTML;
 	 * @return string
 	 */
 	public function comment_text($comment_text, $comment){
-		if( false !== array_search(get_post_type(), $this->option["post_types"]) ){
+		if( !is_admin() && $this->is_allowed(get_post_type($comment->comment_post_ID)) ){
 			$comment_text .= str_replace("\n", "", $this->get_controller_tag($comment->comment_ID, "comment"));
 		}
 		return $comment_text;

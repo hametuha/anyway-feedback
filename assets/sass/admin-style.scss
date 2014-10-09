@@ -46,18 +46,6 @@
 
 // CHart Table
 .afb .widefat{
-  .chart-ratio{
-    height: 20px;
-    width: 100px;
-    background: #cf3f35;
-    div{
-      height: 20px;
-      background: #91c690;
-    }
-    &.empty{
-      background: #ddd;
-    }
-  }
   td.column-positive,
   td.column-negative{
     width: 4em;
@@ -65,6 +53,44 @@
   }
   td.column-ratio{
     width: 100px;
+  }
+}
+th.column-feedback{
+  width: 100px;
+}
+@media only screen and (max-width: 782px) {
+  th,td{
+    &.column-feedback{
+      display: none;
+    }
+  }
+}
+.chart-ratio{
+  height: 20px;
+  width: 100px;
+  background: #cf3f35;
+  position: relative;
+  div{
+    height: 20px;
+    background: #91c690;
+  }
+  .positive, .negative{
+    display: block;
+    position: absolute;
+    height: 20px;
+    line-height: 20px;
+    top: 0;
+    color: #fff;
+    font-family: mono-space;
+  }
+  .positive{
+    left: 3px;
+  }
+  .negative{
+    right: 3px;
+  }
+  &.empty{
+    background: #ddd;
   }
 }
 

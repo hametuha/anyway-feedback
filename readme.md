@@ -5,7 +5,7 @@ Requires at least: 3.8
 Tested up to: 4.1-alpha  
 Stable tag: 1.0  
 
-This plugin enable users to send feedback with single click. This may support you to analyze your user's opinion.
+This plugin enable users to send feedback with single click. This may support you to analyze your user's opinion. Works like Facebook's help center.
 
 ## Description
 
@@ -54,7 +54,8 @@ There are currently 2 ways. 1st is a feedback controller which displays number o
 
 ### 1.0
 
-* Quit using session. Vote history will be stored in Coolkie.
+* Requires PHP 5.3 and over. Name space is so cool! Template tags have backward compatibility.
+* Quit using session. Vote history will be stored in Cookie.
 * Refine admin screen.
 * Fix some style sheet.
 * Add Google Analytics event tracking. See detail at setting screen.

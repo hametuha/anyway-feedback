@@ -42,6 +42,7 @@ class Popular extends \WP_Widget
 		$posts = $this->feedbacks->search(array(
 			'post_type' => $post_type,
 			'post_status' => 'publish',
+			'allow_empty' => false,
 			'orderby' => 'positive',
 			'order' => 'DESC'
 		), 1, $num_posts);
@@ -53,12 +54,12 @@ class Popular extends \WP_Widget
                   <ul>
                   	<?php if( empty($posts) ): ?>
                   		<li class="empty"><?php $this->i18n->e("There is no feedback."); ?></li>
-                  	<?php else: foreach($posts as $p): ?>
+                  	<?php else: foreach($posts as $post): setup_postdata($post) ?>
                   		<li>
-		                    <a href="<?php echo get_permalink($p->ID); ?>"><?php echo apply_filters('the_title', $p->post_title, $p->ID) ?></a>
-		                    <span class="count">(<?php printf($this->i18n->_("%d sais usefull."), $p->positive); ?>)</span>
+		                    <a href="<?php the_permalink(); ?>"><?php the_title() ?></a>
+		                    <span class="count">(<?php printf($this->i18n->_("%d sais usefull."), $post->positive); ?>)</span>
 	                    </li>
-                  	<?php endforeach; endif; ?>
+                  	<?php endforeach; wp_reset_postdata(); endif; ?>
                   </ul>
               <?php echo $args['after_widget']; ?>
         <?php
@@ -84,13 +85,13 @@ class Popular extends \WP_Widget
 	 * @return void
 	 */
 	public function form($instance) {
-		$current_post_type = esc_attr($instance['post_type']);
-		$num_posts = max(1, intval($instance['num_posts']));
+		$current_post_type = esc_attr( isset($instance['post_type']) ? $instance['post_type'] : 'post');
+		$num_posts = isset($instance['num_posts']) ? max(1, intval($instance['num_posts'])) : 5;
         ?>
             <p>
             	<label for="<?php echo $this->get_field_id('title'); ?>">
             		<?php _e('Title:'); ?>
-            		<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($instance['title']); ?>" />
+            		<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr( isset($instance['title']) ? $instance['title'] : sprintf($this->i18n->_('Popular %s'), get_post_type_object($current_post_type)->labels->name) ); ?>" />
             	</label>
             	<label for="<?php echo $this->get_field_id('post_type'); ?>">
             		<?php $this->i18n->e('Post Type:'); ?> <br />
