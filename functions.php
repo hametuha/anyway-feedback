@@ -9,13 +9,11 @@
 /**
  * Display Anyway Feedback buttons.Use inside loop.
  * 
- * @param mixed $class_name class name to append
- * @retun void
  */
 function afb_display(){
-	global $afb, $post;
-	if($post){
-		echo $afb->get_conroller_tag(get_the_ID(), get_post_type());
+	$afb = _afb();
+	if( in_the_loop() ){
+		echo $afb->get_controller_tag(get_the_ID(), get_post_type());
 	}
 }
 
@@ -25,54 +23,52 @@ function afb_display(){
  * @return void
  */
 function afb_comment_display($comment_id){
-	global $afb;
-	echo $afb->get_conroller_tag($comment_id, "comment");
+	$afb = _afb();
+	echo $afb->get_controller_tag($comment_id, "comment");
 }
 
 /**
  * Retrieve total feedback count. Use inside loop.
  *
- * @param boolean $echo (optional) Return value if false. 
- * @return void|int
+ * @param boolean $echo (optional) Return value if false.
+ * @param int $object_id,
+ * @param string $post_type
+ * @return int
  */
 function afb_total($echo = true, $object_id = null, $post_type = null){
-	global $wpdb, $afb;
-	$sql = "SELECT (positive + negative) as total FROM {$afb->table} WHERE object_id = %d AND post_type = %d";
-	if(is_null($object_id)){
+	$afb = _afb();
+	if( is_null($object_id) ){
 		$object_id = get_the_ID();
 	}
-	if(is_null($post_type)){
+	if( is_null($post_type) ){
 		$post_type = get_post_type();
 	}
-	$total = (int) $wpdb->get_var($wpdb->prepare($sql, $object_id, $post_type));
-	if($echo){
+	$total = $afb->feedbacks->total_answer($object_id, $post_type);
+	if( $echo ){
 		echo $total;
-	}else{
-		return $total;
 	}
+	return $total;
 }
 
 /**
  * Retrieve affirmative feedback count. Use inside loop.
  * 
  * @param boolean $echo (optional) Return value if false. 
- * @return void|int
+ * @return int
  */
 function afb_affirmative($echo = true, $object_id = null, $post_type = null){
-	global $wpdb, $afb;
-	$sql = "SELECT positive FROM {$afb->table} WHERE object_id = %d AND post_type = %d";
+	$afb = _afb();
 	if(is_null($object_id)){
 		$object_id = get_the_ID();
 	}
 	if(is_null($post_type)){
 		$post_type = get_post_type();
 	}
-	$total = (int) $wpdb->get_var($wpdb->prepare($sql, $object_id, $post_type));
-	if($echo){
+	$total = $afb->feedbacks->affirmative($object_id, $post_type);
+	if( $echo ){
 		echo $total;
-	}else{
-		return $total;
 	}
+	return $total;
 }
 
 /**
@@ -82,28 +78,26 @@ function afb_affirmative($echo = true, $object_id = null, $post_type = null){
  * @return void|int
  */
 function afb_negative($echo = true, $object_id = null, $post_type = null){
-	global $wpdb, $afb;
-	$sql = "SELECT negative FROM {$afb->table} WHERE object_id = %d AND post_type = %d";
+	$afb = _afb();
 	if(is_null($object_id)){
 		$object_id = get_the_ID();
 	}
 	if(is_null($post_type)){
 		$post_type = get_post_type();
 	}
-	$total = (int) $wpdb->get_var($wpdb->prepare($sql, $object_id, $post_type));
-	if($echo){
+	$total = $afb->feedbacks->negative($object_id, $post_type);
+	if( $echo ){
 		echo $total;
-	}else{
-		return $total;
 	}
+	return $total;
 }
 
+
 /**
- * Just define for tarnsalation.
- * @global Anyway_Feedbackpe $afb
- * @return void
+ * Get instance
+ *
+ * @return \AFB\Main
  */
-function _afb_tranlation(){
-	global $afb;
-	$afb->_("Help to assemble simple feedback(negative or positive) and get statics of them.");
+function _afb(){
+	return AFB\Main::get_instance();
 }

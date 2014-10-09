@@ -1,0 +1,41 @@
+/* line 5, ../sass/afb-style.scss */
+.afb_container {
+  padding: 1em;
+  color: #888;
+  font-size: 12px;
+  background: #f9f9f9;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  margin: 1em 0; }
+  /* line 13, ../sass/afb-style.scss */
+  .afb_container a {
+    font-size: 11px;
+    border: 1px solid #999;
+    padding: 5px 8px;
+    text-decoration: none;
+    margin-left: 0.5em;
+    -moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4); }
+    /* line 20, ../sass/afb-style.scss */
+    .afb_container a:link {
+      color: #333;
+      text-decoration: none; }
+    /* line 24, ../sass/afb-style.scss */
+    .afb_container a:hover {
+      -moz-box-shadow: none;
+      -webkit-box-shadow: none;
+      box-shadow: none; }
+    /* line 27, ../sass/afb-style.scss */
+    .afb_container a:active {
+      background: #cf3f35;
+      color: #fff; }
+  /* line 32, ../sass/afb-style.scss */
+  .afb_container .status {
+    margin-top: 5px;
+    font-size: 11px;
+    margin-left: 1em; }
+
+/* line 42, ../sass/afb-style.scss */
+.afb_posted .good, .afb_posted .bad {
+  display: none; }

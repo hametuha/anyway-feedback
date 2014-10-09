@@ -1,0 +1,46 @@
+@charset "utf-8";
+
+@import "compass";
+
+.afb_container {
+  padding: 1em;
+  color: #888;
+  font-size: 12px;
+  background: #f9f9f9;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  margin: 1em 0;
+  a{
+    font-size: 11px;
+    border: 1px solid #999;
+    padding: 5px 8px;
+    text-decoration: none;
+    margin-left: 0.5em;
+    @include box-shadow(1px 1px 1px rgba(0, 0, 0, 0.4));
+    &:link{
+      color: #333;
+      text-decoration: none;
+    }
+    &:hover{
+      @include box-shadow(none);
+    }
+    &:active{
+      background: #cf3f35;
+      color: #fff;
+    }
+  }
+  .status{
+    margin-top: 5px;
+    font-size: 11px;
+    margin-left: 1em;
+  }
+}
+
+// Posted.
+.afb_posted {
+
+  .good, .bad {
+    display: none;
+  }
+
+}
