@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Anyway Feedback 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-08 20:24+0900\n"
-"PO-Revision-Date: 2014-10-08 20:34+0900\n"
+"POT-Creation-Date: 2014-10-09 16:55+0900\n"
+"PO-Revision-Date: 2014-10-09 16:55+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language: ja\n"
@@ -34,49 +34,57 @@ msgstr ""
 "肯定的または否定的というだけのシンプルなフィードバックの集計ができるようにな"
 "るプラグインです。"
 
-#: ../app/Admin/Screen.php:41
+#: ../app/Admin/Screen.php:43
 msgid "Anyway Feedback Option: "
 msgstr "Anyway Feedback設定: "
 
-#: ../app/Admin/Screen.php:42
+#: ../app/Admin/Screen.php:44
 msgid "Anyway Feedback"
 msgstr "Anyway Feedback"
 
-#: ../app/Admin/Screen.php:54 ../templates/statistic.php:8
+#: ../app/Admin/Screen.php:56 ../templates/statistic.php:8
 #, php-format
 msgid "Feedback Statistic of %s"
 msgstr "%sのフィードバック統計"
 
-#: ../app/Admin/Screen.php:54
+#: ../app/Admin/Screen.php:56
 msgid "Feedback Statistic"
 msgstr "フィードバック統計"
 
-#: ../app/Admin/Screen.php:105
+#: ../app/Admin/Screen.php:107
 msgid ""
 "Template file doesn't exist. Please check whether install process is valid."
 msgstr ""
 "テンプレートファイルが存在しません。インストールが正しく行われたか確認してく"
 "ださい。"
 
-#: ../app/Admin/Screen.php:140
+#: ../app/Admin/Screen.php:144
 msgid "Feedback Ratio"
 msgstr "フィードバック割合"
 
-#: ../app/Admin/Screen.php:141
+#: ../app/Admin/Screen.php:145
 msgid "Positive"
 msgstr "肯定的な意見"
 
-#: ../app/Admin/Screen.php:142
+#: ../app/Admin/Screen.php:146
 msgid "Negative"
 msgstr "否定的な意見"
 
-#: ../app/Admin/Screen.php:143
+#: ../app/Admin/Screen.php:147
 msgid "No data"
 msgstr "データがありません"
 
-#: ../app/Admin/Screen.php:171
+#: ../app/Admin/Screen.php:175
 msgid "Option was updated."
 msgstr "オプションが更新されました。"
+
+#: ../app/Admin/Screen.php:184
+msgid "Database has been updated."
+msgstr "データベースが更新されました。"
+
+#: ../app/Admin/Screen.php:227
+msgid "Feedback"
+msgstr "フィードバック"
 
 #: ../app/Admin/Table.php:57
 msgid "Title"
@@ -98,62 +106,75 @@ msgstr "公開日"
 msgid "Updated"
 msgstr "更新日"
 
-#: ../app/Main.php:52
+#: ../app/Main.php:57
 msgid "You have already voted."
 msgstr "すでに投票済みです。"
 
-#: ../app/Main.php:66
+#: ../app/Main.php:70 ../app/Main.php:122
+msgid "Comment"
+msgstr "コメント"
+
+#: ../app/Main.php:71 ../templates/page/setting.php:55
 #, php-format
 msgid "Is this %s useful?"
 msgstr "この%sは役に立ちましたか？"
 
-#: ../app/Main.php:67 ../app/Main.php:143
+#: ../app/Main.php:72 ../app/Main.php:148
 #, php-format
 msgid "%1$d of %2$d people say this %3$s is useful."
 msgstr "%2$d 人中 %1$d 人がこの %3$s は役に立ったと言っています。"
 
-#: ../app/Main.php:68 ../templates/page/setting.php:56
+#: ../app/Main.php:73 ../templates/page/setting.php:56
 msgid "Useful"
 msgstr "役に立った"
 
-#: ../app/Main.php:69 ../templates/page/setting.php:57
+#: ../app/Main.php:74 ../templates/page/setting.php:57
 msgid "Useless"
 msgstr "役に立たなかった"
 
-#: ../app/Main.php:114
+#: ../app/Main.php:119
 msgid "Sorry, but you have already voted."
 msgstr "申し訳ありません、すでに投票済みです。"
 
-#: ../app/Main.php:128
+#: ../app/Main.php:133
 msgid "Request is invalid."
 msgstr "無効なリクエストです。"
 
-#: ../app/Main.php:133
+#: ../app/Main.php:138
 msgid "Sorry, failed to save your request. Please try again later."
 msgstr "申し訳ありません、データを保存できませんでした。後でお試しください。"
 
-#: ../app/Main.php:141
+#: ../app/Main.php:146
 msgid "Thank you for your feedback."
 msgstr "ご協力ありがとうございました。"
 
-#: ../app/Widget/Popular.php:25
+#: ../app/Widget/Popular.php:24
+msgid "Feedback widget"
+msgstr "フィードバックウィジェット"
+
+#: ../app/Widget/Popular.php:26
 msgid "This widget shows most popular post per post type."
 msgstr "このウィジェットは投稿タイプごとにもっとも評価の高いものを表示します。"
 
-#: ../app/Widget/Popular.php:59
+#: ../app/Widget/Popular.php:56
 msgid "There is no feedback."
 msgstr "フィードバックはありませんでした。"
 
-#: ../app/Widget/Popular.php:61
+#: ../app/Widget/Popular.php:60
 #, php-format
-msgid "%d sais usefull."
-msgstr "%d人が役に立つと言っています。"
+msgid "%d says useful"
+msgstr "%d人が役に立つと言っています"
 
-#: ../app/Widget/Popular.php:95
+#: ../app/Widget/Popular.php:94
+#, php-format
+msgid "Popular %s"
+msgstr "人気の%s"
+
+#: ../app/Widget/Popular.php:97
 msgid "Post Type:"
 msgstr "投稿タイプ:"
 
-#: ../app/Widget/Popular.php:103
+#: ../app/Widget/Popular.php:105
 msgid "Number of posts:"
 msgstr "投稿数: "
 
@@ -312,11 +333,11 @@ msgstr ""
 msgid "See function detail at <code>%s</code>"
 msgstr "関数の詳細は<code>%s</code>を見てください。"
 
-#: ../templates/page/advanced.php:59
+#: ../templates/page/advanced.php:60
 msgid "Google Analytics"
 msgstr "Google Analytics"
 
-#: ../templates/page/advanced.php:61
+#: ../templates/page/advanced.php:62
 #, php-format
 msgid ""
 "You can save all data as <a href=\"%s\" target=\"_blank\">event tracking</a> "
@@ -325,15 +346,23 @@ msgstr ""
 "すべてのデータを<a href=\"%s\" target=\"_blank\">event tracking</a>として保存"
 "し、時系列のリポート解析を行うことができます。データの形式は次の通りです："
 
-#: ../templates/page/advanced.php:69
+#: ../templates/page/advanced.php:67
+msgid "Name"
+msgstr "名前"
+
+#: ../templates/page/advanced.php:68
+msgid "Value"
+msgstr "値"
+
+#: ../templates/page/advanced.php:82
 msgid "<code>Post ID</code> or <code>comment ID</code>"
 msgstr "<code>Post ID</code> または <code>comment ID</code>"
 
-#: ../templates/page/advanced.php:71
+#: ../templates/page/advanced.php:86
 msgid "Always 1"
 msgstr "常に1"
 
-#: ../templates/page/advanced.php:75
+#: ../templates/page/advanced.php:92
 #, php-format
 msgid ""
 "This feature is premised on <a href=\"%s\">Universal Analytics</a>. If you "
@@ -409,11 +438,6 @@ msgstr ""
 "bad&quot;というクラス名を持ち、href属性が%LINK%である必要があります</"
 "strong>。<br />デフォルトのマークアップは下記になります。"
 
-#: ../templates/page/setting.php:55
-#, php-format
-msgid "Is this %s usefull?"
-msgstr "この%sは役に立ちましたか？"
-
 #: ../templates/page/setting.php:58
 #, php-format
 msgid "%1$s of %2$s people say this %3$s is useful."
@@ -450,6 +474,9 @@ msgstr "更新"
 msgid "Search"
 msgstr "検索"
 
+#~ msgid "Is this %s usefull?"
+#~ msgstr "この%sは役に立ちましたか？"
+
 #~ msgid "%s is invalid."
 #~ msgstr "%sは無効です。"
 
@@ -476,9 +503,6 @@ msgstr "検索"
 
 #~ msgid "Total"
 #~ msgstr "合計"
-
-#~ msgid "Feedbacked"
-#~ msgstr "フィードバックされた数"
 
 #~ msgid "<a href=\"%1$s\">%2$s</a> comments <a href=\"%3$s\">%4$s</a>"
 #~ msgstr "<a href=\"%1$s\">%2$s</a>が<a href=\"%3$s\">%4$s</a>にコメント"

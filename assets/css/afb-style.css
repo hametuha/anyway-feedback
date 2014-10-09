@@ -9,26 +9,27 @@
   margin: 1em 0; }
   /* line 13, ../sass/afb-style.scss */
   .afb_container a {
-    background: url(../img/smallbutton.png) repeat-x;
-    border: none;
     font-size: 11px;
-    border-left: 1px solid #999;
-    border-right: 1px solid #999;
-    padding: 2px 5px;
+    border: 1px solid #999;
+    padding: 5px 8px;
     text-decoration: none;
     margin-left: 0.5em;
-    -moz-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-    -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); }
-    /* line 23, ../sass/afb-style.scss */
+    -moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4); }
+    /* line 20, ../sass/afb-style.scss */
     .afb_container a:link {
       color: #333;
       text-decoration: none; }
-    /* line 27, ../sass/afb-style.scss */
+    /* line 24, ../sass/afb-style.scss */
     .afb_container a:hover {
-      -moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
-      -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
-      box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4); }
+      -moz-box-shadow: none;
+      -webkit-box-shadow: none;
+      box-shadow: none; }
+    /* line 27, ../sass/afb-style.scss */
+    .afb_container a:active {
+      background: #cf3f35;
+      color: #fff; }
   /* line 32, ../sass/afb-style.scss */
   .afb_container .status {
     margin-top: 5px;

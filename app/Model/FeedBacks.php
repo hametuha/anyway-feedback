@@ -33,6 +33,44 @@ class FeedBacks extends Base
 	public $key = 'afb_db_version';
 
 	/**
+	 * Create SQL
+	 *
+	 * @return string
+	 */
+	public function create_sql(){
+		// Check engine
+		$engine = $this->have_innodb() ? 'InnoDB' : 'MyISAM';
+		// Set character set
+		$char = defined("DB_CHARSET") ? DB_CHARSET : "utf8";
+		return <<<SQL
+			CREATE TABLE {$this->table} (
+				`ID` BIGINT(11) NOT NULL AUTO_INCREMENT,
+				`object_id` BIGINT(11) NOT NULL,
+				`post_type` VARCHAR(45) NOT NULL,
+				`positive` BIGINT(11) NOT NULL,
+				`negative` BIGINT(11) NOT NULL,
+				`updated` DATETIME NOT NULL,
+				UNIQUE (`ID`),
+				INDEX post_type_id (post_type, object_id)
+			) ENGINE = {$engine} DEFAULT CHARSET = {$char} ;
+SQL;
+	}
+
+	/**
+	 * Do after update
+	 */
+	public function after_update(){
+		// If current table is MyISAM(old user),
+		// alter it to InnoDB
+		if( $this->have_innodb() && !$this->is_innodb($this->table) ){
+			$query = <<<SQL
+				ALTER TABLE {$this->table} ENGINE = InnoDB
+SQL;
+			$this->db->query($query);
+		}
+	}
+
+	/**
 	 * Retrieve data from table
 	 * @param int $object_id
 	 * @param string $post_type
@@ -44,7 +82,6 @@ class FeedBacks extends Base
 			WHERE post_type = %s
 			  AND object_id = %d
 SQL;
-
 		return $this->db->get_row($this->db->prepare($query, $post_type, $object_id));
 	}
 
@@ -111,8 +148,21 @@ SQL;
 		$query = <<<SQL
 			DELETE FROM {$this->table} WHERE post_type = %s AND object_id = %d
 SQL;
-		return (boolean) $this->db->prepare($query, $post_type, $object_id);
+		return (boolean) $this->db->query($this->db->prepare($query, $post_type, $object_id));
+	}
 
+	/**
+	 * Delete post
+	 *
+	 * @param int $post_id
+	 *
+	 * @return false|int
+	 */
+	public function delete_post($post_id){
+		$query = <<<SQL
+			DELETE FROM {$this->table} WHERE post_type != 'comment' AND object_id = %d
+SQL;
+		return $this->db->query($this->db->prepare($query, $post_id));
 	}
 
 	/**

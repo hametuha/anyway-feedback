@@ -6,7 +6,7 @@ Description: Help to assemble simple feedback(negative or positive) and get stat
 Version: 1.0
 Author: Takahashi_Fumiki
 Author URI: http://takahashifumiki.com
-TextDomain: anyway-feedback
+Text Domain: anyway-feedback
 Domain Path: /language/
 License: GPL2 or Later
 */

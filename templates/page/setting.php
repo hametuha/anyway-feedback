@@ -50,9 +50,9 @@ defined('ABSPATH') or die();
 				<p class="description">
 					<?php $this->i18n->e("You can customize markup of Feedback controller.<br />If you don't want, leave it blank.<br />In case of customization, You can use variables(%POSITIVE%, %TOTAL%, %NEGATIVE%, %POST_TYPE%) and <strong>2 link tags(&lt;a&gt;) must have class name &quot;good&quot; and &quot;bad&quot; and %LINK% as href attribute</strong>.<br />Default markup is below.");  ?>
 				</p>
-<pre>
+<pre class="afb-code-exam">
 <?php
-$message = esc_html(sprintf($this->i18n->_("Is this %s usefull?"), "%POST_TYPE%"));
+$message = esc_html(sprintf($this->i18n->_("Is this %s useful?"), "%POST_TYPE%"));
 $useful = esc_html($this->i18n->_("Useful"));
 $useless = esc_html($this->i18n->_("Useless"));
 $status = esc_html(sprintf($this->i18n->_('%1$s of %2$s people say this %3$s is useful.'), "%POSITIVE%", "%TOTAL%", "%POST_TYPE%"));

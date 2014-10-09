@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Anyway Feedback 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-08 20:24+0900\n"
-"PO-Revision-Date: 2014-10-08 20:24+0900\n"
+"POT-Creation-Date: 2014-10-09 16:55+0900\n"
+"PO-Revision-Date: 2014-10-09 16:55+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "MIME-Version: 1.0\n"
@@ -29,46 +29,54 @@ msgid ""
 "them."
 msgstr ""
 
-#: ../app/Admin/Screen.php:41
+#: ../app/Admin/Screen.php:43
 msgid "Anyway Feedback Option: "
 msgstr ""
 
-#: ../app/Admin/Screen.php:42
+#: ../app/Admin/Screen.php:44
 msgid "Anyway Feedback"
 msgstr ""
 
-#: ../app/Admin/Screen.php:54 ../templates/statistic.php:8
+#: ../app/Admin/Screen.php:56 ../templates/statistic.php:8
 #, php-format
 msgid "Feedback Statistic of %s"
 msgstr ""
 
-#: ../app/Admin/Screen.php:54
+#: ../app/Admin/Screen.php:56
 msgid "Feedback Statistic"
 msgstr ""
 
-#: ../app/Admin/Screen.php:105
+#: ../app/Admin/Screen.php:107
 msgid ""
 "Template file doesn't exist. Please check whether install process is valid."
 msgstr ""
 
-#: ../app/Admin/Screen.php:140
+#: ../app/Admin/Screen.php:144
 msgid "Feedback Ratio"
 msgstr ""
 
-#: ../app/Admin/Screen.php:141
+#: ../app/Admin/Screen.php:145
 msgid "Positive"
 msgstr ""
 
-#: ../app/Admin/Screen.php:142
+#: ../app/Admin/Screen.php:146
 msgid "Negative"
 msgstr ""
 
-#: ../app/Admin/Screen.php:143
+#: ../app/Admin/Screen.php:147
 msgid "No data"
 msgstr ""
 
-#: ../app/Admin/Screen.php:171
+#: ../app/Admin/Screen.php:175
 msgid "Option was updated."
+msgstr ""
+
+#: ../app/Admin/Screen.php:184
+msgid "Database has been updated."
+msgstr ""
+
+#: ../app/Admin/Screen.php:227
+msgid "Feedback"
 msgstr ""
 
 #: ../app/Admin/Table.php:57
@@ -91,62 +99,75 @@ msgstr ""
 msgid "Updated"
 msgstr ""
 
-#: ../app/Main.php:52
+#: ../app/Main.php:57
 msgid "You have already voted."
 msgstr ""
 
-#: ../app/Main.php:66
+#: ../app/Main.php:70 ../app/Main.php:122
+msgid "Comment"
+msgstr ""
+
+#: ../app/Main.php:71 ../templates/page/setting.php:55
 #, php-format
 msgid "Is this %s useful?"
 msgstr ""
 
-#: ../app/Main.php:67 ../app/Main.php:143
+#: ../app/Main.php:72 ../app/Main.php:148
 #, php-format
 msgid "%1$d of %2$d people say this %3$s is useful."
 msgstr ""
 
-#: ../app/Main.php:68 ../templates/page/setting.php:56
+#: ../app/Main.php:73 ../templates/page/setting.php:56
 msgid "Useful"
 msgstr ""
 
-#: ../app/Main.php:69 ../templates/page/setting.php:57
+#: ../app/Main.php:74 ../templates/page/setting.php:57
 msgid "Useless"
 msgstr ""
 
-#: ../app/Main.php:114
+#: ../app/Main.php:119
 msgid "Sorry, but you have already voted."
 msgstr ""
 
-#: ../app/Main.php:128
+#: ../app/Main.php:133
 msgid "Request is invalid."
 msgstr ""
 
-#: ../app/Main.php:133
+#: ../app/Main.php:138
 msgid "Sorry, failed to save your request. Please try again later."
 msgstr ""
 
-#: ../app/Main.php:141
+#: ../app/Main.php:146
 msgid "Thank you for your feedback."
 msgstr ""
 
-#: ../app/Widget/Popular.php:25
+#: ../app/Widget/Popular.php:24
+msgid "Feedback widget"
+msgstr ""
+
+#: ../app/Widget/Popular.php:26
 msgid "This widget shows most popular post per post type."
 msgstr ""
 
-#: ../app/Widget/Popular.php:59
+#: ../app/Widget/Popular.php:56
 msgid "There is no feedback."
 msgstr ""
 
-#: ../app/Widget/Popular.php:61
+#: ../app/Widget/Popular.php:60
 #, php-format
-msgid "%d sais usefull."
+msgid "%d says useful"
 msgstr ""
 
-#: ../app/Widget/Popular.php:95
+#: ../app/Widget/Popular.php:94
+#, php-format
+msgid "Popular %s"
+msgstr ""
+
+#: ../app/Widget/Popular.php:97
 msgid "Post Type:"
 msgstr ""
 
-#: ../app/Widget/Popular.php:103
+#: ../app/Widget/Popular.php:105
 msgid "Number of posts:"
 msgstr ""
 
@@ -281,26 +302,34 @@ msgstr ""
 msgid "See function detail at <code>%s</code>"
 msgstr ""
 
-#: ../templates/page/advanced.php:59
+#: ../templates/page/advanced.php:60
 msgid "Google Analytics"
 msgstr ""
 
-#: ../templates/page/advanced.php:61
+#: ../templates/page/advanced.php:62
 #, php-format
 msgid ""
 "You can save all data as <a href=\"%s\" target=\"_blank\">event tracking</a> "
 "and analize report chronologically. Data format is like below:"
 msgstr ""
 
-#: ../templates/page/advanced.php:69
+#: ../templates/page/advanced.php:67
+msgid "Name"
+msgstr ""
+
+#: ../templates/page/advanced.php:68
+msgid "Value"
+msgstr ""
+
+#: ../templates/page/advanced.php:82
 msgid "<code>Post ID</code> or <code>comment ID</code>"
 msgstr ""
 
-#: ../templates/page/advanced.php:71
+#: ../templates/page/advanced.php:86
 msgid "Always 1"
 msgstr ""
 
-#: ../templates/page/advanced.php:75
+#: ../templates/page/advanced.php:92
 #, php-format
 msgid ""
 "This feature is premised on <a href=\"%s\">Universal Analytics</a>. If you "
@@ -361,11 +390,6 @@ msgid ""
 "variables(%POSITIVE%, %TOTAL%, %NEGATIVE%, %POST_TYPE%) and <strong>2 link "
 "tags(&lt;a&gt;) must have class name &quot;good&quot; and &quot;bad&quot; "
 "and %LINK% as href attribute</strong>.<br />Default markup is below."
-msgstr ""
-
-#: ../templates/page/setting.php:55
-#, php-format
-msgid "Is this %s usefull?"
 msgstr ""
 
 #: ../templates/page/setting.php:58

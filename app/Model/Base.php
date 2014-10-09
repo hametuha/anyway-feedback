@@ -51,6 +51,67 @@ abstract class Base extends Singleton
 	}
 
 	/**
+	 * Try db and return true on success
+	 *
+	 * @return bool
+	 */
+	public function try_update_db(){
+		// Check if requires Update?
+		if( !$this->require_update() ){
+			return false;
+		}
+		// Is there creation script?
+		if( !($query = $this->create_sql()) ){
+			return false;
+		}
+		// O.K. Let's create table
+		$this->dbDelta($query);
+		// Do something after update.
+		$this->after_update();
+		// Update option
+		update_option($this->key, $this->version);
+		return true;
+	}
+
+	/**
+	 * Detect if innodb is available
+	 *
+	 * @return bool
+	 */
+	protected function have_innodb(){
+		$query = <<<SQL
+			SHOW VARIABLES LIKE 'have_innodb';
+SQL;
+		$row = $this->db->get_row($query);
+		return 'YES' === $row->Value;
+	}
+
+	/**
+	 * Check if specific table is InnoDB
+	 *
+	 * @param string $table
+	 *
+	 * @return bool
+	 */
+	protected function is_innodb($table){
+		$query = <<<SQL
+			SHOW TABLE STATUS
+			WHERE `Name` = %s
+			  AND `Engine` = 'InnoDB';
+SQL;
+		return (bool) $this->db->get_row($this->db->prepare($query, $table));
+	}
+
+	/**
+	 * Executed after table has been updated
+	 *
+	 * For example, index or strage engine.
+	 */
+	protected function after_update(){
+		// Do nothing.
+	}
+
+	/**
 	 * Do dbDelta
 	 *
 	 * @param string $query
@@ -63,6 +124,17 @@ abstract class Base extends Singleton
 		require_once ABSPATH . "wp-admin/includes/upgrade.php";
 		// Do dbDelta!
 		return dbDelta($query);
+	}
+
+	/**
+	 * Creation SQL
+	 *
+	 * If you need create SQL, override this.
+	 *
+	 * @return string
+	 */
+	protected function create_sql(){
+		return '';
 	}
 
 	/**

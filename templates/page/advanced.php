@@ -1,6 +1,6 @@
 <?php
 defined('ABSPATH') or die();
-/** @var AFB\Screen $this */
+/** @var AFB\Admin\Screen $this */
 ?>
 <div id="tabs-4">
 
@@ -44,7 +44,7 @@ defined('ABSPATH') or die();
 	<p class="description">
 		<?php $this->i18n->e("All these template tags above should be wrapped inside if declaration for compatibility. If not, stopping this plugin will break your theme's display."); ?>
 	</p>
-<pre>
+<pre class="afb-code-exam">
 <?php $tag = <<<HTML
 <?php if( function_exists("afb_display") ){ afb_display(); } ?>
 HTML;
@@ -55,30 +55,46 @@ echo esc_html($tag);
 		<?php printf($this->i18n->_('See function detail at <code>%s</code>'), dirname(plugin_dir_path(__FILE__)).DIRECTORY_SEPARATOR."functions.php"); ?>
 	</p>
 
+	<hr />
 
 	<h3><?php $this->i18n->e('Google Analytics') ?></h3>
 
 	<p><?php printf($this->i18n->_('You can save all data as <a href="%s" target="_blank">event tracking</a> and analize report chronologically. Data format is like below:'), 'https://developers.google.com/analytics/devguides/collection/analyticsjs/events') ?></p>
 
-	<dl>
-		<dt>Category</dt>
-		<dd><code>anyway-feedback/post</code> or <code>anyway-feedback/comment</code></dd>
-		<dt>Action</dt>
-		<dd><code>positive</code> or <code>negative</code></dd>
-		<dt>Label</dt>
-		<dd><?php $this->i18n->e('<code>Post ID</code> or <code>comment ID</code>') ?></dd>
-		<dt>Value</dt>
-		<dd><?php $this->i18n->e('Always 1') ?></dd>
-	</dl>
+	<table class="afb-speck">
+		<thead>
+		<tr>
+			<th scope="col"><?php $this->i18n->e('Name'); ?></th>
+			<th scope="col"><?php $this->i18n->e('Value'); ?></th>
+		</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th>Category</th>
+				<td><code>anyway-feedback/post</code> or <code>anyway-feedback/comment</code></td>
+			</tr>
+			<tr>
+				<th>Action</th>
+				<td><code>positive</code> or <code>negative</code></td>
+			</tr>
+			<tr>
+				<th>Label</th>
+				<td><?php $this->i18n->e('<code>Post ID</code> or <code>comment ID</code>') ?></td>
+			</tr>
+			<tr>
+				<th>Value</th>
+				<td><?php $this->i18n->e('Always 1') ?></td>
+			</tr>
+		</tbody>
+	</table>
 
 	<p class="description">
 		<?php printf($this->i18n->_('This feature is premised on <a href="%s">Universal Analytics</a>. If you use other services or ga.js, grab the event and record it by yourself.'), 'https://developers.google.com/analytics/devguides/collection/analyticsjs/'); ?>
 	</p>
 
-<pre>
+<pre class="afb-code-exam">
 <?php
 $script = <<<JS
-
 // For example, record old ga.js event.
 // This is your original jQuery script.
 (function($){

@@ -47,8 +47,9 @@ There are currently 2 ways. 1st is a feedback controller which displays number o
 
 ## Screenshots
 
-1. Statistic summary in admin panel.
-2. Controller looks like this. You can customize it with your own css and markup.
+1. Controller looks like this. You can customize it with your own css and markup.
+2. Super cool statistic summary in admin panel! Yeah!
+3. Simple setting. Documentations are also on admin screen!
 
 ## Changelog
 
@@ -58,7 +59,8 @@ There are currently 2 ways. 1st is a feedback controller which displays number o
 * Quit using session. Vote history will be stored in Cookie.
 * Refine admin screen.
 * Fix some style sheet.
-* Add Google Analytics event tracking. See detail at setting screen.
+* Bug fix. trashed posts will be no longer displayed on widget.
+* **New Feature** Add [Google Analytics event tracking](https://developers.google.com/analytics/devguides/collection/analyticsjs/events). See detail at setting screen.
 
 ### 0.6
 

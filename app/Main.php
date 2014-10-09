@@ -24,6 +24,7 @@ class Main extends Controller
 		// Register Widgets
 		add_action("widgets_init", array($this, "register_widgets"));
 		if( !empty($this->option['post_types']) ){
+
 			// Add script
 			add_action("wp_enqueue_scripts", array($this, "wp_enqueue_scripts"));
 
@@ -34,6 +35,10 @@ class Main extends Controller
 				add_filter("comment_text", array($this, "comment_text"), 10, 2);
 			}
 		}
+		// Delete post hook
+		add_action('after_delete_post', array($this, 'after_delete_post'));
+		// Delete comment hook
+		add_action('deleted_comment', array($this, 'deleted_comment'));
 	}
 
 	/**
@@ -62,7 +67,7 @@ class Main extends Controller
 	 * @return string
 	 */
 	public function get_controller_tag($object_id, $post_type){
-		$post_type_name = ($post_type == "comment") ? $this->i18n->_("Comment") : get_post_type_object($post_type)->labels->name;
+		$post_type_name = ($post_type == "comment") ? $this->i18n->_("Comment") : get_post_type_object($post_type)->labels->singular_name;
 		$message = sprintf($this->i18n->_("Is this %s useful?"), $post_type_name);
 		$status = sprintf($this->i18n->_('%1$d of %2$d people say this %3$s is useful.'), afb_affirmative(false, $object_id, $post_type), afb_total(false, $object_id, $post_type), $post_type_name);
 		$useful = $this->i18n->_("Useful");
@@ -114,7 +119,7 @@ HTML;
 				throw new \Exception($this->i18n->_('Sorry, but you have already voted.'));
 			}
 
-			$post_type_name = 'comment' === $post_type ? $this->i18n->_('Comment') : get_post_type_object($post_type)->labels->name;
+			$post_type_name = 'comment' === $post_type ? $this->i18n->_('Comment') : get_post_type_object($post_type)->labels->singular_name;
 
 			// Feedback request is valid.
 			switch( $this->input->post("class_name") ){
@@ -234,6 +239,23 @@ HTML;
 		return 'afb_'.( 'comment' == $post_type ? 'comment' : 'post' );
 	}
 
+	/**
+	 * Delete post
+	 *
+	 * @param int $post_id
+	 */
+	public function after_delete_post($post_id){
+		$this->feedbacks->delete_post($post_id);
+	}
+
+	/**
+	 * Delete comment
+	 *
+	 * @param int $comment_id
+	 */
+	public function deleted_comment($comment_id){
+		$this->feedbacks->delete($comment_id, 'comment');
+	}
 
 	/**
 	 * register widgets

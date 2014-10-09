@@ -160,6 +160,7 @@ class Screen extends Controller
 			if( !session_id() ){
 				session_start();
 			}
+
 			// Check nonce and process form.
 			if( $this->input->check_nonce('afb_option', '_afb_nonce') ){
 				$new_option = array(
@@ -170,12 +171,21 @@ class Screen extends Controller
 					'ga' => intval((bool)$this->input->post('afb_ga')),
 				);
 				update_option('afb_setting', $new_option);
-
 				// Add message
 				$_SESSION[$this->session_key] = $this->i18n->_('Option was updated.');
 				// Redirect
 				wp_safe_redirect($this->setting_url());
 				exit;
+			}
+
+			// If current user is admin, check table and try update
+			if( current_user_can('update_plugins') ){
+				if( $this->feedbacks->try_update_db() ){
+					$message = $this->i18n->_('Database has been updated.');
+					add_action('admin_notices', function() use ($message){
+						printf('<div class="updated"><p>%s</p></div>', esc_html($message));
+					});
+				}
 			}
 		}else{
 			add_action('wp_ajax_afb_chart', array($this, 'ajax'));
@@ -219,7 +229,7 @@ class Screen extends Controller
 	}
 
 	/**
-	 * Show columun.
+	 * Show column.
 	 *
 	 * @param string $column
 	 * @param int $comment_id

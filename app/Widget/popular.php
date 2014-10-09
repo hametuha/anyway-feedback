@@ -54,12 +54,12 @@ class Popular extends \WP_Widget
                   <ul>
                   	<?php if( empty($posts) ): ?>
                   		<li class="empty"><?php $this->i18n->e("There is no feedback."); ?></li>
-                  	<?php else: foreach($posts as $post): setup_postdata($post) ?>
+                  	<?php else: foreach($posts as $post): ?>
                   		<li>
-		                    <a href="<?php the_permalink(); ?>"><?php the_title() ?></a>
-		                    <span class="count">(<?php printf($this->i18n->_("%d sais usefull."), $post->positive); ?>)</span>
+		                    <a href="<?php echo get_permalink($post); ?>"><?php echo get_the_title($post) ?></a>
+		                    <span class="count">(<?php printf($this->i18n->_("%d says useful"), $post->positive); ?>)</span>
 	                    </li>
-                  	<?php endforeach; wp_reset_postdata(); endif; ?>
+                  	<?php endforeach;  endif; ?>
                   </ul>
               <?php echo $args['after_widget']; ?>
         <?php
