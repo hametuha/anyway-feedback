@@ -53,7 +53,7 @@ class Screen extends Controller
 				$page .= '?post_type='.$post_type;
 			}
 			$object = get_post_type_object($post_type);
-			add_submenu_page($page, sprintf($this->i18n->_('Feedback Statistic of %s'), $object->labels->name), $this->i18n->_('Feedback Statistic'), 'edit_post', 'anyway-feedback-static-'.$post_type, array($this, 'render_static'));
+			add_submenu_page($page, sprintf($this->i18n->_('Feedback Statistic of %s'), $object->labels->name), $this->i18n->_('Feedback Statistic'), 'edit_posts', 'anyway-feedback-static-'.$post_type, array($this, 'render_static'));
 		}
 	}
 
