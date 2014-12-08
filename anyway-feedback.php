@@ -3,7 +3,7 @@
 Plugin Name: Anyway Feedback
 Plugin URI: http://wordpress.org/extend/plugins/anyway-feedback/
 Description: Help to assemble simple feedback(negative or positive) and get statics of them.
-Version: 1.0
+Version: 1.0.1
 Author: Takahashi_Fumiki
 Author URI: http://takahashifumiki.com
 Text Domain: anyway-feedback

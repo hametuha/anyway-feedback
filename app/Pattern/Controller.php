@@ -47,7 +47,7 @@ abstract class Controller extends Singleton
 	 * @return bool
 	 */
 	public function is_allowed($post_type){
-		return false !== array_search($post_type, $this->option['post_type']);
+		return false !== array_search($post_type, $this->option['post_types']);
 	}
 
 	/**

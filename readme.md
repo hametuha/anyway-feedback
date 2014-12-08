@@ -3,7 +3,7 @@ Contributors: Takahashi_Fumiki
 Tags: feedback, analytics  
 Requires at least: 3.8  
 Tested up to: 4.1-alpha  
-Stable tag: 1.0  
+Stable tag: 1.0.1  
 
 This plugin enable users to send feedback with single click. This may support you to analyze your user's opinion. Works like Facebook's help center.
 
@@ -52,6 +52,11 @@ There are currently 2 ways. 1st is a feedback controller which displays number o
 3. Simple setting. Documentations are also on admin screen!
 
 ## Changelog
+
+### 1.0.1
+
+* Fixed filename bug. Sorry for that.
+* Stop warning error.
 
 ### 1.0
 
