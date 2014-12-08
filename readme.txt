@@ -1,11 +1,11 @@
 === Anyway Feedback ===
 Contributors: Takahashi_Fumiki  
-Tags: feedback, analytic  
+Tags: feedback, analytics  
 Requires at least: 3.8  
 Tested up to: 4.1-alpha  
 Stable tag: 1.0  
 
-This plugin enable users to send feedback with single click. This may support you to analyze your user's opinion.
+This plugin enable users to send feedback with single click. This may support you to analyze your user's opinion. Works like Facebook's help center.
 
 == Description ==
 
@@ -16,6 +16,8 @@ What you get is amount of positive feed backs and negative ones per post types. 
 Sidebar also supported. You can display sidebar which includes the most popular posts per post type.
 
 If you have some request, feel free to contact me. For experienced developper, I'm waiting  for pull requests on github.com.
+
+**NOTICE** Requires PHP 5.3 and over.
 
 == Installation ==
 
@@ -45,17 +47,20 @@ There are currently 2 ways. 1st is a feedback controller which displays number o
 
 == Screenshots ==
 
-1. Statistic summary in admin panel.
-2. Controller looks like this. You can customize it with your own css and markup.
+1. Controller looks like this. You can customize it with your own css and markup.
+2. Super cool statistic summary in admin panel! Yeah!
+3. Simple setting. Documentations are also on admin screen!
 
 == Changelog ==
 
 = 1.0 =
 
-* Quit using session. Vote history will be stored in Coolkie.
+* Requires PHP 5.3 and over. Name space is so cool! Template tags have backward compatibility.
+* Quit using session. Vote history will be stored in Cookie.
 * Refine admin screen.
 * Fix some style sheet.
-* Add Google Analytics event tracking. See detail at setting screen.
+* Bug fix. trashed posts will be no longer displayed on widget.
+* **New Feature** Add [Google Analytics event tracking](https://developers.google.com/analytics/devguides/collection/analyticsjs/events). See detail at setting screen.
 
 = 0.6 =
 
