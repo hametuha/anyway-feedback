@@ -170,7 +170,7 @@ HTML;
 	 * @return string
 	 */
 	function the_content($content){
-		if( false !== array_search(get_post_type(), $this->option["post_types"]) ){
+		if( false !== array_search(get_post_type(), $this->option["post_types"]) && false === array_search(get_post_type(), $this->option["hide_default_controller"]) ){
 			$content .= $this->get_controller_tag(get_the_ID(), get_post_type());
 		}
 		return $content;

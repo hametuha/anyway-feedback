@@ -166,6 +166,7 @@ class Screen extends Controller
 				$new_option = array(
 					"style" => intval((bool)$this->input->post('afb_style')),
 					"post_types" => (array)$this->input->post('afb_post_types'),
+					"hide_default_controller" => (array)$this->input->post('afb_hide_default_controller'),
 					"comment" => intval((bool)$this->input->post('afb_comment')),
 					"controller" => (string)$this->input->post('afb_text'),
 					'ga' => intval((bool)$this->input->post('afb_ga')),
