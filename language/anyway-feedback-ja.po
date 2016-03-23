@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Anyway Feedback 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-09 16:55+0900\n"
-"PO-Revision-Date: 2014-10-09 16:55+0900\n"
-"Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
+"POT-Creation-Date: 2016-03-23 14:40+0900\n"
+"PO-Revision-Date: 2016-03-23 15:12+0900\n"
+"Last-Translator: Minori Miyauchi <miyauchi@ubiregi.com>\n"
 "Language-Team: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.8.7\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
@@ -74,15 +74,15 @@ msgstr "否定的な意見"
 msgid "No data"
 msgstr "データがありません"
 
-#: ../app/Admin/Screen.php:175
+#: ../app/Admin/Screen.php:176
 msgid "Option was updated."
 msgstr "オプションが更新されました。"
 
-#: ../app/Admin/Screen.php:184
+#: ../app/Admin/Screen.php:185
 msgid "Database has been updated."
 msgstr "データベースが更新されました。"
 
-#: ../app/Admin/Screen.php:227
+#: ../app/Admin/Screen.php:228
 msgid "Feedback"
 msgstr "フィードバック"
 
@@ -114,7 +114,7 @@ msgstr "すでに投票済みです。"
 msgid "Comment"
 msgstr "コメント"
 
-#: ../app/Main.php:71 ../templates/page/setting.php:55
+#: ../app/Main.php:71 ../templates/page/setting.php:68
 #, php-format
 msgid "Is this %s useful?"
 msgstr "この%sは役に立ちましたか？"
@@ -124,11 +124,11 @@ msgstr "この%sは役に立ちましたか？"
 msgid "%1$d of %2$d people say this %3$s is useful."
 msgstr "%2$d 人中 %1$d 人がこの %3$s は役に立ったと言っています。"
 
-#: ../app/Main.php:73 ../templates/page/setting.php:56
+#: ../app/Main.php:73 ../templates/page/setting.php:69
 msgid "Useful"
 msgstr "役に立った"
 
-#: ../app/Main.php:74 ../templates/page/setting.php:57
+#: ../app/Main.php:74 ../templates/page/setting.php:70
 msgid "Useless"
 msgstr "役に立たなかった"
 
@@ -392,7 +392,7 @@ msgstr ""
 "&quot;スタイルなし&quot;を選んだ場合、ご自分でスタイリングを行う必要がありま"
 "す。スキンのマークアップは<strong>%s</strong>セクションで変更できます。"
 
-#: ../templates/page/setting.php:17 ../templates/page/setting.php:47
+#: ../templates/page/setting.php:17 ../templates/page/setting.php:60
 msgid "Custom markup"
 msgstr "カスタムマークアップ"
 
@@ -406,24 +406,33 @@ msgstr ""
 "チェックされた投稿タイプは投稿内にフィードバック用コントローラーを含みます。"
 
 #: ../templates/page/setting.php:35
+msgid "Hide default feedback controller"
+msgstr "コントローラーを非表示"
+
+#: ../templates/page/setting.php:43
+msgid "Checked post type if you need to hide default feedback controller."
+msgstr ""
+"チェックされた投稿タイプのフィードバック用コントローラーを非表示にします。"
+
+#: ../templates/page/setting.php:48
 msgid "Comment setting"
 msgstr "コメント設定"
 
-#: ../templates/page/setting.php:38
+#: ../templates/page/setting.php:51
 msgid "Not show"
 msgstr "表示しない"
 
-#: ../templates/page/setting.php:39
+#: ../templates/page/setting.php:52
 msgid "Show in comment loop"
 msgstr "コメントループ内での表示"
 
-#: ../templates/page/setting.php:42
+#: ../templates/page/setting.php:55
 msgid "This option decide to display feedback controller in comment loop."
 msgstr ""
 "このオプションはフィードバック用コントローラーをコメントループの中に出力する"
 "かどうかを決定します。"
 
-#: ../templates/page/setting.php:51
+#: ../templates/page/setting.php:64
 msgid ""
 "You can customize markup of Feedback controller.<br />If you don't want, "
 "leave it blank.<br />In case of customization, You can use "
@@ -438,24 +447,24 @@ msgstr ""
 "bad&quot;というクラス名を持ち、href属性が%LINK%である必要があります</"
 "strong>。<br />デフォルトのマークアップは下記になります。"
 
-#: ../templates/page/setting.php:58
+#: ../templates/page/setting.php:71
 #, php-format
 msgid "%1$s of %2$s people say this %3$s is useful."
 msgstr "%2$s人中%1$s人がこの%3$sは役に立ったと言っています。"
 
-#: ../templates/page/setting.php:71
+#: ../templates/page/setting.php:84
 msgid "Google Analytics Tracking"
 msgstr "Google Analytics トラッキング"
 
-#: ../templates/page/setting.php:73
+#: ../templates/page/setting.php:86
 msgid "Track"
 msgstr "トラックする"
 
-#: ../templates/page/setting.php:74
+#: ../templates/page/setting.php:87
 msgid "Do not track"
 msgstr "トラックしない"
 
-#: ../templates/page/setting.php:77
+#: ../templates/page/setting.php:90
 #, php-format
 msgid ""
 "This feature send report as event tracking to Google Analytics. You can get "
@@ -466,7 +475,7 @@ msgstr ""
 "り、時系列のデータを取得できます。詳細は<a href=\"%s\">詳しい使い方</a>をご覧"
 "下さい。"
 
-#: ../templates/page/setting.php:83
+#: ../templates/page/setting.php:96
 msgid "Update"
 msgstr "更新"
 
