@@ -79,6 +79,7 @@ abstract class Controller extends Singleton
 				$default = array(
 					"style" => 0,
 					"post_types" => array(),
+					"hide_default_controller" => array(),
 					"comment" => 0,
 					"controller" => '',
 					'ga' => false,

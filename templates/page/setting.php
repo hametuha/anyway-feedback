@@ -32,6 +32,19 @@ defined('ABSPATH') or die();
 			</td>
 		</tr>
 		<tr>
+			<th><?php $this->i18n->e("Hide default feedback controller"); ?></th>
+			<td>
+				<p>
+					<?php foreach(get_post_types() as $post_type ): $object = get_post_type_object($post_type); if( false === array_search($post_type, array("revision", "nav_menu_item"))): ?>
+						<label><input type="checkbox" name="afb_hide_default_controller[]" value="<?php echo $post_type?>" <?php checked( false !== array_search($post_type, $this->option["hide_default_controller"])) ?>/><?php echo esc_html($object->labels->name) ?></label>
+					<?php endif; endforeach; ?>
+				</p>
+				<p class="description">
+					<?php $this->i18n->e("Checked post type if you need to hide default feedback controller."); ?>
+				</p>
+			</td>
+		</tr>
+		<tr>
 			<th><?php $this->i18n->e("Comment setting"); ?></th>
 			<td>
 				<p>
