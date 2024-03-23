@@ -1,7 +1,7 @@
 <?php
 
 namespace AFB\Admin;
-use AFB\Helper\i18n;
+use AFB\Helper\I18n;
 use AFB\Helper\Input;
 use AFB\Model\FeedBacks;
 
@@ -9,12 +9,12 @@ use AFB\Model\FeedBacks;
  * Static Table
  *
  * @package AFB\Admin
- * @property-read i18n $i18n
+ * @property-read I18n $i18n
  * @property-read Input $input
  * @property-read FeedBacks $feedbacks
  */
-class Table extends \WP_List_Table
-{
+class Table extends \WP_List_Table {
+
 
 	/**
 	 * Post Type object
@@ -36,14 +36,14 @@ class Table extends \WP_List_Table
 	 *
 	 * @param array $args
 	 */
-	public function __construct( $args = array() ){
+	public function __construct( $args = array() ) {
 
-		$this->post_type = get_post_type_object($args['post_type']);
+		$this->post_type = get_post_type_object( $args['post_type'] );
 
 		parent::__construct( array(
-			'singular'  => $this->post_type->name,
-			'plural'    => $this->post_type->name,
-			'ajax'      => false
+			'singular' => $this->post_type->name,
+			'plural'   => $this->post_type->name,
+			'ajax'     => false,
 		) );
 	}
 
@@ -52,14 +52,14 @@ class Table extends \WP_List_Table
 	 *
 	 * @return array
 	 */
-	public function get_columns(){
+	public function get_columns() {
 		$columns = array(
-			'title'     => $this->i18n->_('Title'),
-			'positive'    => $this->i18n->_('Good'),
-			'ratio'       => '&nbsp;',
-			'negative'    => $this->i18n->_('Bad'),
-			'published'    => $this->i18n->_('Published'),
-			'updated'    => $this->i18n->_('Updated'),
+			'title'     => $this->i18n->_( 'Title' ),
+			'positive'  => $this->i18n->_( 'Good' ),
+			'ratio'     => '&nbsp;',
+			'negative'  => $this->i18n->_( 'Bad' ),
+			'published' => $this->i18n->_( 'Published' ),
+			'updated'   => $this->i18n->_( 'Updated' ),
 		);
 		return $columns;
 	}
@@ -69,13 +69,13 @@ class Table extends \WP_List_Table
 	 *
 	 * @return array
 	 */
-	public function get_sortable_columns(){
+	public function get_sortable_columns() {
 		$columns = array(
-			'title'     => array('title',false),
-			'positive'  => array('positive',false),
-			'negative'  => array('negative',false),
-			'published' => array('published',false),
-			'updated'   => array('updated',false),
+			'title'     => array( 'title', false ),
+			'positive'  => array( 'positive', false ),
+			'negative'  => array( 'negative', false ),
+			'published' => array( 'published', false ),
+			'updated'   => array( 'updated', false ),
 		);
 		return $columns;
 	}
@@ -83,7 +83,7 @@ class Table extends \WP_List_Table
 	/**
 	 * Prepare items
 	 */
-	public function prepare_items(){
+	public function prepare_items() {
 		// Set header
 		$this->_column_headers = array(
 			$this->get_columns(),
@@ -93,13 +93,13 @@ class Table extends \WP_List_Table
 
 		$args = array(
 			'post_type' => $this->post_type->name,
-			'order' => strtoupper($this->input->get('order')),
-			'orderby' => $this->input->get('orderby'),
-			's' => $this->input->get('s'),
+			'order'     => strtoupper( $this->input->get( 'order' ) ),
+			'orderby'   => $this->input->get( 'orderby' ),
+			's'         => $this->input->get( 's' ),
 		);
 
 		// Get data
-		$this->items = $this->feedbacks->search($args, $this->input->get('paged'));
+		$this->items = $this->feedbacks->search( $args, $this->input->get( 'paged' ) );
 
 		// Total count
 		$total_items = $this->feedbacks->total();
@@ -108,7 +108,7 @@ class Table extends \WP_List_Table
 		$this->set_pagination_args( array(
 			'total_items' => $total_items,                  //WE have to calculate the total number of items
 			'per_page'    => $this->per_page,                     //WE have to determine how many items to show on a page
-			'total_pages' => ceil($total_items / $this->per_page)   //WE have to calculate the total number of pages
+			'total_pages' => ceil( $total_items / $this->per_page ),   //WE have to calculate the total number of pages
 		) );
 	}
 
@@ -120,61 +120,61 @@ class Table extends \WP_List_Table
 	 *
 	 * @return bool|int|mixed|string|void
 	 */
-	public function column_default($item, $column_name){
-		switch($column_name){
+	public function column_default( $item, $column_name ) {
+		switch ( $column_name ) {
 			case 'positive':
 			case 'negative':
-				return number_format($item->{$column_name});
+				return number_format( $item->{$column_name} );
 			case 'title':
-				$title = esc_html($item->post_title).' - ';
-				switch( $item->post_status ){
+				$title = esc_html( $item->post_title ) . ' - ';
+				switch ( $item->post_status ) {
 					case 'publish':
-						$title .= sprintf('<strong>%s</strong>', __('Published'));
+						$title .= sprintf( '<strong>%s</strong>', __( 'Published' ) );
 						break;
 					case 'future':
-						$title .= sprintf('<small>%s</small>', __('Future'));
+						$title .= sprintf( '<small>%s</small>', __( 'Future' ) );
 						break;
 					case 'draft':
-						$title .= sprintf('<small>%s</small>', __('Draft'));
+						$title .= sprintf( '<small>%s</small>', __( 'Draft' ) );
 						break;
 					case 'trash':
-						$title .= sprintf('<small>%s</small>', __('Trash'));
+						$title .= sprintf( '<small>%s</small>', __( 'Trash' ) );
 						break;
 					case 'private':
-						$title .= sprintf('<small>%s</small>', __(':Private'));
+						$title .= sprintf( '<small>%s</small>', __( ':Private' ) );
 						break;
 				}
 				$actions = array(
-					'view' => sprintf('<a href="%s">%s</a>', get_permalink($item->ID), __('View')),
+					'view' => sprintf( '<a href="%s">%s</a>', get_permalink( $item->ID ), __( 'View' ) ),
 				);
-				if( current_user_can('edit_post', $item->ID) ){
-					$actions['edit'] = sprintf('<a href="%s">%s</a>', get_edit_post_link($item->ID), __('Edit'));
+				if ( current_user_can( 'edit_post', $item->ID ) ) {
+					$actions['edit'] = sprintf( '<a href="%s">%s</a>', get_edit_post_link( $item->ID ), __( 'Edit' ) );
 				}
-				$title .= $this->row_actions($actions, false);
+				$title .= $this->row_actions( $actions, false );
 				return $title;
 				break;
 			case 'published':
-				$date = mysql2date(get_option('date_format'), $item->post_date);
+				$date = mysql2date( get_option( 'date_format' ), $item->post_date );
 				return $date;
 				break;
 			case 'updated':
-				if( $item->updated ){
-					return mysql2date(get_option('date_format'), $item->updated);
-				}else{
+				if ( $item->updated ) {
+					return mysql2date( get_option( 'date_format' ), $item->updated );
+				} else {
 					return '---';
 				}
 				break;
 			case 'ratio':
 				$total = $item->positive + $item->negative;
-				if( $total ){
-					$positive = floor($item->positive / $total * 100);
-					return sprintf('<div class="chart-ratio"><div style="width: %d%%"></div></div>', $positive);
-				}else{
+				if ( $total ) {
+					$positive = floor( $item->positive / $total * 100 );
+					return sprintf( '<div class="chart-ratio"><div style="width: %d%%"></div></div>', $positive );
+				} else {
 					return '<div class="chart-ratio empty"></div>';
 				}
 				break;
 			default:
-				return print_r($item, true); //Show the whole array for troubleshooting purposes
+				return print_r( $item, true ); //Show the whole array for troubleshooting purposes
 		}
 	}
 
@@ -195,19 +195,19 @@ class Table extends \WP_List_Table
 	 *
 	 * @return mixed
 	 */
-	public function __get($name){
-		switch( $name ){
+	public function __get( $name ) {
+		switch ( $name ) {
 			case 'feedbacks':
 				return FeedBacks::get_instance();
 				break;
 			case 'i18n':
-				return i18n::get_instance();
+				return I18n::get_instance();
 				break;
 			case 'input':
 				return Input::get_instance();
 				break;
 			default:
-				return parent::__get($name);
+				return parent::__get( $name );
 				break;
 		}
 	}

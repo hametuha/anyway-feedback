@@ -11,8 +11,8 @@ use AFB\Pattern\Singleton;
  *
  * @package AFB\Helper
  */
-class Input extends Singleton
-{
+class Input extends Singleton {
+
 	/**
 	 * Constructor
 	 *
@@ -29,8 +29,8 @@ class Input extends Singleton
 	 *
 	 * @return mixed
 	 */
-	public function get($key){
-		return isset($_GET[$key]) ? $_GET[$key] : null;
+	public function get( $key ) {
+		return isset( $_GET[ $key ] ) ? $_GET[ $key ] : null;
 	}
 
 	/**
@@ -40,8 +40,8 @@ class Input extends Singleton
 	 *
 	 * @return mixed
 	 */
-	public function post($key){
-		return isset($_POST[$key]) ? $_POST[$key] : null;
+	public function post( $key ) {
+		return isset( $_POST[ $key ] ) ? $_POST[ $key ] : null;
 	}
 
 	/**
@@ -51,8 +51,8 @@ class Input extends Singleton
 	 *
 	 * @return mixed
 	 */
-	public function request($key){
-		return isset($_REQUEST[$key]) ? $_REQUEST[$key] : null;
+	public function request( $key ) {
+		return isset( $_REQUEST[ $key ] ) ? $_REQUEST[ $key ] : null;
 	}
 
 	/**
@@ -63,8 +63,8 @@ class Input extends Singleton
 	 *
 	 * @return bool
 	 */
-	public function check_nonce($action, $key = '_wpnonce'){
-		return wp_verify_nonce($this->request($key), $action);
+	public function check_nonce( $action, $key = '_wpnonce' ) {
+		return wp_verify_nonce( $this->request( $key ), $action );
 	}
 
-} 
+}

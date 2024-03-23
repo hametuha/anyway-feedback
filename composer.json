@@ -1,0 +1,40 @@
+{
+	"name": "tarosky/taro-series",
+	"description": "WordPress plugin for series content.",
+	"minimum-stability": "stable",
+	"license": "GPL-3.0-or-later",
+	"scripts": {
+		"lint": [
+			"phpcs --standard=phpcs.ruleset.xml $(find ./ -name '*.php')"
+		],
+		"fix": [
+			"phpcbf --standard=phpcs.ruleset.xml $(find ./ -name '*.php')"
+		]
+	},
+	"authors": [
+		{
+			"name": "Hametuha INC",
+			"email": "info@hametuha.co.jp"
+		}
+	],
+	"require": {
+		"php": ">=7.2"
+	},
+	"require-dev": {
+		"squizlabs/php_codesniffer": "^3.0",
+		"wp-coding-standards/wpcs": "^2.0",
+		"phpcompatibility/php-compatibility": "^9.3",
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+
+	},
+	"autoload": {
+		"psr-4": {
+			"AFB\\": "app"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	}
+}
