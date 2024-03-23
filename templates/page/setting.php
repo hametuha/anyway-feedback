@@ -7,19 +7,19 @@ defined( 'ABSPATH' ) or die();
 	<table class="form-table">
 		<tbody>
 		<tr>
-			<th><?php $this->i18n->e( 'Styling' ); ?></th>
+			<th><?php _e( 'Styling', 'anyway-feedback' ); ?></th>
 			<td>
 				<p>
-					<label><input type="radio" name="afb_style" value="0" <?php checked( $this->option['style'], 0 ); ?>/><?php $this->i18n->e( 'No style' ); ?></label>
-					<label><input type="radio" name="afb_style" value="1" <?php checked( $this->option['style'], 1 ); ?>/><?php $this->i18n->e( 'Auto load' ); ?></label>
+					<label><input type="radio" name="afb_style" value="0" <?php checked( $this->option['style'], 0 ); ?>/><?php _e( 'No style', 'anyway-feedback' ); ?></label>
+					<label><input type="radio" name="afb_style" value="1" <?php checked( $this->option['style'], 1 ); ?>/><?php _e( 'Auto load', 'anyway-feedback' ); ?></label>
 				</p>
 				<p class="description">
-					<?php printf( $this->i18n->_( 'If you select &quot;No style&quot;, you need stylize skin. Skin s mark up can be specified at <strong>%s</strong> section' ), $this->i18n->_( 'Custom markup' ) ); ?>
+					<?php printf( __( 'If you select &quot;No style&quot;, you need stylize skin. Skin s mark up can be specified at <strong>%s</strong> section', 'anyway-feedback' ), __( 'Custom markup', 'anyway-feedback' ) ); ?>
 				</p>
 			</td>
 		</tr>
 		<tr>
-			<th><?php $this->i18n->e( 'Post type setting' ); ?></th>
+			<th><?php _e( 'Post type setting', 'anyway-feedback' ); ?></th>
 			<td>
 				<p>
 					<?php
@@ -33,12 +33,12 @@ endforeach;
 					?>
 				</p>
 				<p class="description">
-					<?php $this->i18n->e( 'Checked post type will have feedback controller inside post content' ); ?>
+					<?php _e( 'Checked post type will have feedback controller inside post content', 'anyway-feedback' ); ?>
 				</p>
 			</td>
 		</tr>
 		<tr>
-			<th><?php $this->i18n->e( 'Hide default feedback controller' ); ?></th>
+			<th><?php _e( 'Hide default feedback controller', 'anyway-feedback' ); ?></th>
 			<td>
 				<p>
 					<?php
@@ -52,35 +52,35 @@ endforeach;
 					?>
 				</p>
 				<p class="description">
-					<?php $this->i18n->e( 'Checked post type if you need to hide default feedback controller.' ); ?>
+					<?php _e( 'Checked post type if you need to hide default feedback controller.', 'anyway-feedback' ); ?>
 				</p>
 			</td>
 		</tr>
 		<tr>
-			<th><?php $this->i18n->e( 'Comment setting' ); ?></th>
+			<th><?php _e( 'Comment setting', 'anyway-feedback' ); ?></th>
 			<td>
 				<p>
-					<label><input type="radio" name="afb_comment" value="0" <?php checked( $this->option['comment'], 0 ); ?>/><?php $this->i18n->e( 'Not show' ); ?></label><br />
-					<label><input type="radio" name="afb_comment" value="1" <?php checked( $this->option['comment'], 1 ); ?>/><?php $this->i18n->e( 'Show in comment loop' ); ?></label>
+					<label><input type="radio" name="afb_comment" value="0" <?php checked( $this->option['comment'], 0 ); ?>/><?php _e( 'Not show', 'anyway-feedback' ); ?></label><br />
+					<label><input type="radio" name="afb_comment" value="1" <?php checked( $this->option['comment'], 1 ); ?>/><?php _e( 'Show in comment loop', 'anyway-feedback' ); ?></label>
 				</p>
 				<p class="description">
-					<?php $this->i18n->e( 'This option decide to display feedback controller in comment loop.' ); ?>
+					<?php _e( 'This option decide to display feedback controller in comment loop.', 'anyway-feedback' ); ?>
 				</p>
 			</td>
 		</tr>
 		<tr>
-			<th><label for="afb_text"><?php $this->i18n->e( 'Custom markup' ); ?></label></th>
+			<th><label for="afb_text"><?php _e( 'Custom markup', 'anyway-feedback' ); ?></label></th>
 			<td>
 				<textarea id="afb_text" name="afb_text" rows="8"><?php echo esc_textarea( stripcslashes( $this->option['controller'] ) ); ?></textarea>
 				<p class="description">
-					<?php $this->i18n->e( "You can customize markup of Feedback controller.<br />If you don't want, leave it blank.<br />In case of customization, You can use variables(%POSITIVE%, %TOTAL%, %NEGATIVE%, %POST_TYPE%) and <strong>2 link tags(&lt;a&gt;) must have class name &quot;good&quot; and &quot;bad&quot; and %LINK% as href attribute</strong>.<br />Default markup is below." ); ?>
+					<?php _e( "You can customize markup of Feedback controller.<br />If you don't want, leave it blank.<br />In case of customization, You can use variables(%POSITIVE%, %TOTAL%, %NEGATIVE%, %POST_TYPE%, 'anyway-feedback' ) and <strong>2 link tags(&lt;a&gt;) must have class name &quot;good&quot; and &quot;bad&quot; and %LINK% as href attribute</strong>.<br />Default markup is below." ); ?>
 				</p>
 <pre class="afb-code-exam">
 <?php
-$message = esc_html( sprintf( $this->i18n->_( 'Is this %s useful?' ), '%POST_TYPE%' ) );
-$useful  = esc_html( $this->i18n->_( 'Useful' ) );
-$useless = esc_html( $this->i18n->_( 'Useless' ) );
-$status  = esc_html( sprintf( $this->i18n->_( '%1$s of %2$s people say this %3$s is useful.' ), '%POSITIVE%', '%TOTAL%', '%POST_TYPE%' ) );
+$message = esc_html( sprintf( __( 'Is this %s useful?', 'anyway-feedback' ), '%POST_TYPE%' ) );
+$useful  = esc_html( __( 'Useful', 'anyway-feedback' ) );
+$useless = esc_html( __( 'Useless', 'anyway-feedback' ) );
+$status  = esc_html( sprintf( __( '%1$s of %2$s people say this %3$s is useful.', 'anyway-feedback' ), '%POSITIVE%', '%TOTAL%', '%POST_TYPE%' ) );
 $markup  = <<<HTML
 <span class="message">{$message}</span>
 <a class="good" href="%LINK%">{$useful}</a>
@@ -93,17 +93,17 @@ echo esc_html( $markup )
 			</td>
 		</tr>
 		<tr>
-			<th><?php $this->i18n->e( 'Google Analytics Tracking' ); ?></th>
+			<th><?php _e( 'Google Analytics Tracking', 'anyway-feedback' ); ?></th>
 			<td>
-				<label><input type="radio" name="afb_ga" value="1" <?php checked( $this->option['ga'], 1 ); ?>/><?php $this->i18n->e( 'Track' ); ?></label>
-				<label><input type="radio" name="afb_ga" value="0" <?php checked( $this->option['ga'], 0 ); ?>/><?php $this->i18n->e( 'Do not track' ); ?></label>
+				<label><input type="radio" name="afb_ga" value="1" <?php checked( $this->option['ga'], 1 ); ?>/><?php _e( 'Track', 'anyway-feedback' ); ?></label>
+				<label><input type="radio" name="afb_ga" value="0" <?php checked( $this->option['ga'], 0 ); ?>/><?php _e( 'Do not track', 'anyway-feedback' ); ?></label>
 				<p class="description">
 					<span class="label">Since 1.0</span>
-					<?php printf( $this->i18n->_( 'This feature send report as event tracking to Google Analytics. You can get chronological report there. For detail, see <a href="%s">advanced usage</a>. ' ), $this->setting_url( 'advanced' ) ); ?>
+					<?php printf( __( 'This feature send report as event tracking to Google Analytics. You can get chronological report there. For detail, see <a href="%s">advanced usage</a>. ', 'anyway-feedback' ), $this->setting_url( 'advanced' ) ); ?>
 				</p>
 			</td>
 		</tr>
 		</tbody>
 	</table>
-	<?php submit_button( $this->i18n->_( 'Update' ) ); ?>
+	<?php submit_button( __( 'Update', 'anyway-feedback' ) ); ?>
 </form>

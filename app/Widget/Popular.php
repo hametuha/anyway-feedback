@@ -1,14 +1,12 @@
 <?php
 
 namespace AFB\Widget;
-use AFB\Helper\I18n;
 use AFB\Model\FeedBacks;
 
 /**
  * Widget for Popular post
  *
  * @package Anyway Feedback
- * @property-read I18n $i18n
  * @property-read FeedBacks $feedbacks
  */
 class Popular extends \WP_Widget {
@@ -21,9 +19,9 @@ class Popular extends \WP_Widget {
 	public function __construct() {
 		parent::__construct(
 			'anyway-feedback-popular-widgets',
-			$this->i18n->_( 'Feedback widget' ),
+			__( 'Feedback widget', 'anyway-feedback' ),
 			array(
-				'description' => $this->i18n->_( 'This widget shows most popular post per post type.' ),
+				'description' => __( 'This widget shows most popular post per post type.', 'anyway-feedback' ),
 				'classname'   => 'anyway-feedback-popular-widget',
 			)
 		);
@@ -55,14 +53,14 @@ class Popular extends \WP_Widget {
 					<?php
 					if ( empty( $posts ) ) :
 						?>
-							<li class="empty"><?php $this->i18n->e( 'There is no feedback.' ); ?></li>
+							<li class="empty"><?php _e( 'There is no feedback.', 'anyway-feedback' ); ?></li>
 						<?php
 					else :
 						foreach ( $posts as $post ) :
 							?>
 							<li>
 								<a href="<?php echo get_permalink( $post ); ?>"><?php echo get_the_title( $post ); ?></a>
-								<span class="count">(<?php printf( $this->i18n->_( '%d says useful' ), $post->positive ); ?>)</span>
+								<span class="count">(<?php printf( __( '%d says useful', 'anyway-feedback' ), $post->positive ); ?>)</span>
 							</li>
 							<?php
 						endforeach;
@@ -99,10 +97,10 @@ class Popular extends \WP_Widget {
 			<p>
 				<label for="<?php echo $this->get_field_id( 'title' ); ?>">
 					<?php _e( 'Title:' ); ?>
-					<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( isset( $instance['title'] ) ? $instance['title'] : sprintf( $this->i18n->_( 'Popular %s' ), get_post_type_object( $current_post_type )->labels->name ) ); ?>" />
+					<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( isset( $instance['title'] ) ? $instance['title'] : sprintf( __( 'Popular %s', 'anyway-feedback' ), get_post_type_object( $current_post_type )->labels->name ) ); ?>" />
 				</label>
 				<label for="<?php echo $this->get_field_id( 'post_type' ); ?>">
-					<?php $this->i18n->e( 'Post Type:' ); ?> <br />
+					<?php _e( 'Post Type:', 'anyway-feedback' ); ?> <br />
 					<select id="<?php echo $this->get_field_id( 'post_type' ); ?>" name="<?php echo $this->get_field_name( 'post_type' ); ?>">
 						<?php
 						foreach ( get_post_types() as $post_type ) :
@@ -113,7 +111,7 @@ class Popular extends \WP_Widget {
 					</select>
 				</label><br />
 				<label for="<?php echo $this->get_field_id( 'num_posts' ); ?>">
-					<?php $this->i18n->e( 'Number of posts:' ); ?> <br />
+					<?php _e( 'Number of posts:', 'anyway-feedback' ); ?> <br />
 					<input type="text" id="<?php echo $this->get_field_id( 'num_posts' ); ?>" name="<?php echo $this->get_field_name( 'num_posts' ); ?>" value="<?php echo $num_posts; ?>" />
 				</label>
 			</p>
@@ -128,15 +126,10 @@ class Popular extends \WP_Widget {
 	 */
 	public function __get( $name ) {
 		switch ( $name ) {
-			case 'i18n':
-				return I18n::get_instance();
-				break;
 			case 'feedbacks':
 				return FeedBacks::get_instance();
-				break;
 			default:
 				return null;
-				break;
 		}
 	}
 }

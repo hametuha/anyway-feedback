@@ -3,7 +3,6 @@
 namespace AFB\Pattern;
 
 
-use AFB\Helper\I18n;
 use AFB\Helper\Input;
 use AFB\Model\FeedBacks;
 
@@ -12,7 +11,6 @@ use AFB\Model\FeedBacks;
  *
  * @package AFB\Pattern
  * @property-read Input $input
- * @property-read I18n $i18n
  * @property-read FeedBacks $feedbacks
  * @property-read string $url
  * @property-read string $dir
@@ -61,19 +59,12 @@ abstract class Controller extends Singleton {
 		switch ( $key ) {
 			case 'input':
 				return Input::get_instance();
-				break;
 			case 'dir':
 				return dirname( dirname( dirname( __FILE__ ) ) );
-				break;
 			case 'url':
 				return plugin_dir_url( dirname( dirname( __FILE__ ) ) );
-				break;
-			case 'i18n':
-				return I18n::get_instance();
-				break;
 			case 'feedbacks':
 				return FeedBacks::get_instance();
-				break;
 			case 'option':
 				$option  = get_option( 'afb_setting', array() );
 				$default = array(
@@ -90,10 +81,8 @@ abstract class Controller extends Singleton {
 					}
 				}
 				return $option;
-				break;
 			default:
 				return null;
-				break;
 		}
 	}
 

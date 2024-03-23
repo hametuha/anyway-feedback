@@ -3,7 +3,6 @@
 namespace AFB\Model;
 
 use AFB\Pattern\Singleton;
-use AFB\Helper\I18n;
 
 /**
  * Model base
@@ -12,7 +11,6 @@ use AFB\Helper\I18n;
  * @property-read \wpdb $db
  * @property-read string $table
  * @property-read string $key
- * @property-read I18n $i18n
  */
 abstract class Base extends Singleton {
 
@@ -151,19 +149,12 @@ SQL;
 			case 'db':
 				global $wpdb;
 				return $wpdb;
-				break;
 			case 'table':
 				return $this->db->prefix . 'afb_' . $this->name;
-				break;
 			case 'key':
 				return $this->table . '_version';
-				break;
-			case 'i18n':
-				return I18n::get_instance();
-				break;
 			default:
 				return null;
-				break;
 		}
 	}
 

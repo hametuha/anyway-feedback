@@ -1,7 +1,6 @@
 <?php
-
 namespace AFB\Admin;
-use AFB\Helper\I18n;
+
 use AFB\Helper\Input;
 use AFB\Model\FeedBacks;
 
@@ -9,7 +8,6 @@ use AFB\Model\FeedBacks;
  * Static Table
  *
  * @package AFB\Admin
- * @property-read I18n $i18n
  * @property-read Input $input
  * @property-read FeedBacks $feedbacks
  */
@@ -54,12 +52,12 @@ class Table extends \WP_List_Table {
 	 */
 	public function get_columns() {
 		$columns = array(
-			'title'     => $this->i18n->_( 'Title' ),
-			'positive'  => $this->i18n->_( 'Good' ),
+			'title'     => __( 'Title', 'anyway-feedback' ),
+			'positive'  => __( 'Good', 'anyway-feedback' ),
 			'ratio'     => '&nbsp;',
-			'negative'  => $this->i18n->_( 'Bad' ),
-			'published' => $this->i18n->_( 'Published' ),
-			'updated'   => $this->i18n->_( 'Updated' ),
+			'negative'  => __( 'Bad', 'anyway-feedback' ),
+			'published' => __( 'Published', 'anyway-feedback' ),
+			'updated'   => __( 'Updated', 'anyway-feedback' ),
 		);
 		return $columns;
 	}
@@ -199,16 +197,10 @@ class Table extends \WP_List_Table {
 		switch ( $name ) {
 			case 'feedbacks':
 				return FeedBacks::get_instance();
-				break;
-			case 'i18n':
-				return I18n::get_instance();
-				break;
 			case 'input':
 				return Input::get_instance();
-				break;
 			default:
 				return parent::__get( $name );
-				break;
 		}
 	}
 

@@ -3,7 +3,6 @@
 namespace AFB\Admin;
 
 
-use AFB\Helper\I18n;
 use AFB\Pattern\Controller;
 
 /**
@@ -40,8 +39,8 @@ class Screen extends Controller {
 	 */
 	public function admin_menu() {
 		add_options_page(
-			$this->i18n->_( 'Anyway Feedback Option: ' ),
-			$this->i18n->_( 'Anyway Feedback' ),
+			__( 'Anyway Feedback Option: ', 'anyway-feedback' ),
+			__( 'Anyway Feedback', 'anyway-feedback' ),
 			'manage_options',
 			'anyway-feedback',
 			array( $this, 'render_admin' )
@@ -53,7 +52,7 @@ class Screen extends Controller {
 				$page .= '?post_type=' . $post_type;
 			}
 			$object = get_post_type_object( $post_type );
-			add_submenu_page( $page, sprintf( $this->i18n->_( 'Feedback Statistic of %s' ), $object->labels->name ), $this->i18n->_( 'Feedback Statistic' ), 'edit_posts', 'anyway-feedback-static-' . $post_type, array( $this, 'render_static' ) );
+			add_submenu_page( $page, sprintf( __( 'Feedback Statistic of %s', 'anyway-feedback' ), $object->labels->name ), __( 'Feedback Statistic', 'anyway-feedback' ), 'edit_posts', 'anyway-feedback-static-' . $post_type, array( $this, 'render_static' ) );
 		}
 	}
 
@@ -105,7 +104,7 @@ class Screen extends Controller {
 			}
 			include $path;
 		} else {
-			printf( '<div class="error"><p>%s</p></div>', $this->i18n->_( 'Template file doesn\'t exist. Please check whether install process is valid.' ) );
+			printf( '<div class="error"><p>%s</p></div>', __( 'Template file doesn\'t exist. Please check whether install process is valid.', 'anyway-feedback' ) );
 		}
 	}
 
@@ -144,10 +143,10 @@ class Screen extends Controller {
 			);
 			if ( $is_statistic ) {
 				wp_localize_script('afb-util', 'AFB', array(
-					'pieTitle'    => $this->i18n->_( 'Feedback Ratio' ),
-					'piePositive' => $this->i18n->_( 'Positive' ),
-					'pieNegative' => $this->i18n->_( 'Negative' ),
-					'noData'      => $this->i18n->_( 'No data' ),
+					'pieTitle'    => __( 'Feedback Ratio', 'anyway-feedback' ),
+					'piePositive' => __( 'Positive', 'anyway-feedback' ),
+					'pieNegative' => __( 'Negative', 'anyway-feedback' ),
+					'noData'      => __( 'No data', 'anyway-feedback' ),
 				));
 			}
 		}
@@ -176,7 +175,7 @@ class Screen extends Controller {
 				);
 				update_option( 'afb_setting', $new_option );
 				// Add message
-				$_SESSION[ $this->session_key ] = $this->i18n->_( 'Option was updated.' );
+				$_SESSION[ $this->session_key ] = __( 'Option was updated.', 'anyway-feedback' );
 				// Redirect
 				wp_safe_redirect( $this->setting_url() );
 				exit;
@@ -185,7 +184,7 @@ class Screen extends Controller {
 			// If current user is admin, check table and try update
 			if ( current_user_can( 'update_plugins' ) ) {
 				if ( $this->feedbacks->try_update_db() ) {
-					$message = $this->i18n->_( 'Database has been updated.' );
+					$message = __( 'Database has been updated.', 'anyway-feedback' );
 					add_action('admin_notices', function() use ( $message ) {
 						printf( '<div class="updated"><p>%s</p></div>', esc_html( $message ) );
 					});
@@ -228,7 +227,7 @@ class Screen extends Controller {
 	 * @return array
 	 */
 	public function comment_columns_name( $columns ) {
-		$columns['feedback'] = $this->i18n->_( 'Feedback' );
+		$columns['feedback'] = __( 'Feedback', 'anyway-feedback' );
 		return $columns;
 	}
 

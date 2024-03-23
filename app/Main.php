@@ -54,7 +54,7 @@ class Main extends Controller {
 		}
 		wp_localize_script('anyway-feedback', 'AFBP', array(
 			'ga'      => (int) $this->option['ga'],
-			'already' => $this->i18n->_( 'You have already voted.' ),
+			'already' => __( 'You have already voted.', 'anyway-feedback' ),
 		));
 	}
 
@@ -67,11 +67,11 @@ class Main extends Controller {
 	 * @return string
 	 */
 	public function get_controller_tag( $object_id, $post_type ) {
-		$post_type_name = ( 'comment' === $post_type ) ? $this->i18n->_( 'Comment' ) : get_post_type_object( $post_type )->labels->singular_name;
-		$message        = sprintf( $this->i18n->_( 'Is this %s useful?' ), $post_type_name );
-		$status         = sprintf( $this->i18n->_( '%1$d of %2$d people say this %3$s is useful.' ), afb_affirmative( false, $object_id, $post_type ), afb_total( false, $object_id, $post_type ), $post_type_name );
-		$useful         = $this->i18n->_( 'Useful' );
-		$useless        = $this->i18n->_( 'Useless' );
+		$post_type_name = ( 'comment' === $post_type ) ? __( 'Comment', 'anyway-feedback' ) : get_post_type_object( $post_type )->labels->singular_name;
+		$message        = sprintf( __( 'Is this %s useful?', 'anyway-feedback' ), $post_type_name );
+		$status         = sprintf( __( '%1$d of %2$d people say this %3$s is useful.', 'anyway-feedback' ), afb_affirmative( false, $object_id, $post_type ), afb_total( false, $object_id, $post_type ), $post_type_name );
+		$useful         = __( 'Useful', 'anyway-feedback' );
+		$useless        = __( 'Useless', 'anyway-feedback' );
 		$url            = admin_url( 'admin-ajax.php' );
 		$already_posted = $this->does_current_user_posted( $post_type, $object_id ) ? ' afb_posted' : '';
 		$before         = <<<HTML
@@ -116,10 +116,10 @@ HTML;
 			$post_type = $this->input->post( 'post_type' );
 			$object_id = $this->input->post( 'object_id' );
 			if ( $this->does_current_user_posted( $post_type, $object_id ) ) {
-				throw new \Exception( $this->i18n->_( 'Sorry, but you have already voted.' ) );
+				throw new \Exception( __( 'Sorry, but you have already voted.', 'anyway-feedback' ) );
 			}
 
-			$post_type_name = 'comment' === $post_type ? $this->i18n->_( 'Comment' ) : get_post_type_object( $post_type )->labels->singular_name;
+			$post_type_name = 'comment' === $post_type ? __( 'Comment', 'anyway-feedback' ) : get_post_type_object( $post_type )->labels->singular_name;
 
 			// Feedback request is valid.
 			switch ( $this->input->post( 'class_name' ) ) {
@@ -130,12 +130,12 @@ HTML;
 					$affirmative = false;
 					break;
 				default:
-					throw new \Exception( $this->i18n->_( 'Request is invalid.' ) );
+					throw new \Exception( __( 'Request is invalid.', 'anyway-feedback' ) );
 					break;
 			}
 			if ( ! $this->feedbacks->update( $object_id, $post_type, $affirmative ) ) {
 				if ( ! $this->feedbacks->add( $object_id, $post_type, $affirmative ) ) {
-					throw new \Exception( $this->i18n->_( 'Sorry, failed to save your request. Please try again later.' ) );
+					throw new \Exception( __( 'Sorry, failed to save your request. Please try again later.', 'anyway-feedback' ) );
 				}
 			}
 			// This user is posted.
@@ -143,9 +143,9 @@ HTML;
 			// Create request
 			$response = array(
 				'success' => true,
-				'message' => $this->i18n->_( 'Thank you for your feedback.' ),
+				'message' => __( 'Thank you for your feedback.', 'anyway-feedback' ),
 				'status'  => sprintf(
-					$this->i18n->_( '%1$d of %2$d people say this %3$s is useful.' ),
+					__( '%1$d of %2$d people say this %3$s is useful.', 'anyway-feedback' ),
 					afb_affirmative( false, $object_id, $post_type ),
 					afb_total( false, $object_id, $post_type ),
 					$post_type_name

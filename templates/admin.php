@@ -12,11 +12,11 @@ defined( 'ABSPATH' ) or die();
 			echo ' nav-tab-active';}
 		?>
 		" href="<?php echo $this->setting_url(); ?>">
-			<?php $this->i18n->e( 'Anyway Feedback Option' ); ?>
+			<?php _e( 'Anyway Feedback Option', 'anyway-feedback' ); ?>
 		</a>
 		<?php
 		foreach ( array(
-			'advanced' => array( $this->i18n->_( 'Advanced Usage' ) ),
+			'advanced' => array( __( 'Advanced Usage', 'anyway-feedback' ) ),
 		) as $key => $val ) :
 			?>
 			<a class="nav-tab
@@ -33,12 +33,12 @@ defined( 'ABSPATH' ) or die();
 	<p>
 		<i class="dashicons dashicons-chart-area"></i>
 	<?php if ( empty( $this->option['post_types'] ) ) : ?>
-		<?php $this->i18n->e( 'You don\'t specify any post type.' ); ?>
+		<?php _e( 'You don\'t specify any post type.', 'anyway-feedback' ); ?>
 	<?php else : ?>
 		<label>
-			<?php $this->i18n->e( 'Select post type and see static' ); ?>:
+			<?php _e( 'Select post type and see static', 'anyway-feedback' ); ?>:
 			<select id="afb-post-type-switcher" data-href="<?php echo admin_url( 'edit.php' ); ?>">
-				<option><?php $this->i18n->e( 'Select Post Type' ); ?></option>
+				<option><?php _e( 'Select Post Type', 'anyway-feedback' ); ?></option>
 				<?php
 				foreach ( $this->option['post_types'] as $post_type ) :
 					$object = get_post_type_object( $post_type );
