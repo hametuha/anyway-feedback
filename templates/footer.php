@@ -1,48 +1,63 @@
 <?php
-defined('ABSPATH') or die();
+defined( 'ABSPATH' ) or die();
 /** @var AFB\Admin\Screen $this */
 ?>
 
 <div id="afb-info" class="clearfix">
 
 	<div class="div_4">
-		<h3><i class="dashicons dashicons-editor-help"></i> <?php $this->i18n->e("About Anyway Feedback"); ?></h3>
+		<h3><i class="dashicons dashicons-editor-help"></i> <?php _e( 'About Anyway Feedback', 'anyway-feedback' ); ?></h3>
 		<p>
-			<?php $this->i18n->e("This plugin enables user to feed back to post or comment. It may help you to analyze your subscriber's feeling.");?>
+			<?php _e( "This plugin enables user to feed back to post or comment. It may help you to analyze your subscriber's feeling.", 'anyway-feedback' ); ?>
 		</p>
 	</div><!-- //.div_4 -->
 
 	<div class="div_4">
-		<h3><i class="dashicons dashicons-id-alt"></i> <?php $this->i18n->e("Who made this plugin"); ?></h3>
+		<h3><i class="dashicons dashicons-id-alt"></i> <?php _e( 'Who made this plugin', 'anyway-feedback' ); ?></h3>
 		<p class="clearfix">
-			<?php echo get_avatar('takahashi.fumiki@hametuha.co.jp', 60) ?>
-			<?php $this->i18n->e('Takahashi Fumiki did. I am a WordPress developer and novelist. See detail at <a href="https://profiles.wordpress.org/takahashi_fumiki/" target="_blank">WordPrss.org</a>'); ?>
+			<?php echo get_avatar( 'takahashi.fumiki@hametuha.co.jp', 60 ); ?>
+			<?php
+			printf(
+				// translators: %s is link to WordPress.org profile.
+				esc_html__( 'Takahashi Fumiki did. I am a WordPress developer and novelist. See detail at %s', 'anyway-feedback' ),
+				'<a href="https://profiles.wordpress.org/takahashi_fumiki/" target="_blank" rel="noopener noreferrer">WordPrss.org</a>'
+			);
+			?>
 		</p>
 	</div><!-- //.div_4 -->
 
 	<div class="div_4">
-		<h3><i class="dashicons dashicons-email-alt"></i> <?php $this->i18n->e("Contact"); ?></h3>
+		<h3><i class="dashicons dashicons-email-alt"></i> <?php esc_html_e( 'Contact', 'anyway-feedback' ); ?></h3>
 		<p>
-			<?php $this->i18n->e("If you have some request, please feel free to contact via:"); ?>
+			<?php esc_html_e( 'If you have some request, please feel free to contact via:', 'anyway-feedback' ); ?>
 		</p>
 		<p class="contact">
-			<?php foreach(array(
+			<?php
+			foreach ( array(
 				'wordpress' => 'https://wordpress.org/support/plugin/anyway-feedback',
-				'twitter' => 'https://twitter.com/takahashifumiki',
-				'facebook' => 'https://www.facebook.com/TakahashiFumiki.Page',
-				'googleplus' => 'https://plus.google.com/108058172987021898722/about/p/pub',
-			) as $icon => $url ): ?>
-				<a href="<?php echo esc_html($url) ?>" target="_blank"><i class="dashicons dashicons-<?php echo $icon ?>"></i></a>
+				'twitter'   => 'https://twitter.com/takahashifumiki',
+				'facebook'  => 'https://www.facebook.com/TakahashiFumiki.Page',
+			) as $icon => $url ) :
+				?>
+				<a href="<?php echo esc_html( $url ); ?>" target="_blank"><i class="dashicons dashicons-<?php echo $icon; ?>"></i></a>
 			<?php endforeach; ?>
 		</p>
-		<p><?php $this->i18n->e('Japanese, English and French are welcomed. Of course, you can send pull request via <a href="https://github.com/fumikito/Anyway-Feedback" target="_blank">github.com</a>.') ?></p>
+		<p>
+			<?php
+			printf(
+				// translators: %s is link to GitHub.
+				esc_html__( 'Japanese, English and French are welcomed. Of course, you can send pull request via %s.', 'anyway-feedback' ),
+				'<a href="https://github.com/hametuha/anyway-feedback" target="_blank" rel="noopener noreferrer">GitHub</a>'
+			);
+			?>
+		</p>
 	</div><!-- //.div_4 -->
 
 
 	<div class="div_4">
-		<h3><i class="dashicons dashicons-heart"></i> <?php $this->i18n->e("Donation"); ?></h3>
+		<h3><i class="dashicons dashicons-heart"></i> <?php _e( 'Donation', 'anyway-feedback' ); ?></h3>
 		<p>
-			<?php $this->i18n->e("If you think this plugin is usefull, please donate for it and make me motivated. In other words, buy me a beer.");?>
+			<?php _e( 'If you think this plugin is useful, please donate for it and make me motivated. In other words, buy me a beer.', 'anyway-feedback' ); ?>
 		</p>
 
 		<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -53,10 +68,10 @@ defined('ABSPATH') or die();
 					<td>
 						<input type="hidden" name="on0" value="金額">
 						<select name="os0">
-							<option value="発泡酒"><?php $this->i18n->e('Low mal beer') ?> &yen;100</option>
-							<option value="エビス500ml"><?php $this->i18n->e('Ebisu beer') ?> &yen;300</option>
-							<option value="発泡酒6缶パック"><?php $this->i18n->e('6 cans of beer') ?> &yen;1,000</option>
-							<option value="ビール1ケース"><?php $this->i18n->e('1 case of beer') ?> &yen;3,000</option>
+							<option value="発泡酒"><?php _e( 'Low mal beer', 'anyway-feedback' ); ?> &yen;100</option>
+							<option value="エビス500ml"><?php _e( 'Ebisu beer', 'anyway-feedback' ); ?> &yen;300</option>
+							<option value="発泡酒6缶パック"><?php _e( '6 cans of beer', 'anyway-feedback' ); ?> &yen;1,000</option>
+							<option value="ビール1ケース"><?php _e( '1 case of beer', 'anyway-feedback' ); ?> &yen;3,000</option>
 						</select>
 					</td>
 				</tr>

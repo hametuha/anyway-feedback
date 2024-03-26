@@ -1,13 +1,15 @@
-=== Anyway Feedback ===
-Contributors: Takahashi_Fumiki  
+# Anyway Feedback
+
+Contributors: Takahashi_Fumiki,hametuha  
 Tags: feedback, analytics  
-Requires at least: 3.8  
-Tested up to: 4.1-alpha  
-Stable tag: 1.0.1  
+Requires at least: 5.9  
+Requires PHP: 7.4
+Tested up to: 6.4  
+Stable tag: nightly  
 
-This plugin enable users to send feedback with single click. This may support you to analyze your user's opinion. Works like Facebook's help center.
+This plugin enable users to send feedback with single click. This may support you to analyze your user's opinion. Works as a help center for your site.
 
-== Description ==
+## Description
 
 Anyway Feedback provides simple controller with 2 buttons(Useful and Useless). Users can send feedback to specific post or comment. 
 
@@ -19,7 +21,7 @@ If you have some request, feel free to contact me. For experienced developper, I
 
 **NOTICE** Requires PHP 5.3 and over.
 
-== Installation ==
+## Installation
 
 Installation is easy.
 
@@ -31,52 +33,52 @@ e.g.
 1. You can customize display and use widget.
 1. Template tag manual is on admin panel.
 
-== Frequently Asked Questions ==
+## Frequently Asked Questions
 
-= How can I know the feedbacks result? =
+### How can I know the feedbacks result?
 
 You can see it on your admin panel. Go to Options > Anyway Feedback.
 
-= Can custom post type FAQ will be registered? =
+### Can custom post type FAQ will be registered?
 
 No. If you need some custom post type, you have to register it. There are lots of plugins which register custom post type with GUI. After registration, you can easily add feedback controller to custom post type with Anyway Feedback plugin.
 
-= How can I display feedback results? =
+### How can I display feedback results?
 
 There are currently 2 ways. 1st is a feedback controller which displays number of people saying good or not. 2nd is a widget which displays most popular posts per post type.
 
-== Screenshots ==
+## Screenshots
 
 1. Controller looks like this. You can customize it with your own css and markup.
 2. Super cool statistic summary in admin panel! Yeah!
 3. Simple setting. Documentations are also on admin screen!
 
-== Changelog ==
+## Changelog
 
-= 1.0.1 =
+### 1.0.1
 
 * Fixed filename bug. Sorry for that.
 * Stop warning error.
 
-= 1.0 =
+### 1.0
 
-* Requires PHP 5.3 and over. Name space is so cool! Template tags have backward compatibility.
+* Requires PHP 5.4 and over. Name space is so cool! Template tags have backward compatibility.
 * Quit using session. Vote history will be stored in Cookie.
 * Refine admin screen.
 * Fix some style sheet.
 * Bug fix. trashed posts will be no longer displayed on widget.
 * **New Feature** Add [Google Analytics event tracking](https://developers.google.com/analytics/devguides/collection/analyticsjs/events). See detail at setting screen.
 
-= 0.6 =
+### 0.6
 
 * Use $_SESSION to avoid user from repeated feedback.
 
-= 0.5 =
+### 0.5
 
 * 1st release.
 
-== Upgrade Notice  ==
+## Upgrade Notice 
 
-= 0.5 =
+### 0.5
 
 Nothing.

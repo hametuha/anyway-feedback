@@ -1,248 +1,283 @@
 @charset "utf-8";
 
-@import "compass";
-
 /* Error message */
 .updated ul li,
 .error ul li {
-  margin: 5px 0 5px 20px;
-  list-style: outside disc;
+	margin: 5px 0 5px 20px;
+	list-style: outside disc;
 }
 
-#chart-area{
-  .div_2{
-    width: 45%;
-    margin-right: 5%;
-    float: left;
-    min-height: 300px;
-    position: relative;
-    &:last-child{
-      margin-right: 0;
-      margin-left: 5%;
-    }
-    .loader{
-      display: none;
-    }
-    &.loading .loader{
-      display: block;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin-left: -16px;
-      margin-top: -16px;
-    }
-    p.no-data{
-      position: absolute;
-      text-align: center;
-      width: 100%;
-      top: 50%;
-      left: 0;
-      font-size: 20px;
-      color: #cf3f35;
-      margin-top: -15px;
-    }
-  }
+#chart-area {
+	.div_2 {
+		width: 45%;
+		margin-right: 5%;
+		float: left;
+		min-height: 300px;
+		position: relative;
+
+		&:last-child {
+			margin-right: 0;
+			margin-left: 5%;
+		}
+
+		.loader {
+			display: none;
+		}
+
+		&.loading .loader {
+			display: block;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-left: -16px;
+			margin-top: -16px;
+		}
+
+		p.no-data {
+			position: absolute;
+			text-align: center;
+			width: 100%;
+			top: 50%;
+			left: 0;
+			font-size: 20px;
+			color: #cf3f35;
+			margin-top: -15px;
+		}
+	}
 }
 
 @media only screen and (max-width: 782px) {
-  #chart-area{
-    .div_2{
-      width: auto;
-      mso-element-anchor-lock: none;
-      margin-right: 0;
-      &:last-child{
-        margin-left: 0;
-      }
-    }
-  }
+	#chart-area {
+		.div_2 {
+			width: auto;
+			margin-right: 0;
+
+			&:last-child {
+				margin-left: 0;
+			}
+		}
+	}
 }
 
 // CHart Table
-.afb .widefat{
-  td.column-positive,
-  td.column-negative{
-    width: 4em;
-    text-align: center;
-  }
-  td.column-ratio{
-    width: 100px;
-  }
+.afb .widefat {
+	td.column-positive,
+	td.column-negative {
+		width: 4em;
+		text-align: center;
+	}
+
+	td.column-ratio {
+		width: 100px;
+	}
 }
-th.column-feedback{
-  width: 100px;
+
+th.column-feedback {
+	width: 100px;
 }
+
 @media only screen and (max-width: 782px) {
-  th,td{
-    &.column-feedback{
-      display: none;
-    }
-  }
+	th,
+	td {
+		&.column-feedback {
+			display: none;
+		}
+	}
 }
-.chart-ratio{
-  height: 20px;
-  width: 100px;
-  background: #cf3f35;
-  position: relative;
-  div{
-    height: 20px;
-    background: #91c690;
-  }
-  .positive, .negative{
-    display: block;
-    position: absolute;
-    height: 20px;
-    line-height: 20px;
-    top: 0;
-    color: #fff;
-    font-family: mono-space;
-  }
-  .positive{
-    left: 3px;
-  }
-  .negative{
-    right: 3px;
-  }
-  &.empty{
-    background: #ddd;
-  }
+
+.chart-ratio {
+	height: 20px;
+	width: 100px;
+	background: #cf3f35;
+	position: relative;
+
+	div {
+		height: 20px;
+		background: #91c690;
+	}
+
+	.positive,
+	.negative {
+		display: block;
+		position: absolute;
+		height: 20px;
+		line-height: 20px;
+		top: 0;
+		color: #fff;
+		font-family: monospace;
+	}
+
+	.positive {
+		left: 3px;
+	}
+
+	.negative {
+		right: 3px;
+	}
+
+	&.empty {
+		background: #ddd;
+	}
 }
 
 /*Function reference*/
 #tabs-4 {
-  padding: 30px 0;
-  dl.code-format {
-    background: #444;
-    color: #fff;
-    border-radius: 10px;
-    padding: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    margin-bottom: 10px;
-    dt {
-      margin-bottom: 5px;
-      font-size: 1.2em;
-      .blue {
-        color: lightskyblue;
-      }
-      .yellow {
-        color: lightyellow;
-      }
-      .red {
-        color: tomato;
-      }
-    }
-    dd {
-      margin-bottom: 20px;
-    }
-  }
+	padding: 30px 0;
+
+	dl.code-format {
+		background: #444;
+		color: #fff;
+		border-radius: 10px;
+		padding: 10px;
+		-webkit-border-radius: 10px;
+		-moz-border-radius: 10px;
+		margin-bottom: 10px;
+
+		dt {
+			margin-bottom: 5px;
+			font-size: 1.2em;
+
+			.blue {
+				color: lightskyblue;
+			}
+
+			.yellow {
+				color: lightyellow;
+			}
+
+			.red {
+				color: tomato;
+			}
+		}
+
+		dd {
+			margin-bottom: 20px;
+		}
+	}
 }
 
 .clearfix {
-  @include clearfix();
+	&::after {
+		display: block;
+		clear: both;
+		content: "";
+	}
 }
 
 // form
 #afb-form {
-  textarea {
-    box-sizing: border-box;
-    width: 100%;
-    resize: vertical;
-  }
+	textarea {
+		box-sizing: border-box;
+		width: 100%;
+		resize: vertical;
+	}
 
-  .label {
-    padding: 3px 0.5em;
-    background: #CC3732;
-    color: #fff;
-    @include border-radius(3px);
-    margin-right: 1em;
-  }
+	.label {
+		padding: 3px 0.5em;
+		background: #cc3732;
+		color: #fff;
+		border-radius: 3px;
+		margin-right: 1em;
+	}
 }
 
 // Information
 #afb-info {
-  background: #f9f9f9;
-  @include border-radius(3px);
+	background: #f9f9f9;
+	border-radius: 3px;
 
-  .div_4 {
-    width: 50%;
-    float: left;
-    padding-top: 1em;
-    padding-bottom: 1em;
-    &:nth-child(3) {
-      clear: left;
-    }
-    h3, p, form {
-      margin-left: 30px;
-      margin-right: 30px;
-    }
-  }
+	.div_4 {
+		width: 50%;
+		float: left;
+		padding-top: 1em;
+		padding-bottom: 1em;
 
-  .avatar {
-    @include border-radius(50%);
-    float: left;
-    margin-right: 1em;
-  }
+		&:nth-child(3) {
+			clear: left;
+		}
 
-  .contact {
-    .dashicons {
-      font-size: 32px;
-    }
-    a {
-      text-decoration: none;
-      margin-right: 1em;
-    }
-    @each $brand in (twitter #00ACED, facebook #3B5998, googleplus #CC3732, wordpress #21759B) {
-      $name: nth($brand, 1);
-      $color: nth($brand, 2);
-      .dashicons-#{$name} {
-        color: $color;
-      }
-      a:hover .dashicons-#{$name} {
-        color: lighten($color, 20);
-      }
-    }
-  }
+		h3,
+		p,
+		form {
+			margin-left: 30px;
+			margin-right: 30px;
+		}
+	}
+
+	.avatar {
+		border-radius: 50%;
+		float: left;
+		margin-right: 1em;
+	}
+
+	.contact {
+		.dashicons {
+			font-size: 32px;
+		}
+
+		a {
+			text-decoration: none;
+			margin-right: 1em;
+		}
+
+		@each $brand in (twitter #00ACED, facebook #3B5998, googleplus #CC3732, wordpress #21759B) {
+			$name: nth($brand, 1);
+			$color: nth($brand, 2);
+			.dashicons-#{$name} {
+				color: $color;
+			}
+			a:hover .dashicons-#{$name} {
+				color: lighten($color, 20);
+			}
+		}
+	}
 }
 
 @media only screen and (max-width: 468px) {
-  #afb-info {
-    .div_4 {
-      width: auto;
-      float: none;
-      padding-bottom: 0;
-    }
-  }
+	#afb-info {
+		.div_4 {
+			width: auto;
+			float: none;
+			padding-bottom: 0;
+		}
+	}
 }
 
 // Spec table
-.afb-speck{
-  table-layout: auto;
-  border-collapse: collapse;
-  min-width: 300px;
-  margin: 1em 0;
-  th, td{
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-  }
-  thead{
-    th{
-      background: #f9f9f9;
-      border-bottom: 3px double #ddd;
-    }
-  }
+.afb-speck {
+	table-layout: auto;
+	border-collapse: collapse;
+	min-width: 300px;
+	margin: 1em 0;
+
+	th,
+	td {
+		padding: 10px 15px;
+		border: 1px solid #ddd;
+	}
+
+	thead {
+		th {
+			background: #f9f9f9;
+			border-bottom: 3px double #ddd;
+		}
+	}
 }
 
-.afb-code-exam{
-  padding: 1em;
-  background: #f9f9f9;
-  overflow: auto;
-  .c{
-    color: #aaa;
-  }
-  .s{
-    color: tomato;
-  }
-  .l{
-    color: lightskyblue;
-  }
+.afb-code-exam {
+	padding: 1em;
+	background: #f9f9f9;
+	overflow: auto;
+
+	.c {
+		color: #aaa;
+	}
+
+	.s {
+		color: tomato;
+	}
+
+	.l {
+		color: lightskyblue;
+	}
 }

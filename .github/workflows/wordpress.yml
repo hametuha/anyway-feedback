@@ -1,0 +1,104 @@
+name: Deploy Plugin
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - '*'
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  phpcs:
+    uses: tarosky/workflows/.github/workflows/phpcs.yml@main
+    with:
+      version: 8.0
+
+  phplint:
+    uses: tarosky/workflows/.github/workflows/phplint.yml@main
+
+  assets:
+    name: Assets Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install NPM Packages
+        run: npm install
+
+      - name: Check JS & CSS syntax
+        run: npm run lint
+
+  release:
+    name: Deploy WordPress.org
+    needs: [ phpcs, phplint, assets ]
+    if: contains(github.ref, 'tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@main
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.2
+          tools: composer
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Build Plugin
+        run: |
+          composer install --prefer-dist --no-dev
+          npm install
+          npm run package
+
+      - name: Generate readme.txt
+        uses: tarosky/workflows/actions/wp-readme@main
+
+      - name: Versioning
+        uses: tarosky/workflows/actions/versioning@main
+        with:
+          version: ${{ github.ref }}
+          files: readme.txt,anyway-feedback.php
+
+      - name: Deploy to WordPress Directory
+        id: deploy
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        with:
+          generate-zip: true
+        env:
+          SVN_USERNAME: ${{ secrets.WP_ORG_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.WP_ORG_PASSWORD }}
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ github.workspace }}/${{ github.event.repository.name }}.zip
+          asset_name: ${{ github.event.repository.name }}.zip
+          asset_content_type: application/zip

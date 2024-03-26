@@ -12,9 +12,9 @@ jQuery(document).ready(function($){
 
     // Post type switcher
     $('#afb-post-type-switcher').change(function(){
-        var endpoint = $(this).attr('data-href'),
-            postType = $(this).val(),
-            args = [];
+		let endpoint = $(this).attr('data-href');
+		const postType = $(this).val();
+		const args = [];
         if( postType.length ){
             if( 'post' !== postType ){
                 args.push('post_type=' + postType);
@@ -35,9 +35,9 @@ jQuery(document).ready(function($){
         // Set a callback to run when the Google Visualization API is loaded.
         google.setOnLoadCallback(function(){
             // Chart
-            var chartArea =  $('#chart-area');
+            const chartArea =  $('#chart-area');
             if( chartArea.length ){
-                var endpoint = chartArea.attr('data-endpoint');
+                const endpoint = chartArea.attr('data-endpoint');
                 $.get(endpoint, function(result){
 
                     //
@@ -46,7 +46,7 @@ jQuery(document).ready(function($){
                     if( !result.ratio.negative ){
                         $('#afb-pie-chart').removeClass('loading').append('<p class="no-data">' + AFB.noData + '</p>');
                     }else{
-                        var data = new google.visualization.DataTable();
+                        const data = new google.visualization.DataTable();
                         data.addColumn('string', 'Response');
                         data.addColumn('number', 'Count');
                         data.addRows([
@@ -54,7 +54,7 @@ jQuery(document).ready(function($){
                             [AFB.pieNegative, parseInt(result.ratio.negative)]
                         ]);
                         // Set chart options
-                        var options = {
+                        const options = {
                             title: AFB.pieTitle,
                             width: '100%',
                             height: 300,
@@ -63,7 +63,7 @@ jQuery(document).ready(function($){
 
                         };
                         // Instantiate and draw our chart, passing in some options.
-                        var chart = new google.visualization.PieChart(document.getElementById('afb-pie-chart'));
+                        const chart = new google.visualization.PieChart(document.getElementById('afb-pie-chart'));
                         chart.draw(data, options);
                     }
 
@@ -73,8 +73,8 @@ jQuery(document).ready(function($){
                     if( !result.ranking.length ){
                         $('#afb-bar-chart').removeClass('loading').append('<p class="no-data">' + AFB.noData + '</p>');
                     }else{
-                        var table = [ ['Name', AFB.piePositive, AFB.pieNegative, { role: 'annotation' } ] ];
-                        for( var i = 0; i < result.ranking.length; i++){
+                        const table = [ ['Name', AFB.piePositive, AFB.pieNegative, { role: 'annotation' } ] ];
+                        for( let i = 0; i < result.ranking.length; i++){
                             table.push([
                                 result.ranking[i].post_title,
                                 parseInt(result.ranking[i].positive),
@@ -83,7 +83,7 @@ jQuery(document).ready(function($){
                             ]);
                         }
 
-                        var barOptions = {
+                        const barOptions = {
                             width: '100%',
                             height: 300,
                             legend: { position: 'top', maxLines: 3 },
@@ -92,7 +92,7 @@ jQuery(document).ready(function($){
                             colors: ['#91c690', '#cf3f35'],
                             isStacked: true
                         };
-                        var barChart = new google.visualization.BarChart(document.getElementById('afb-bar-chart'));
+                        const barChart = new google.visualization.BarChart(document.getElementById('afb-bar-chart'));
                         barChart.draw(google.visualization.arrayToDataTable(table), barOptions);
                     }
                 });

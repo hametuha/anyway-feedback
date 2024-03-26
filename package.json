@@ -1,0 +1,50 @@
+{
+	"name": "taro-series",
+	"main": "gulpfile.js",
+	"scripts": {
+		"start": "wp-env start",
+		"update": "wp-env start --update",
+		"stop": "wp-env stop",
+		"cli": "wp-env run cli wp",
+		"cli:test": "wp-env run tests-cli wp",
+		"package": "npm run sass && npm run js",
+		"watch": "npm-watch",
+		"sass": "sass ./assets/sass/:./dist/css/ && postcss --use autoprefixer cssnano --replace ./dist/css/**/*.css",
+		"js": "npm run js:build && npm run js:copy",
+		"js:build": "uglifyjs-folder ./assets/js/ -x .js -eo ./dist/js/ --log-level error",
+		"js:copy": "cp ./node_modules/js-cookie/dist/{js.cookie.min.js,js.cookie.js} ./dist/js/",
+		"lint": "npm run lint:js && npm run lint:css",
+		"lint:js": "eslint assets/js",
+		"lint:css": "stylelint assets/sass",
+		"fix:js": "eslint --fix -c .eslintrc assets/js",
+		"fix:css": "stylelint --fix assets/sass"
+	},
+	"author": "Hametuha INC.",
+	"license": "LGPL-3.0-or-later",
+	"devDependencies": {
+		"@babel/eslint-parser": "^7.24.1",
+		"@wordpress/env": "^9.0",
+		"@wordpress/eslint-plugin": "^17.11.0",
+		"autoprefixer": "^10.4.19",
+		"cssnano": "^6.1.2",
+		"eslint": "^8.57.0",
+		"js-cookie": "^3.0.5",
+		"npm-watch": "^0.11.0",
+		"postcss": "^8.4.38",
+		"postcss-cli": "^11.0.0",
+		"sass": "^1.72.0",
+		"stylelint": "^13.13.1",
+		"stylelint-config-wordpress": "^17.0.0",
+		"uglifyjs": "^2.4.11",
+		"uglifyjs-folder": "^3.3.0"
+	},
+	"volta": {
+		"node": "16.20.2"
+	},
+	"watch": {
+		"js:build": "assets/js/**/*.js",
+		"lint:js": "assets/js/**/*.js",
+		"lint:css": "assets/sass/**/*.scss",
+		"sass": "assets/sass/**/*.scss"
+	}
+}

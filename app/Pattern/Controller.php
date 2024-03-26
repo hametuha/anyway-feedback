@@ -3,7 +3,6 @@
 namespace AFB\Pattern;
 
 
-use AFB\Helper\i18n;
 use AFB\Helper\Input;
 use AFB\Model\FeedBacks;
 
@@ -12,31 +11,44 @@ use AFB\Model\FeedBacks;
  *
  * @package AFB\Pattern
  * @property-read Input $input
- * @property-read i18n $i18n
  * @property-read FeedBacks $feedbacks
  * @property-read string $url
  * @property-read string $dir
  * @property-read array $option
  */
-abstract class Controller extends Singleton
-{
+abstract class Controller extends Singleton {
 
-	public $version = '0.8';
+	/**
+	 * @var string Version number.
+	 */
+	public $version = '1.1.0';
 
 	/**
 	 * URL for assets.
 	 *
+	 * @deprecated
 	 * @param string $name
 	 * @param bool $is_compressed Default false.
 	 * @param string $suffix Default '.min'
 	 * @return string
 	 */
-	public function assets_url($name, $is_compressed = false, $suffix = '.min'){
-		$name = ltrim($name, '/');
-		if( $is_compressed && !WP_DEBUG ){
-			$name = preg_replace('/\.(css|js)$/u', $suffix.'.$1', $name);
+	public function assets_url( $name, $is_compressed = false, $suffix = '.min' ) {
+		$dir = 'dist/';
+		return $this->url . $dir . $name;
+	}
+
+	/**
+	 * Get assets hash for versioning.
+	 *
+	 * @param string $path
+	 * @return string
+	 */
+	public function assets_hash( $path ) {
+		$path = $this->dir . '/assets/' . ltrim( $path, '/' );
+		if ( file_exists( $path ) ) {
+			return md5_file( $path );
 		}
-		return $this->url.'assets/'.$name;
+		return $this->version;
 	}
 
 	/**
@@ -46,8 +58,53 @@ abstract class Controller extends Singleton
 	 *
 	 * @return bool
 	 */
-	public function is_allowed($post_type){
-		return false !== array_search($post_type, $this->option['post_types']);
+	public function is_allowed( $post_type ) {
+		return in_array( $post_type, $this->option['post_types'], true );
+	}
+
+	/**
+	 * If option is old format, update.
+	 *
+	 * @return void
+	 */
+	protected function refresh_option() {
+		$option = get_option( 'afb_setting', [] );
+		if ( ! empty( $option ) ) {
+			foreach ( [
+				'style'                   => 'bool',
+				'post_types'              => 'array',
+				'hide_default_controller' => 'array',
+				'comment'                 => 'bool ',
+				'controller'              => 'string',
+				'ga'                      => 'bool',
+			] as $key => $format ) {
+				$value = $option[ $key ] ?? null;
+				switch ( $format ) {
+					case 'bool':
+						$value = $value ? '1' : '';
+						break;
+					case 'array':
+						$value = (array) $value;
+						break;
+				}
+				update_option( 'afb_' . $key, $value );
+			}
+			delete_option( 'afb_setting' );
+		}
+	}
+
+	/**
+	 * Force array.
+	 *
+	 * @param string|array $value Option value.
+	 *
+	 * @return string[]
+	 */
+	private function force_array( $value ) {
+		if ( ! is_array( $value ) ) {
+			$value = (array) $value;
+		}
+		return array_values( array_filter( $value ) );
 	}
 
 	/**
@@ -57,44 +114,28 @@ abstract class Controller extends Singleton
 	 *
 	 * @return mixed
 	 */
-	public function __get($key){
-		switch( $key ){
+	public function __get( $key ) {
+		switch ( $key ) {
 			case 'input':
 				return Input::get_instance();
-				break;
 			case 'dir':
-				return dirname(dirname(dirname(__FILE__)));
-				break;
+				return dirname( dirname( dirname( __FILE__ ) ) );
 			case 'url':
-				return plugin_dir_url(dirname(dirname(__FILE__)));
-				break;
-			case 'i18n':
-				return i18n::get_instance();
-				break;
+				return plugin_dir_url( dirname( dirname( __FILE__ ) ) );
 			case 'feedbacks':
 				return FeedBacks::get_instance();
-				break;
 			case 'option':
-				$option = get_option('afb_setting', array());
-				$default = array(
-					"style" => 0,
-					"post_types" => array(),
-					"hide_default_controller" => array(),
-					"comment" => 0,
-					"controller" => '',
-					'ga' => false,
-				);
-				foreach( $default as $key => $val){
-					if( !isset($option[$key]) ){
-						$option[$key] = $val;
-					}
-				}
-				return $option;
-				break;
+				return [
+					'style'                   => (bool) get_option( 'afb_style', '' ),
+					'post_types'              => $this->force_array( get_option( 'afb_post_types', [] ) ),
+					'hide_default_controller' => $this->force_array( get_option( 'afb_hide_default_controller', [] ) ),
+					'comment'                 => (bool) get_option( 'afb_comment', '' ),
+					'controller'              => get_option( 'afb_controller', '' ),
+					'ga'                      => (bool) get_option( 'afb_ga', '' ),
+				];
 			default:
 				return null;
-				break;
 		}
 	}
 
-} 
+}

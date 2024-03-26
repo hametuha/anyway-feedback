@@ -8,12 +8,12 @@
 
 /**
  * Display Anyway Feedback buttons.Use inside loop.
- * 
+ *
  */
-function afb_display(){
+function afb_display() {
 	$afb = _afb();
-	if( in_the_loop() ){
-		echo $afb->get_controller_tag(get_the_ID(), get_post_type());
+	if ( in_the_loop() ) {
+		echo $afb->get_controller_tag( get_the_ID(), get_post_type() );
 	}
 }
 
@@ -22,9 +22,9 @@ function afb_display(){
  * @param int $comment_id
  * @return void
  */
-function afb_comment_display($comment_id){
+function afb_comment_display( $comment_id ) {
 	$afb = _afb();
-	echo $afb->get_controller_tag($comment_id, "comment");
+	echo $afb->get_controller_tag( $comment_id, 'comment' );
 }
 
 /**
@@ -35,16 +35,16 @@ function afb_comment_display($comment_id){
  * @param string $post_type
  * @return int
  */
-function afb_total($echo = true, $object_id = null, $post_type = null){
+function afb_total( $echo = true, $object_id = null, $post_type = null ) {
 	$afb = _afb();
-	if( is_null($object_id) ){
+	if ( is_null( $object_id ) ) {
 		$object_id = get_the_ID();
 	}
-	if( is_null($post_type) ){
+	if ( is_null( $post_type ) ) {
 		$post_type = get_post_type();
 	}
-	$total = $afb->feedbacks->total_answer($object_id, $post_type);
-	if( $echo ){
+	$total = $afb->feedbacks->total_answer( $object_id, $post_type );
+	if ( $echo ) {
 		echo $total;
 	}
 	return $total;
@@ -52,20 +52,20 @@ function afb_total($echo = true, $object_id = null, $post_type = null){
 
 /**
  * Retrieve affirmative feedback count. Use inside loop.
- * 
- * @param boolean $echo (optional) Return value if false. 
+ *
+ * @param boolean $echo (optional) Return value if false.
  * @return int
  */
-function afb_affirmative($echo = true, $object_id = null, $post_type = null){
+function afb_affirmative( $echo = true, $object_id = null, $post_type = null ) {
 	$afb = _afb();
-	if(is_null($object_id)){
+	if ( is_null( $object_id ) ) {
 		$object_id = get_the_ID();
 	}
-	if(is_null($post_type)){
+	if ( is_null( $post_type ) ) {
 		$post_type = get_post_type();
 	}
-	$total = $afb->feedbacks->affirmative($object_id, $post_type);
-	if( $echo ){
+	$total = $afb->feedbacks->affirmative( $object_id, $post_type );
+	if ( $echo ) {
 		echo $total;
 	}
 	return $total;
@@ -73,20 +73,20 @@ function afb_affirmative($echo = true, $object_id = null, $post_type = null){
 
 /**
  * Retrieve negative feedback count. Use inside loop.
- * 
- * @param boolean $echo (optional) Return value if false. 
+ *
+ * @param boolean $echo (optional) Return value if false.
  * @return void|int
  */
-function afb_negative($echo = true, $object_id = null, $post_type = null){
+function afb_negative( $echo = true, $object_id = null, $post_type = null ) {
 	$afb = _afb();
-	if(is_null($object_id)){
+	if ( is_null( $object_id ) ) {
 		$object_id = get_the_ID();
 	}
-	if(is_null($post_type)){
+	if ( is_null( $post_type ) ) {
 		$post_type = get_post_type();
 	}
-	$total = $afb->feedbacks->negative($object_id, $post_type);
-	if( $echo ){
+	$total = $afb->feedbacks->negative( $object_id, $post_type );
+	if ( $echo ) {
 		echo $total;
 	}
 	return $total;
@@ -98,6 +98,6 @@ function afb_negative($echo = true, $object_id = null, $post_type = null){
  *
  * @return \AFB\Main
  */
-function _afb(){
+function _afb() {
 	return AFB\Main::get_instance();
 }

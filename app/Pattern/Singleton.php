@@ -7,8 +7,8 @@ namespace AFB\Pattern;
  *
  * @package AFB\Pattern
  */
-abstract class Singleton
-{
+abstract class Singleton {
+
 
 	/**
 	 * Instances
@@ -29,14 +29,14 @@ abstract class Singleton
 	 *
 	 * @param array $arguments
 	 *
-	 * @return Singleton
+	 * @return static
 	 */
-	final public static function get_instance( array $arguments = array() ){
+	final public static function get_instance( array $arguments = array() ) {
 		$class_name = get_called_class();
-		if( !isset(self::$instances[$class_name]) ){
-			self::$instances[$class_name] = new $class_name($arguments);
+		if ( ! isset( self::$instances[ $class_name ] ) ) {
+			self::$instances[ $class_name ] = new $class_name( $arguments );
 		}
-		return self::$instances[$class_name];
+		return self::$instances[ $class_name ];
 	}
 
-} 
+}
