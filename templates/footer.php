@@ -16,7 +16,12 @@ defined( 'ABSPATH' ) or die();
 		<h3><i class="dashicons dashicons-id-alt"></i> <?php _e( 'Who made this plugin', 'anyway-feedback' ); ?></h3>
 		<p class="clearfix">
 			<?php echo get_avatar( 'takahashi.fumiki@hametuha.co.jp', 60 ); ?>
-			<?php _e( 'Takahashi Fumiki did. I am a WordPress developer and novelist. See detail at <a href="https://profiles.wordpress.org/takahashi_fumiki/" target="_blank">WordPrss.org</a>', 'anyway-feedback' ); ?>
+			<?php
+			printf(
+				esc_html__( 'Takahashi Fumiki did. I am a WordPress developer and novelist. See detail at %s', 'anyway-feedback' ),
+				'<a href="https://profiles.wordpress.org/takahashi_fumiki/" target="_blank">WordPrss.org</a>'
+			);
+			?>
 		</p>
 	</div><!-- //.div_4 -->
 
@@ -31,20 +36,26 @@ defined( 'ABSPATH' ) or die();
 				'wordpress'  => 'https://wordpress.org/support/plugin/anyway-feedback',
 				'twitter'    => 'https://twitter.com/takahashifumiki',
 				'facebook'   => 'https://www.facebook.com/TakahashiFumiki.Page',
-				'googleplus' => 'https://plus.google.com/108058172987021898722/about/p/pub',
 			) as $icon => $url ) :
 				?>
 				<a href="<?php echo esc_html( $url ); ?>" target="_blank"><i class="dashicons dashicons-<?php echo $icon; ?>"></i></a>
 			<?php endforeach; ?>
 		</p>
-		<p><?php _e( 'Japanese, English and French are welcomed. Of course, you can send pull request via <a href="https://github.com/fumikito/Anyway-Feedback" target="_blank">github.com</a>.', 'anyway-feedback' ); ?></p>
+		<p>
+			<?php
+			printf(
+				esc_html__( 'Japanese, English and French are welcomed. Of course, you can send pull request via %s.', 'anyway-feedback' ),
+				'<a href="https://github.com/hametuha/anyway-feedback" target="_blank" rel="noopener noreferrer">GitHub</a>'
+			);
+			?>
+		</p>
 	</div><!-- //.div_4 -->
 
 
 	<div class="div_4">
 		<h3><i class="dashicons dashicons-heart"></i> <?php _e( 'Donation', 'anyway-feedback' ); ?></h3>
 		<p>
-			<?php _e( 'If you think this plugin is usefull, please donate for it and make me motivated. In other words, buy me a beer.', 'anyway-feedback' ); ?>
+			<?php _e( 'If you think this plugin is useful, please donate for it and make me motivated. In other words, buy me a beer.', 'anyway-feedback' ); ?>
 		</p>
 
 		<form action="https://www.paypal.com/cgi-bin/webscr" method="post">

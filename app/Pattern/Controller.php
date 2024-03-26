@@ -18,7 +18,9 @@ use AFB\Model\FeedBacks;
  */
 abstract class Controller extends Singleton {
 
-
+	/**
+	 * @var string Version number.
+	 */
 	public $version = '0.8';
 
 	/**
@@ -38,6 +40,20 @@ abstract class Controller extends Singleton {
 	}
 
 	/**
+	 * Get assets hash for versioning.
+	 *
+	 * @param string $path
+	 * @return string
+	 */
+	public function assets_hash( $path ) {
+		$path = $this->dir . '/assets/' . ltrim( $path, '/' );
+		if ( file_exists( $path ) ) {
+			return md5_file( $path );
+		}
+		return $this->version;
+	}
+
+	/**
 	 * Detect if this post type is allowed
 	 *
 	 * @param string $post_type
@@ -46,6 +62,51 @@ abstract class Controller extends Singleton {
 	 */
 	public function is_allowed( $post_type ) {
 		return in_array( $post_type, $this->option['post_types'], true );
+	}
+
+	/**
+	 * If option is old format, update.
+	 *
+	 * @return void
+	 */
+	protected function refresh_option() {
+		$option  = get_option( 'afb_setting', [] );
+		if ( ! empty( $option ) ) {
+			foreach ( [
+				'style'                   => 'bool',
+				'post_types'              => 'array',
+				'hide_default_controller' => 'array',
+				'comment'                 => 'bool ',
+				'controller'              => 'string',
+				'ga'                      => 'bool',
+			] as $key => $format ) {
+				$value = $option[ $key ] ?? null;
+				switch ( $format ) {
+					case 'bool':
+						$value = $value ? '1' : '';
+						break;
+					case 'array':
+						$value = (array) $value;
+						break;
+				}
+				update_option( 'afb_' . $key, $value );
+			}
+			delete_option( 'afb_setting' );
+		}
+	}
+
+	/**
+	 * Force array.
+	 *
+	 * @param string|array $value Option value.
+	 *
+	 * @return string[]
+	 */
+	private function force_array( $value ) {
+		if ( ! is_array( $value ) ) {
+			$value = (array) $value;
+		}
+		return array_values( array_filter( $value ) );
 	}
 
 	/**
@@ -66,21 +127,14 @@ abstract class Controller extends Singleton {
 			case 'feedbacks':
 				return FeedBacks::get_instance();
 			case 'option':
-				$option  = get_option( 'afb_setting', array() );
-				$default = array(
-					'style'                   => 0,
-					'post_types'              => array(),
-					'hide_default_controller' => array(),
-					'comment'                 => 0,
-					'controller'              => '',
-					'ga'                      => false,
-				);
-				foreach ( $default as $key => $val ) {
-					if ( ! isset( $option[ $key ] ) ) {
-						$option[ $key ] = $val;
-					}
-				}
-				return $option;
+				return [
+					'style'                   => (bool) get_option( 'afb_style', '' ),
+					'post_types'              => $this->force_array( get_option( 'afb_post_types', [] ) ),
+					'hide_default_controller' => $this->force_array( get_option( 'afb_hide_default_controller', [] ) ),
+					'comment'                 => (bool) get_option( 'afb_comment', '' ),
+					'controller'              => get_option( 'afb_controller', '' ),
+					'ga'                      => (bool) get_option( 'afb_ga', '' ),
+				];
 			default:
 				return null;
 		}

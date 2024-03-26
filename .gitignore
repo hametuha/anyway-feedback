@@ -1,4 +1,10 @@
 .DS_Store
 .svn
 /vendor/
+/node_modules/
+/assets/css/
+/assets/js/*.min.js
+/assets/js/js.cookie.js
+/assets/vendor/
 readme.txt
+composer.lock

@@ -5,14 +5,13 @@
  */
 
 /*global AFBP:true*/
-/*global ga:true*/
 
 jQuery(document).ready(function($){
 
     var cookieExists = function(postType, objectId){
             var cookie = $.cookie(cookieName(postType));
             if( cookie ){
-                if( typeof cookie !== 'String' ){
+                if( typeof cookie !== 'string' ){
                     cookie = cookie.toString();
                 }
                 cookie = cookie.replace(/[^0-9,]/g, '');
@@ -29,7 +28,7 @@ jQuery(document).ready(function($){
             if( !cookieExists(postType, objectId) ){
                 var cookie = $.cookie(cookieName(postType));
                 if( cookie ){
-                    if( typeof cookie !== 'String'){
+                    if( typeof cookie !== 'string'){
                         cookie = cookie.toString();
                     }
                     cookie = cookie.split(',');

@@ -7,7 +7,7 @@
 .gitignore
 .node-version
 .stylelintrc.json
-.wordpress_org
+.wordpress-org
 .wp-env.json
 node_modules
 composer.lock
@@ -19,5 +19,5 @@ webpack.config.js
 wordpress
 bin
 tests
-taro-series.php.bak
+anyway-feedback.php.bak
 readme.txt.bak

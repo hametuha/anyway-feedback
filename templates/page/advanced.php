@@ -60,7 +60,7 @@ echo esc_html( $tag );
 
 	<h3><?php _e( 'Google Analytics', 'anyway-feedback' ); ?></h3>
 
-	<p><?php printf( __( 'You can save all data as <a href="%s" target="_blank">event tracking</a> and analize report chronologically. Data format is like below:', 'anyway-feedback' ), 'https://developers.google.com/analytics/devguides/collection/analyticsjs/events' ); ?></p>
+	<p><?php echo wp_kses_post( sprintf( __( 'You can save all data as <a href="%s" target="_blank">event tracking</a> and analize report chronologically. Data format is like below:', 'anyway-feedback' ), 'https://developers.google.com/analytics/devguides/collection/analyticsjs/events' ) ); ?></p>
 
 	<table class="afb-speck">
 		<thead>

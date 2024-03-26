@@ -16,7 +16,7 @@ abstract class Base extends Singleton {
 
 
 	/**
-	 * Version of table
+	 * Version of table.
 	 *
 	 * @var string
 	 */
@@ -108,7 +108,7 @@ SQL;
 	 * For example, index or strage engine.
 	 */
 	protected function after_update() {
-		// Do nothing.
+		do_action( 'afb_db_schema_updated', $this );
 	}
 
 	/**

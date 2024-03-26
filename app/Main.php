@@ -46,7 +46,7 @@ class Main extends Controller {
 	 */
 	public function wp_enqueue_scripts() {
 		if ( ! wp_script_is( 'jquery-cookie', 'registered' ) ) {
-			wp_register_script( 'jquery-cookie', $this->assets_url( 'vendor/jquery.cookie/src/jquery.cookie.js' ), array( 'jquery' ), '1.4.1', true );
+			wp_register_script( 'jquery-cookie', $this->assets_url( 'js/jquery.cookie.js', true ), array( 'jquery' ), '1.4.1', true );
 		}
 		wp_enqueue_script( 'anyway-feedback', $this->assets_url( 'js/anyway-feedback-handler.js', true ), array( 'jquery-cookie' ), $this->version, true );
 		if ( $this->option['style'] ) {
