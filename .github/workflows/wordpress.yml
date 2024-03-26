@@ -49,6 +49,11 @@ jobs:
       - name: Check PHP syntax
         run: composer lint
 
+  phpcs:
+    uses: tarosky/workflows/.github/workflows/phpcs.yml@main
+    with:
+      version: 8.0
+
   assets:
     name: Assets Test
     runs-on: ubuntu-latest
@@ -89,7 +94,19 @@ jobs:
           node-version: '16'
 
       - name: Build Plugin
-        run: bash bin/build.sh ${{ github.ref }}
+        run: |
+          composer install --prefer-dist --no-dev
+          npm install
+          npm run package
+
+      - name: Generate readme.txt
+        uses: tarosky/workflows/actions/wp-readme@main
+
+      - name: Versioning
+        uses: tarosky/workflows/actions/versioning@main
+        with:
+          version: ${{ github.ref }}
+          files: readme.txt,anyway-feedback.php
 
       - name: Deploy to WordPress Directory
         id: deploy
