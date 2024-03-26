@@ -32,12 +32,7 @@ defined( 'ABSPATH' ) or die();
 				$useful  = esc_html( __( 'Useful', 'anyway-feedback' ) );
 				$useless = esc_html( __( 'Useless', 'anyway-feedback' ) );
 				$status  = esc_html( sprintf( __( '%1$s of %2$s people say this %3$s is useful.', 'anyway-feedback' ), '%POSITIVE%', '%TOTAL%', '%POST_TYPE%' ) );
-				$markup  = <<<HTML
-<span class="message">{$message}</span>
-<a class="good" href="%LINK%">{$useful}</a>
-<a class="bad" href="%LINK%">{$useless}</a>
-<span class="status">{$status}</span>
-HTML;
+				$markup  = \AFB\Main::get_instance()->default_controller_html( $message, '%LINK%', $useful, $useless, $status );
 				echo esc_html( $markup )
 			?></pre>
 		<?php

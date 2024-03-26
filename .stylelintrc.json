@@ -6,6 +6,7 @@
 		"value-keyword-case": [ "lower", {
 			"ignoreProperties": [ "font-family" ]
 		} ],
+		"color-named": null,
 		"number-leading-zero": null,
 		"rule-empty-line-before": null,
 		"declaration-property-unit-whitelist": null,

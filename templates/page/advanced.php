@@ -90,7 +90,7 @@ echo esc_html( $tag );
 	</table>
 
 	<p class="description">
-		<?php printf( __( 'This feature is premised on <a href="%s">Universal Analytics</a>. If you use other services or ga.js, grab the event and record it by yourself.', 'anyway-feedback' ), 'https://developers.google.com/analytics/devguides/collection/analyticsjs/' ); ?>
+		<?php printf( __( 'This feature is premised on <a href="%s">Google Analytics 4</a>. If you use other services or Google Tag Manager, grab the event and record it by yourself.', 'anyway-feedback' ), 'https://developers.google.com/analytics/devguides/collection/ga4/events?client_type=gtag&sjid=8607412637313615612-AP' ); ?>
 	</p>
 
 <pre class="afb-code-exam">

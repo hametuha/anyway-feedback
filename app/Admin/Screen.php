@@ -104,7 +104,7 @@ class Screen extends Controller {
 			// Main Style sheet
 			wp_enqueue_style(
 				'afb-admin',
-				$this->assets_url( 'css/admin-style.css' ),
+				$this->url . 'dist/css/admin-style.css',
 				null,
 				$this->version,
 				'screen'
@@ -112,7 +112,7 @@ class Screen extends Controller {
 			// Script
 			wp_enqueue_script(
 				'afb-util',
-				$this->assets_url( 'js/admin-script.js', true ),
+				$this->url . 'dist/js/admin-script.js',
 				$deps,
 				$this->version,
 				true

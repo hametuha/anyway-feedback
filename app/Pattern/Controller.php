@@ -21,22 +21,20 @@ abstract class Controller extends Singleton {
 	/**
 	 * @var string Version number.
 	 */
-	public $version = '0.8';
+	public $version = '1.1.0';
 
 	/**
 	 * URL for assets.
 	 *
+	 * @deprecated
 	 * @param string $name
 	 * @param bool $is_compressed Default false.
 	 * @param string $suffix Default '.min'
 	 * @return string
 	 */
 	public function assets_url( $name, $is_compressed = false, $suffix = '.min' ) {
-		$name = ltrim( $name, '/' );
-		if ( $is_compressed && ! WP_DEBUG ) {
-			$name = preg_replace( '/\.(css|js)$/u', $suffix . '.$1', $name );
-		}
-		return $this->url . 'assets/' . $name;
+		$dir = 'dist/';
+		return $this->url . $dir . $name;
 	}
 
 	/**

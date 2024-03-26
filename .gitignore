@@ -6,5 +6,6 @@
 /assets/js/*.min.js
 /assets/js/js.cookie.js
 /assets/vendor/
+/dist/
 readme.txt
 composer.lock
