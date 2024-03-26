@@ -3,7 +3,7 @@
 Contributors: Takahashi_Fumiki,hametuha  
 Tags: feedback, analytics  
 Requires at least: 5.9  
-Requires PHP: 7.4
+Requires PHP: 7.2  
 Tested up to: 6.4  
 Stable tag: nightly  
 
@@ -54,6 +54,14 @@ There are currently 2 ways. 1st is a feedback controller which displays number o
 3. Simple setting. Documentations are also on admin screen!
 
 ## Changelog
+
+### 1.1.0
+
+* Change feedback endpoint from admin-ajax.php to REST API.
+* Drop jquery-cookie and use js-cookie.
+* Remove session_start() from admin screen.
+* Support GA4.
+* Requires PHP>=7.2 and WordPress >=5.9
 
 ### 1.0.1
 
