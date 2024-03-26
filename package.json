@@ -12,7 +12,7 @@
 		"sass": "sass ./assets/sass/:./dist/css/ && postcss --use autoprefixer cssnano --replace ./dist/css/**/*.css",
 		"js": "npm run js:build && npm run js:copy",
 		"js:build": "uglifyjs-folder ./assets/js/ -x .js -eo ./dist/js/ --log-level error",
-		"js:copy": "cp ./node_modules/js-cookie/dist/{js.cookie.min.js,js.cookie.js} ./dist/js/",
+		"js:copy": "cp ./node_modules/js-cookie/dist/js.cookie.min.js ./dist/js/",
 		"lint": "npm run lint:js && npm run lint:css",
 		"lint:js": "eslint assets/js",
 		"lint:css": "stylelint assets/sass",
