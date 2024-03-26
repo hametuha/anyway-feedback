@@ -97,13 +97,15 @@ HTML;
 	 */
 	public function get_controller_tag( $object_id, $post_type ) {
 		$post_type_name = ( 'comment' === $post_type ) ? __( 'Comment', 'anyway-feedback' ) : get_post_type_object( $post_type )->labels->singular_name;
-		$message        = sprintf( __( 'Is this %s useful?', 'anyway-feedback' ), $post_type_name );
-		$status         = sprintf( __( '%1$d of %2$d people say this %3$s is useful.', 'anyway-feedback' ), afb_affirmative( false, $object_id, $post_type ), afb_total( false, $object_id, $post_type ), $post_type_name );
-		$useful         = __( 'Useful', 'anyway-feedback' );
-		$useless        = __( 'Useless', 'anyway-feedback' );
-		$url            = "#afb-{$post_type}-{$object_id}";
-		$id             =esc_attr( "afb-container-{$post_type}-{$object_id}" );
-		$before         = <<<HTML
+		// translators: %s is post type name.
+		$message = sprintf( __( 'Is this %s useful?', 'anyway-feedback' ), $post_type_name );
+		// translators: %1$d is number of positive feedback, %2$d is number of total feedback.
+		$status  = sprintf( __( '%1$d of %2$d people say this %3$s is useful.', 'anyway-feedback' ), afb_affirmative( false, $object_id, $post_type ), afb_total( false, $object_id, $post_type ), $post_type_name );
+		$useful  = __( 'Useful', 'anyway-feedback' );
+		$useless = __( 'Useless', 'anyway-feedback' );
+		$url     = "#afb-{$post_type}-{$object_id}";
+		$id      = esc_attr( "afb-container-{$post_type}-{$object_id}" );
+		$before  = <<<HTML
 <!-- Anyway Feedback Container //-->
 <div class="afb_container" id="{$id}">
 HTML;

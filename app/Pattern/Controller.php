@@ -68,7 +68,7 @@ abstract class Controller extends Singleton {
 	 * @return void
 	 */
 	protected function refresh_option() {
-		$option  = get_option( 'afb_setting', [] );
+		$option = get_option( 'afb_setting', [] );
 		if ( ! empty( $option ) ) {
 			foreach ( [
 				'style'                   => 'bool',

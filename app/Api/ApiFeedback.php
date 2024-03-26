@@ -33,14 +33,14 @@ class ApiFeedback extends Controller {
 			'callback'            => [ $this, 'post_feedback' ],
 			'permission_callback' => [ $this, 'permission_callback' ],
 			'args'                => [
-				'post_type' => [
+				'post_type'   => [
 					'required'          => true,
 					'type'              => 'string',
 					'validate_callback' => function ( $post_type ) {
 						return ( 'comment' === $post_type ) || post_type_exists( $post_type );
 					},
 				],
-				'object_id' => [
+				'object_id'   => [
 					'required'          => true,
 					'type'              => 'integer',
 					'validate_callback' => function ( $object_id ) {
@@ -101,6 +101,7 @@ class ApiFeedback extends Controller {
 			'success' => true,
 			'message' => __( 'Thank you for your feedback.', 'anyway-feedback' ),
 			'status'  => sprintf(
+				// translators: %1$d is number of positive feedbacks, %2$d is total number, %3$s is post type name.
 				__( '%1$d of %2$d people say this %3$s is useful.', 'anyway-feedback' ),
 				afb_affirmative( false, $object_id, $post_type ),
 				afb_total( false, $object_id, $post_type ),

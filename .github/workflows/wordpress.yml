@@ -11,48 +11,13 @@ on:
       - master
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php: [ '7.2', '7.4' ] # PHP versions to check.
-        wp: [ 'latest', '5.9' ]      # WordPress version to check.
-    services:
-      mysql:
-        image: mysql:5.7
-        options: --health-cmd "mysqladmin ping --host 127.0.0.1 --port 3306" --health-interval 20s --health-timeout 10s --health-retries 10
-        ports:
-          - 3306/tcp
-        env:
-          MYSQL_ROOT_PASSWORD: root
-    name: WordPress ${{ matrix.wp }} in PHP ${{ matrix.php }} UnitTest
-    steps:
-      - uses: actions/checkout@main
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-          tools: composer
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Validate composer.json and composer.lock
-        run: composer validate
-
-      - name: Install dependencies
-        run: composer install --prefer-dist
-
-      - name: Start MySQL
-        run: sudo systemctl start mysql
-
-      - name: Check PHP syntax
-        run: composer lint
-
   phpcs:
     uses: tarosky/workflows/.github/workflows/phpcs.yml@main
     with:
       version: 8.0
+
+  phplint:
+    uses: tarosky/workflows/.github/workflows/phplint.yml@main
 
   assets:
     name: Assets Test
@@ -73,7 +38,7 @@ jobs:
 
   release:
     name: Deploy WordPress.org
-    needs: [ test, assets ]
+    needs: [ phpcs, phplint, assets ]
     if: contains(github.ref, 'tags/')
     runs-on: ubuntu-latest
     steps:

@@ -46,6 +46,7 @@ class Screen extends Controller {
 				$page .= '?post_type=' . $post_type;
 			}
 			$object = get_post_type_object( $post_type );
+			// translators: %s is post type name.
 			add_submenu_page( $page, sprintf( __( 'Feedback Statistic of %s', 'anyway-feedback' ), $object->labels->name ), __( 'Feedback Statistic', 'anyway-feedback' ), 'edit_posts', 'anyway-feedback-static-' . $post_type, array( $this, 'render_static' ) );
 		}
 	}
@@ -149,20 +150,32 @@ class Screen extends Controller {
 		}, 'anyway-feedback' );
 		$settings = [
 			'post_types'              => [ __( 'Post Types', 'anyway-feedback' ), 'default', [] ],
-			'comment'                 => [ __( 'Comment', 'anyway-feedback' ), 'default', [
-				'' => __( 'Not supported', 'anyway-feedback' ),
-				1 => __( 'Allow feedback for comments', 'anyway-feedback' ),
-			] ],
-			'style'                   => [ __( 'Controller Appearance', 'anyway-feedback' ), 'appearance', [
-				'' => __( 'No style', 'anyway-feedback' ),
-				1 => __( 'Plugin Default', 'anyway-feedback' ),
-			] ],
+			'comment'                 => [
+				__( 'Comment', 'anyway-feedback' ),
+				'default',
+				[
+					'' => __( 'Not supported', 'anyway-feedback' ),
+					1  => __( 'Allow feedback for comments', 'anyway-feedback' ),
+				],
+			],
+			'style'                   => [
+				__( 'Controller Appearance', 'anyway-feedback' ),
+				'appearance',
+				[
+					'' => __( 'No style', 'anyway-feedback' ),
+					1  => __( 'Plugin Default', 'anyway-feedback' ),
+				],
+			],
 			'hide_default_controller' => [ __( 'Hide default feedback controller', 'anyway-feedback' ), 'appearance', [] ],
 			'controller'              => [ __( 'Custom markup', 'anyway-feedback' ), 'appearance', [] ],
-			'ga'                      => [ __( 'Google Analytics Integration', 'anyway-feedback' ), 'option', [
-				'' => __( 'Not Active', 'anyway-feedback' ),
-				1 => __( 'Track Event', 'anyway-feedback' ),
-			] ],
+			'ga'                      => [
+				__( 'Google Analytics Integration', 'anyway-feedback' ),
+				'option',
+				[
+					'' => __( 'Not Active', 'anyway-feedback' ),
+					1  => __( 'Track Event', 'anyway-feedback' ),
+				],
+			],
 		];
 		foreach ( $settings as $key => list( $label, $section, $options ) ) {
 			add_settings_field( 'afb_' . $key, $label, function() use ( $key, $options ) {

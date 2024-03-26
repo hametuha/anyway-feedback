@@ -60,7 +60,12 @@ class Popular extends \WP_Widget {
 							?>
 							<li>
 								<a href="<?php echo get_permalink( $post ); ?>"><?php echo get_the_title( $post ); ?></a>
-								<span class="count">(<?php printf( __( '%d says useful', 'anyway-feedback' ), $post->positive ); ?>)</span>
+								<span class="count">(
+									<?php
+									// translators: %d is number of positive feedback.
+									printf( __( '%d says useful', 'anyway-feedback' ), $post->positive );
+									?>
+								)</span>
 							</li>
 							<?php
 						endforeach;
@@ -96,8 +101,12 @@ class Popular extends \WP_Widget {
 		?>
 			<p>
 				<label for="<?php echo $this->get_field_id( 'title' ); ?>">
-					<?php _e( 'Title:' ); ?>
-					<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( isset( $instance['title'] ) ? $instance['title'] : sprintf( __( 'Popular %s', 'anyway-feedback' ), get_post_type_object( $current_post_type )->labels->name ) ); ?>" />
+					<?php
+					esc_html_e( 'Title:', 'anyway-feedback' );
+					// translators: %s is post type name.
+					$title = isset( $instance['title'] ) ? $instance['title'] : sprintf( __( 'Popular %s', 'anyway-feedback' ), get_post_type_object( $current_post_type )->labels->name );
+					?>
+					<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 				</label>
 				<label for="<?php echo $this->get_field_id( 'post_type' ); ?>">
 					<?php _e( 'Post Type:', 'anyway-feedback' ); ?> <br />

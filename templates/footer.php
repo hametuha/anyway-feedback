@@ -18,24 +18,25 @@ defined( 'ABSPATH' ) or die();
 			<?php echo get_avatar( 'takahashi.fumiki@hametuha.co.jp', 60 ); ?>
 			<?php
 			printf(
+				// translators: %s is link to WordPress.org profile.
 				esc_html__( 'Takahashi Fumiki did. I am a WordPress developer and novelist. See detail at %s', 'anyway-feedback' ),
-				'<a href="https://profiles.wordpress.org/takahashi_fumiki/" target="_blank">WordPrss.org</a>'
+				'<a href="https://profiles.wordpress.org/takahashi_fumiki/" target="_blank" rel="noopener noreferrer">WordPrss.org</a>'
 			);
 			?>
 		</p>
 	</div><!-- //.div_4 -->
 
 	<div class="div_4">
-		<h3><i class="dashicons dashicons-email-alt"></i> <?php _e( 'Contact', 'anyway-feedback' ); ?></h3>
+		<h3><i class="dashicons dashicons-email-alt"></i> <?php esc_html_e( 'Contact', 'anyway-feedback' ); ?></h3>
 		<p>
-			<?php _e( 'If you have some request, please feel free to contact via:', 'anyway-feedback' ); ?>
+			<?php esc_html_e( 'If you have some request, please feel free to contact via:', 'anyway-feedback' ); ?>
 		</p>
 		<p class="contact">
 			<?php
 			foreach ( array(
-				'wordpress'  => 'https://wordpress.org/support/plugin/anyway-feedback',
-				'twitter'    => 'https://twitter.com/takahashifumiki',
-				'facebook'   => 'https://www.facebook.com/TakahashiFumiki.Page',
+				'wordpress' => 'https://wordpress.org/support/plugin/anyway-feedback',
+				'twitter'   => 'https://twitter.com/takahashifumiki',
+				'facebook'  => 'https://www.facebook.com/TakahashiFumiki.Page',
 			) as $icon => $url ) :
 				?>
 				<a href="<?php echo esc_html( $url ); ?>" target="_blank"><i class="dashicons dashicons-<?php echo $icon; ?>"></i></a>
@@ -44,6 +45,7 @@ defined( 'ABSPATH' ) or die();
 		<p>
 			<?php
 			printf(
+				// translators: %s is link to GitHub.
 				esc_html__( 'Japanese, English and French are welcomed. Of course, you can send pull request via %s.', 'anyway-feedback' ),
 				'<a href="https://github.com/hametuha/anyway-feedback" target="_blank" rel="noopener noreferrer">GitHub</a>'
 			);
