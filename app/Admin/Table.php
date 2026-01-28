@@ -91,7 +91,7 @@ class Table extends \WP_List_Table {
 
 		$args = array(
 			'post_type' => $this->post_type->name,
-			'order'     => strtoupper( $this->input->get( 'order' ) ),
+			'order'     => strtoupper( $this->input->get( 'order' ) ?? '' ),
 			'orderby'   => $this->input->get( 'orderby' ),
 			's'         => $this->input->get( 's' ),
 		);
@@ -122,7 +122,8 @@ class Table extends \WP_List_Table {
 		switch ( $column_name ) {
 			case 'positive':
 			case 'negative':
-				return number_format( $item->{$column_name} );
+				$count = $item->{$column_name} ?? 0;
+				return number_format( $count );
 			case 'title':
 				$title = esc_html( $item->post_title ) . ' - ';
 				switch ( $item->post_status ) {
