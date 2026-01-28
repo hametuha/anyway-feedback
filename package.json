@@ -18,7 +18,8 @@
 		"lint:css": "wp-scripts lint-style './src/scss/**/*.scss'",
 		"fix": "npm run fix:js && npm run fix:css",
 		"fix:js": "wp-scripts lint-js --fix './src/js/**/*.js'",
-		"fix:css": "wp-scripts lint-style --fix './src/scss/**/*.scss'"
+		"fix:css": "wp-scripts lint-style --fix './src/scss/**/*.scss'",
+		"prepare": "husky"
 	},
 	"author": "Hametuha INC.",
 	"license": "LGPL-3.0-or-later",
@@ -27,7 +28,9 @@
 		"@wordpress/env": "^10.0",
 		"@wordpress/scripts": "^30",
 		"autoprefixer": "^10.4.19",
+		"husky": "^9.1.7",
 		"js-cookie": "^3.0.5",
+		"lint-staged": "^16.2.7",
 		"npm-watch": "^0.11.0",
 		"postcss": "^8.4.38",
 		"postcss-cli": "^11.0.0",
@@ -36,16 +39,28 @@
 	"watch": {
 		"build:js": {
 			"extensions": "js",
-			"patterns": ["src/js"]
+			"patterns": [
+				"src/js"
+			]
 		},
 		"build:css": {
 			"extensions": "scss",
-			"patterns": ["src/scss"]
+			"patterns": [
+				"src/scss"
+			]
 		},
 		"dump": {
 			"extensions": "js,css",
-			"patterns": ["assets/js", "assets/css"]
+			"patterns": [
+				"assets/js",
+				"assets/css"
+			]
 		}
+	},
+	"lint-staged": {
+		"*.php": "./vendor/bin/phpcs --standard=phpcs.ruleset.xml",
+		"src/js/**/*.js": "wp-scripts lint-js",
+		"src/scss/**/*.scss": "wp-scripts lint-style"
 	},
 	"engines": {
 		"node": ">=22"

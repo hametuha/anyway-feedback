@@ -16,7 +16,7 @@ trait UserDetector {
 	public function user_posted( $object_id, $post_type ) {
 		$object_id   = intval( $object_id );
 		$cookie_name = $this->cookie_name( $post_type );
-		$cookie      = isset( $_COOKIE[ $cookie_name ] ) ? array_filter(explode( ',', $_COOKIE[ $cookie_name ] ), function( $val ) {
+		$cookie      = isset( $_COOKIE[ $cookie_name ] ) ? array_filter(explode( ',', $_COOKIE[ $cookie_name ] ), function ( $val ) {
 			return is_numeric( $val );
 		}) : array();
 		if ( ! in_array( (string) $object_id, $cookie, true ) ) {

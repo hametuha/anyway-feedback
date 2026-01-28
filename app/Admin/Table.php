@@ -204,5 +204,4 @@ class Table extends \WP_List_Table {
 				return parent::__get( $name );
 		}
 	}
-
 }

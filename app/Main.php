@@ -173,7 +173,7 @@ HTML;
 	 * @param string $content
 	 * @return string
 	 */
-	function the_content( $content ) {
+	public function the_content( $content ) {
 		if ( in_array( get_post_type(), $this->option['post_types'], true ) && ! in_array( get_post_type(), $this->option['hide_default_controller'], true ) ) {
 			$content .= $this->get_controller_tag( get_the_ID(), get_post_type() );
 		}
@@ -219,9 +219,7 @@ HTML;
 	 * register widgets
 	 *
 	 */
-	function register_widgets() {
+	public function register_widgets() {
 		register_widget( 'AFB\\Widget\\Popular' );
 	}
-
-
 }

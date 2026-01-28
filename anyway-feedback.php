@@ -50,7 +50,7 @@ function _afb_init() {
 		// Load composer.
 		require __DIR__ . '/vendor/autoload.php';
 		// Load functions
-		require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'functions.php';
+		require_once __DIR__ . DIRECTORY_SEPARATOR . 'functions.php';
 		// Load main instance.
 		AFB\Main::get_instance();
 		// Load Admin instance
@@ -71,5 +71,4 @@ function _afb_too_old() {
 	echo <<<HTML
 <div class="error"><p>{$message}</p></div>
 HTML;
-
 }

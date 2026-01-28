@@ -119,9 +119,9 @@ abstract class Controller extends Singleton {
 			case 'input':
 				return Input::get_instance();
 			case 'dir':
-				return dirname( dirname( dirname( __FILE__ ) ) );
+				return dirname( __DIR__, 2 );
 			case 'url':
-				return plugin_dir_url( dirname( dirname( __FILE__ ) ) );
+				return plugin_dir_url( dirname( __DIR__, 1 ) );
 			case 'feedbacks':
 				return FeedBacks::get_instance();
 			case 'option':
@@ -137,5 +137,4 @@ abstract class Controller extends Singleton {
 				return null;
 		}
 	}
-
 }

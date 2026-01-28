@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) or die();
 
 <form method="post" action="<?php echo admin_url( 'options.php' ); ?>" id="afb-form">
 	<?php
-	add_action( 'afb_after_setting_field', function( $key ) {
+	add_action( 'afb_after_setting_field', function ( $key ) {
 		$messages = [
 			'post_types'              => __( 'Checked post type will be active for feedbacks and display controller inside post content via <code>the_content</code> hook.', 'anyway-feedback' ),
 			'comment'                 => __( 'This option decide to display feedback controller in comment loop. This affects all comment of commentable post types.', 'anyway-feedback' ),

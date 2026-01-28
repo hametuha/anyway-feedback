@@ -123,13 +123,13 @@ class Screen extends Controller {
 		// Refresh option.
 		$this->refresh_option();
 		// default setting.
-		add_settings_section( 'afb-default-section', __( 'Feedback Setting', 'anyway-feedback' ), function() {
+		add_settings_section( 'afb-default-section', __( 'Feedback Setting', 'anyway-feedback' ), function () {
 			// Register something.
 		}, 'anyway-feedback' );
-		add_settings_section( 'afb-appearance-section', __( 'Appearance', 'anyway-feedback' ), function() {
+		add_settings_section( 'afb-appearance-section', __( 'Appearance', 'anyway-feedback' ), function () {
 			// Register something.
 		}, 'anyway-feedback' );
-		add_settings_section( 'afb-option-section', __( 'Option', 'anyway-feedback' ), function() {
+		add_settings_section( 'afb-option-section', __( 'Option', 'anyway-feedback' ), function () {
 			// Register something.
 		}, 'anyway-feedback' );
 		$settings = [
@@ -162,7 +162,7 @@ class Screen extends Controller {
 			],
 		];
 		foreach ( $settings as $key => list( $label, $section, $options ) ) {
-			add_settings_field( 'afb_' . $key, $label, function() use ( $key, $options ) {
+			add_settings_field( 'afb_' . $key, $label, function () use ( $key, $options ) {
 				$option_key = 'afb_' . $key;
 				$value      = get_option( $option_key );
 				switch ( $key ) {
@@ -207,7 +207,7 @@ class Screen extends Controller {
 		if ( current_user_can( 'update_plugins' ) ) {
 			if ( $this->feedbacks->try_update_db() ) {
 				$message = __( 'Database has been updated.', 'anyway-feedback' );
-				add_action('admin_notices', function() use ( $message ) {
+				add_action('admin_notices', function () use ( $message ) {
 					printf( '<div class="updated"><p>%s</p></div>', esc_html( $message ) );
 				});
 			}
@@ -283,5 +283,4 @@ class Screen extends Controller {
 				break;
 		}
 	}
-
 }
