@@ -6,8 +6,6 @@
  */
 
 /*global AFBP:true*/
-/*global Cookies:false*/
-/*global gtag:false*/
 
 jQuery( document ).ready( function( $ ) {
 	/**
@@ -15,7 +13,7 @@ jQuery( document ).ready( function( $ ) {
 	 *
 	 * @param {string} postType Post type name.
 	 * @param {number} objectId post id or comment id.
-	 * @return {boolean}
+	 * @return {boolean} Whether the cookie exists.
 	 */
 	const cookieExists = function( postType, objectId ) {
 		let cookie = Cookies.get( cookieName( postType ) );
@@ -34,7 +32,7 @@ jQuery( document ).ready( function( $ ) {
 	 * Get cookie name from post type.
 	 *
 	 * @param {string} postType Post type name.
-	 * @return {string}
+	 * @return {string} Cookie name.
 	 */
 	const cookieName = function( postType ) {
 		return 'afb_' + ( 'comment' === postType ? 'comment' : 'post' );
@@ -84,11 +82,11 @@ jQuery( document ).ready( function( $ ) {
 		// Check posted?
 		const target = $( this ).parent( '.afb_container' );
 		if ( ! target.hasClass( 'afb_posted' ) ) {
-			const object_id = parseInt( target.find( 'input[name=object_id]' ).val() );
+			const objectId = parseInt( target.find( 'input[name=object_id]' ).val() );
 			const postType = target.find( 'input[name=post_type]' ).val();
 			const affirmative = $( this ).hasClass( 'bad' ) ? 0 : 1;
 			wp.apiFetch( {
-				path: 'afb/v1/feedback/' + postType + '/' + object_id,
+				path: 'afb/v1/feedback/' + postType + '/' + objectId,
 				data: {
 					affirmative,
 				},
@@ -98,13 +96,13 @@ jQuery( document ).ready( function( $ ) {
 				target.find( '.message' ).addClass( 'success' ).text( response.message );
 				target.find( '.status' ).text( response.status );
 				// Save cookie
-				saveCookie( postType, object_id );
+				saveCookie( postType, objectId );
 				// Record Google Analytics 4
 				if ( '1' === AFBP.ga ) {
 					try {
 						gtag( 'event', 'feedback', {
 							type: ( postType === 'comment' ? 'comment' : 'post' ),
-							id: object_id,
+							id: objectId,
 							value: affirmative ? 1 : -1,
 						} );
 					} catch ( err ) {
@@ -112,7 +110,7 @@ jQuery( document ).ready( function( $ ) {
 					}
 				}
 				// Trigger event
-				target.trigger( 'feedback.afb', [ ( postType === 'comment' ? 'comment' : 'post' ), object_id, affirmative ] );
+				target.trigger( 'feedback.afb', [ ( postType === 'comment' ? 'comment' : 'post' ), objectId, affirmative ] );
 			} ).catch( function( response ) {
 				target.find( 'a, .input' ).remove();
 				target.find( '.message' ).addClass( 'error' ).text( response.message );
