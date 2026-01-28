@@ -19,8 +19,6 @@ phpcs.ruleset.xml
 phpunit.xml.dist
 README.md
 webpack.config.js
-wp-dependencies.json
-wordpress
 bin
 tests
 anyway-feedback.php.bak

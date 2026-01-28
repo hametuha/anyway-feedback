@@ -4,6 +4,9 @@
  * @handle afb-admin
  */
 
+@use "sass:list";
+@use "sass:color";
+
 /* Error message */
 .updated ul li,
 .error ul li {
@@ -12,6 +15,7 @@
 }
 
 #chart-area {
+
 	.div_2 {
 		width: 45%;
 		margin-right: 5%;
@@ -51,7 +55,9 @@
 }
 
 @media only screen and (max-width: 782px) {
+
 	#chart-area {
+
 		.div_2 {
 			width: auto;
 			margin-right: 0;
@@ -65,6 +71,7 @@
 
 // CHart Table
 .afb .widefat {
+
 	td.column-positive,
 	td.column-negative {
 		width: 4em;
@@ -81,8 +88,10 @@ th.column-feedback {
 }
 
 @media only screen and (max-width: 782px) {
+
 	th,
 	td {
+
 		&.column-feedback {
 			display: none;
 		}
@@ -142,15 +151,15 @@ th.column-feedback {
 			font-size: 1.2em;
 
 			.blue {
-				color: lightskyblue;
+				color: #87cefa;
 			}
 
 			.yellow {
-				color: lightyellow;
+				color: #ffffe0;
 			}
 
 			.red {
-				color: tomato;
+				color: #ff6347;
 			}
 		}
 
@@ -161,6 +170,7 @@ th.column-feedback {
 }
 
 .clearfix {
+
 	&::after {
 		display: block;
 		clear: both;
@@ -170,6 +180,7 @@ th.column-feedback {
 
 // form
 #afb-form {
+
 	textarea {
 		box-sizing: border-box;
 		width: 100%;
@@ -215,6 +226,7 @@ th.column-feedback {
 	}
 
 	.contact {
+
 		.dashicons {
 			font-size: 32px;
 		}
@@ -225,20 +237,24 @@ th.column-feedback {
 		}
 
 		@each $brand in (twitter #00ACED, facebook #3B5998, googleplus #CC3732, wordpress #21759B) {
-			$name: nth($brand, 1);
-			$color: nth($brand, 2);
+			$name: list.nth($brand, 1);
+			$color: list.nth($brand, 2);
+
 			.dashicons-#{$name} {
 				color: $color;
 			}
+
 			a:hover .dashicons-#{$name} {
-				color: lighten($color, 20);
+				color: color.adjust($color, $lightness: 20%);
 			}
 		}
 	}
 }
 
 @media only screen and (max-width: 468px) {
+
 	#afb-info {
+
 		.div_4 {
 			width: auto;
 			float: none;
@@ -261,6 +277,7 @@ th.column-feedback {
 	}
 
 	thead {
+
 		th {
 			background: #f9f9f9;
 			border-bottom: 3px double #ddd;
@@ -278,10 +295,10 @@ th.column-feedback {
 	}
 
 	.s {
-		color: tomato;
+		color: #ff6347;
 	}
 
 	.l {
-		color: lightskyblue;
+		color: #87cefa;
 	}
 }
