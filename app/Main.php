@@ -145,11 +145,13 @@ HTML;
 			$before .= $this->default_controller_html( $message, esc_url( $url ), $useful, $useless, $status );
 		} else {
 			$replaces = array(
-				'POST_TYPE' => $post_type_name,
-				'LINK'      => $url,
-				'POSITIVE'  => afb_affirmative( false, $object_id, $post_type ),
-				'TOTAL'     => afb_total( false, $object_id, $post_type ),
-				'NEGATIVE'  => afb_negative( false, $object_id, $post_type ),
+				'POSITIVE_RATE' => afb_positive_rate( false, $object_id, $post_type ) . '%',
+				'NEGATIVE_RATE' => afb_negative_rate( false, $object_id, $post_type ) . '%',
+				'POST_TYPE'     => $post_type_name,
+				'LINK'          => $url,
+				'POSITIVE'      => afb_affirmative( false, $object_id, $post_type ),
+				'TOTAL'         => afb_total( false, $object_id, $post_type ),
+				'NEGATIVE'      => afb_negative( false, $object_id, $post_type ),
 			);
 			$content  = stripcslashes( $this->option['controller'] );
 			foreach ( $replaces as $needle => $repl ) {

@@ -94,6 +94,40 @@ function afb_negative( $echo = true, $object_id = null, $post_type = null ) {
 
 
 /**
+ * Retrieve positive feedback rate as integer percentage. Use inside loop.
+ *
+ * @param boolean $echo (optional) Return value if false.
+ * @param int     $object_id
+ * @param string  $post_type
+ * @return int 0-100
+ */
+function afb_positive_rate( $echo = true, $object_id = null, $post_type = null ) {
+	$total = afb_total( false, $object_id, $post_type );
+	$rate  = $total > 0 ? (int) round( afb_affirmative( false, $object_id, $post_type ) / $total * 100 ) : 0;
+	if ( $echo ) {
+		echo $rate;
+	}
+	return $rate;
+}
+
+/**
+ * Retrieve negative feedback rate as integer percentage. Use inside loop.
+ *
+ * @param boolean $echo (optional) Return value if false.
+ * @param int     $object_id
+ * @param string  $post_type
+ * @return int 0-100
+ */
+function afb_negative_rate( $echo = true, $object_id = null, $post_type = null ) {
+	$total = afb_total( false, $object_id, $post_type );
+	$rate  = $total > 0 ? (int) round( afb_negative( false, $object_id, $post_type ) / $total * 100 ) : 0;
+	if ( $echo ) {
+		echo $rate;
+	}
+	return $rate;
+}
+
+/**
  * Get instance
  *
  * @return \AFB\Main

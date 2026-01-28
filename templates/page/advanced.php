@@ -40,6 +40,18 @@ defined( 'ABSPATH' ) or die();
 				<?php esc_html_e( 'Display number of total feedbacks of specified post. Same as afb_affirmative.', 'anyway-feedback' ); ?>
 			</p>
 		</dd>
+		<dt><span class="blue">afb_positive_rate</span>( (boolean) <span class="yellow">$echo</span> = <span class="red">true</span>, (int) <span class="yellow">$object_id</span> = <sapn class="red">null</sapn>, (string) <span class="yellow">$post_type</span> = <sapn class="red">null</sapn>)</dt>
+		<dd>
+			<p>
+				<?php esc_html_e( 'Display positive feedback rate as integer percentage (0-100). Same as afb_affirmative.', 'anyway-feedback' ); ?>
+			</p>
+		</dd>
+		<dt><span class="blue">afb_negative_rate</span>( (boolean) <span class="yellow">$echo</span> = <span class="red">true</span>, (int) <span class="yellow">$object_id</span> = <sapn class="red">null</sapn>, (string) <span class="yellow">$post_type</span> = <sapn class="red">null</sapn>)</dt>
+		<dd>
+			<p>
+				<?php esc_html_e( 'Display negative feedback rate as integer percentage (0-100). Same as afb_affirmative.', 'anyway-feedback' ); ?>
+			</p>
+		</dd>
 	</dl>
 	<p class="description">
 		<?php esc_html_e( "All these template tags above should be wrapped inside if declaration for compatibility. If not, stopping this plugin will break your theme's display.", 'anyway-feedback' ); ?>
