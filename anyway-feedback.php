@@ -1,16 +1,16 @@
 <?php
-/*
-Plugin Name: Anyway Feedback
-Plugin URI: https://wordpress.org/plugins/anyway-feedback/
-Description: Help to assemble simple feedback(negative or positive) and get statics of them.
-Version: nightly
-Requires at least: 6.6
-Requires PHP: 7.4
-Author: Hametuha INC.
-Author URI: https://hametuha.co.jp
-Text Domain: anyway-feedback
-Domain Path: /language/
-License: GPL2 or Later
+/**
+ * Plugin Name: Anyway Feedback
+ * Plugin URI: https://wordpress.org/plugins/anyway-feedback/
+ * Description: Help to assemble simple feedback(negative or positive) and get statics of them.
+ * Version: nightly
+ * Requires at least: 6.6
+ * Requires PHP: 7.4
+ * Author: Hametuha INC.
+ * Author URI: https://hametuha.co.jp
+ * Text Domain: anyway-feedback
+ * Domain Path: /language/
+ * License: GPL2 or Later
 */
 
 

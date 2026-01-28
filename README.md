@@ -3,7 +3,7 @@
 Contributors: Takahashi_Fumiki,hametuha  
 Tags: feedback, analytics  
 Tested up to: 6.9  
-Stable tag: nightly  
+Stable Tag: nightly  
 
 This plugin enable users to send feedback with single click. This may support you to analyze your user's opinion. Works as a help center for your site.
 
