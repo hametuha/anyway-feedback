@@ -1,4 +1,5 @@
 .browserslistrc
+.claude
 .editorconfig
 .eslintrc
 .distignore
@@ -9,6 +10,8 @@
 .stylelintrc.json
 .wordpress-org
 .wp-env.json
+/src
+/wordpress
 node_modules
 composer.lock
 package-lock.json
@@ -16,6 +19,7 @@ phpcs.ruleset.xml
 phpunit.xml.dist
 README.md
 webpack.config.js
+wp-dependencies.json
 wordpress
 bin
 tests

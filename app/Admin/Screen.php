@@ -97,29 +97,13 @@ class Screen extends Controller {
 			|| 'settings_page_anyway-feedback' === $page
 			|| 'edit-comments.php' === $page
 		) {
-			$deps = array( 'jquery' );
-			if ( $is_statistic ) {
-				wp_register_script( 'google-chart-api', 'https://www.google.com/jsapi', null, null );
-				$deps[] = 'google-chart-api';
-			}
 			// Main Style sheet
-			wp_enqueue_style(
-				'afb-admin',
-				$this->url . 'dist/css/admin-style.css',
-				null,
-				$this->version,
-				'screen'
-			);
+			wp_enqueue_style( 'afb-admin' );
 			// Script
-			wp_enqueue_script(
-				'afb-util',
-				$this->url . 'dist/js/admin-script.js',
-				$deps,
-				$this->version,
-				true
-			);
+			wp_enqueue_script( 'afb-admin' );
 			if ( $is_statistic ) {
-				wp_localize_script('afb-util', 'AFB', array(
+				// todo: translation in JS
+				wp_localize_script('afb-admin', 'AFB', array(
 					'pieTitle'    => __( 'Feedback Ratio', 'anyway-feedback' ),
 					'piePositive' => __( 'Positive', 'anyway-feedback' ),
 					'pieNegative' => __( 'Negative', 'anyway-feedback' ),
@@ -133,7 +117,7 @@ class Screen extends Controller {
 	 * Update option
 	 */
 	public function admin_init() {
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		if ( wp_doing_ajax() ) {
 			return;
 		}
 		// Refresh option.

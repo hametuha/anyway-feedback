@@ -33,7 +33,7 @@ abstract class Controller extends Singleton {
 	 * @return string
 	 */
 	public function assets_url( $name, $is_compressed = false, $suffix = '.min' ) {
-		$dir = 'dist/';
+		$dir = 'assets/';
 		return $this->url . $dir . $name;
 	}
 

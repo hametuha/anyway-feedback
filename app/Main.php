@@ -44,11 +44,11 @@ class Main extends Controller {
 	}
 
 	/**
-	 * Enqueue script
+	 * Enqueue style
 	 */
 	public function wp_enqueue_scripts() {
 		if ( $this->option['style'] ) {
-			wp_enqueue_style( 'anyway-feedback', $this->url . 'dist/css/afb-style.css', [], $this->version, 'screen' );
+			wp_enqueue_style( 'anyway-feedback' );
 		}
 	}
 
@@ -58,10 +58,42 @@ class Main extends Controller {
 	 * @return void
 	 */
 	public function register_script() {
+		// Register libraries.
 		if ( ! wp_script_is( 'js-cookie', 'registered' ) ) {
-			wp_register_script( 'js-cookie', $this->assets_url( 'js/js.cookie.min.js', true ), array(), '3.0.2', false );
+			wp_register_script( 'js-cookie', $this->url . 'assets/vendor/js.cookie.min.js', array(), '3.0.2', false );
 		}
-		wp_register_script( 'anyway-feedback', $this->assets_url( 'js/anyway-feedback-handler.js', true ), [ 'jquery', 'js-cookie', 'wp-api-fetch' ], $this->version, true );
+		// Google Chart
+		wp_register_script( 'google-chart-api', 'https://www.google.com/jsapi', null, null );
+		// Register from wp-dependencies.json
+		$json = dirname( __DIR__ ) . '/wp-dependencies.json';
+		if ( file_exists( $json ) ) {
+			$deps = json_decode( file_get_contents( $json ), true );
+			if ( ! empty( $deps ) ) {
+				foreach ( $deps as $dep ) {
+					if ( empty( $dep['path'] ) ) {
+						continue;
+					}
+					$url = $this->url . $dep['path'];
+					switch ( $dep['ext'] ) {
+						case 'css':
+							wp_register_style( $dep['handle'], $url, $dep['deps'], $dep['hash'], $dep['media'] );
+							break;
+						case 'js':
+							$footer = [ 'in_footer' => $dep['footer'] ];
+							if ( in_array( $dep['strategy'], [ 'defer', 'async' ], true ) ) {
+								$footer['strategy'] = $dep['strategy'];
+							}
+							wp_register_script( $dep['handle'], $url, $dep['deps'], $dep['hash'], $footer );
+							// Set translation
+							if ( in_array( 'wp-i18n', $dep['deps'], true ) ) {
+								wp_set_script_translations( $dep['handle'], 'anyway-feedback' );
+							}
+							break;
+					}
+				}
+			}
+		}
+		// todo: translation is available in JS.
 		wp_localize_script('anyway-feedback', 'AFBP', array(
 			'ga'      => (int) $this->option['ga'],
 			'already' => __( 'You have already voted.', 'anyway-feedback' ),

@@ -1,11 +1,13 @@
 <?php
 /*
 Plugin Name: Anyway Feedback
-Plugin URI: https://wordpress.org/extend/plugins/anyway-feedback/
+Plugin URI: https://wordpress.org/plugins/anyway-feedback/
 Description: Help to assemble simple feedback(negative or positive) and get statics of them.
 Version: nightly
-Author: Takahashi_Fumiki
-Author URI: https://takahashifumiki.com
+Requires at least: 6.6
+Requires PHP: 7.4
+Author: Hametuha INC.
+Author URI: https://hametuha.co.jp
 Text Domain: anyway-feedback
 Domain Path: /language/
 License: GPL2 or Later
@@ -34,9 +36,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 defined( 'ABSPATH' ) || die( 'Do not load directly.' );
 
-// Register Bootstrap
-add_action( 'plugins_loaded', '_afb_init' );
-
 /**
  * Bootstrap
  */
@@ -44,7 +43,7 @@ function _afb_init() {
 	// Set Text Domain
 	load_plugin_textdomain( 'anyway-feedback', false, 'anyway-feedback/language' );
 	// Check PHP version
-	if ( version_compare( PHP_VERSION, '7.2.0', '<' ) ) {
+	if ( version_compare( PHP_VERSION, '7.4.0', '<' ) ) {
 		// NG. Show message.
 		add_action( 'admin_notices', '_afb_too_old' );
 	} else {
@@ -58,6 +57,7 @@ function _afb_init() {
 		AFB\Admin\Screen::get_instance();
 	}
 }
+add_action( 'plugins_loaded', '_afb_init' );
 
 /**
  * Show error message.
@@ -67,7 +67,7 @@ function _afb_init() {
  */
 function _afb_too_old() {
 	// translators: %s is PHP version.
-	$message = esc_html( sprintf( __( 'Oops, Anyway Feedback doesn\'t work. You PHP Version is %s but PHP 7.2 and over required.', 'anyway-feedback' ), PHP_VERSION ) );
+	$message = esc_html( sprintf( __( 'Oops, Anyway Feedback doesn\'t work. You PHP Version is %s but PHP 7.4 and over required.', 'anyway-feedback' ), PHP_VERSION ) );
 	echo <<<HTML
 <div class="error"><p>{$message}</p></div>
 HTML;

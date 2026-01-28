@@ -2,9 +2,7 @@
 
 Contributors: Takahashi_Fumiki,hametuha  
 Tags: feedback, analytics  
-Requires at least: 5.9  
-Requires PHP: 7.2  
-Tested up to: 6.4  
+Tested up to: 6.9  
 Stable tag: nightly  
 
 This plugin enable users to send feedback with single click. This may support you to analyze your user's opinion. Works as a help center for your site.

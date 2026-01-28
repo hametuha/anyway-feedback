@@ -2,10 +2,11 @@
 .svn
 /vendor/
 /node_modules/
+/assets/js/
 /assets/css/
-/assets/js/*.min.js
-/assets/js/js.cookie.js
 /assets/vendor/
-/dist/
+/wp-dependencies.json
 readme.txt
 composer.lock
+/wordpress/
+.claude/settings.local.json
