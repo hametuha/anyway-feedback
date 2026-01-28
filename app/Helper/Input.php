@@ -66,5 +66,4 @@ class Input extends Singleton {
 	public function check_nonce( $action, $key = '_wpnonce' ) {
 		return wp_verify_nonce( $this->request( $key ), $action );
 	}
-
 }

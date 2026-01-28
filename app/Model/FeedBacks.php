@@ -381,5 +381,4 @@ SQL;
 SQL;
 		return (int) $this->db->get_var( $this->db->prepare( $query, $post_type, $object_id ) );
 	}
-
 }

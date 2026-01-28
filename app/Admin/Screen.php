@@ -97,29 +97,13 @@ class Screen extends Controller {
 			|| 'settings_page_anyway-feedback' === $page
 			|| 'edit-comments.php' === $page
 		) {
-			$deps = array( 'jquery' );
-			if ( $is_statistic ) {
-				wp_register_script( 'google-chart-api', 'https://www.google.com/jsapi', null, null );
-				$deps[] = 'google-chart-api';
-			}
 			// Main Style sheet
-			wp_enqueue_style(
-				'afb-admin',
-				$this->url . 'dist/css/admin-style.css',
-				null,
-				$this->version,
-				'screen'
-			);
+			wp_enqueue_style( 'afb-admin' );
 			// Script
-			wp_enqueue_script(
-				'afb-util',
-				$this->url . 'dist/js/admin-script.js',
-				$deps,
-				$this->version,
-				true
-			);
+			wp_enqueue_script( 'afb-admin' );
 			if ( $is_statistic ) {
-				wp_localize_script('afb-util', 'AFB', array(
+				// todo: translation in JS
+				wp_localize_script('afb-admin', 'AFB', array(
 					'pieTitle'    => __( 'Feedback Ratio', 'anyway-feedback' ),
 					'piePositive' => __( 'Positive', 'anyway-feedback' ),
 					'pieNegative' => __( 'Negative', 'anyway-feedback' ),
@@ -133,19 +117,19 @@ class Screen extends Controller {
 	 * Update option
 	 */
 	public function admin_init() {
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		if ( wp_doing_ajax() ) {
 			return;
 		}
 		// Refresh option.
 		$this->refresh_option();
 		// default setting.
-		add_settings_section( 'afb-default-section', __( 'Feedback Setting', 'anyway-feedback' ), function() {
+		add_settings_section( 'afb-default-section', __( 'Feedback Setting', 'anyway-feedback' ), function () {
 			// Register something.
 		}, 'anyway-feedback' );
-		add_settings_section( 'afb-appearance-section', __( 'Appearance', 'anyway-feedback' ), function() {
+		add_settings_section( 'afb-appearance-section', __( 'Appearance', 'anyway-feedback' ), function () {
 			// Register something.
 		}, 'anyway-feedback' );
-		add_settings_section( 'afb-option-section', __( 'Option', 'anyway-feedback' ), function() {
+		add_settings_section( 'afb-option-section', __( 'Option', 'anyway-feedback' ), function () {
 			// Register something.
 		}, 'anyway-feedback' );
 		$settings = [
@@ -178,7 +162,7 @@ class Screen extends Controller {
 			],
 		];
 		foreach ( $settings as $key => list( $label, $section, $options ) ) {
-			add_settings_field( 'afb_' . $key, $label, function() use ( $key, $options ) {
+			add_settings_field( 'afb_' . $key, $label, function () use ( $key, $options ) {
 				$option_key = 'afb_' . $key;
 				$value      = get_option( $option_key );
 				switch ( $key ) {
@@ -223,7 +207,7 @@ class Screen extends Controller {
 		if ( current_user_can( 'update_plugins' ) ) {
 			if ( $this->feedbacks->try_update_db() ) {
 				$message = __( 'Database has been updated.', 'anyway-feedback' );
-				add_action('admin_notices', function() use ( $message ) {
+				add_action('admin_notices', function () use ( $message ) {
 					printf( '<div class="updated"><p>%s</p></div>', esc_html( $message ) );
 				});
 			}
@@ -299,5 +283,4 @@ class Screen extends Controller {
 				break;
 		}
 	}
-
 }

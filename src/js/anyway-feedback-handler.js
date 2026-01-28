@@ -1,23 +1,21 @@
 /*!
  * Helper script for Anyway Feedback
  *
- * @package AnywayFeedback
+ * @handle anyway-feedback
+ * @deps jquery,js-cookie,wp-api-fetch
  */
 
 /*global AFBP:true*/
-/*global Cookies:false*/
-/*global gtag:false*/
 
-jQuery( document ).ready( function ( $ ) {
-
+jQuery( document ).ready( function( $ ) {
 	/**
 	 * Check if cookie exists
 	 *
 	 * @param {string} postType Post type name.
 	 * @param {number} objectId post id or comment id.
-	 * @returns {boolean}
+	 * @return {boolean} Whether the cookie exists.
 	 */
-	const cookieExists = function ( postType, objectId ) {
+	const cookieExists = function( postType, objectId ) {
 		let cookie = Cookies.get( cookieName( postType ) );
 		if ( cookie ) {
 			if ( typeof cookie !== 'string' ) {
@@ -25,19 +23,18 @@ jQuery( document ).ready( function ( $ ) {
 			}
 			cookie = cookie.replace( /[^0-9,]/g, '' );
 			cookie = cookie.split( ',' );
-			return !( cookie.indexOf( objectId.toString() ) < 0 );
+			return ! ( cookie.indexOf( objectId.toString() ) < 0 );
 		}
-			return false;
-
+		return false;
 	};
 
 	/**
 	 * Get cookie name from post type.
 	 *
 	 * @param {string} postType Post type name.
-	 * @returns {string}
+	 * @return {string} Cookie name.
 	 */
-	const cookieName = function ( postType ) {
+	const cookieName = function( postType ) {
 		return 'afb_' + ( 'comment' === postType ? 'comment' : 'post' );
 	};
 
@@ -47,7 +44,7 @@ jQuery( document ).ready( function ( $ ) {
 	 * @param {string} postType
 	 * @param {number} objectId
 	 */
-	const saveCookie = function ( postType, objectId ) {
+	const saveCookie = function( postType, objectId ) {
 		if ( ! cookieExists( postType, objectId ) ) {
 			let cookie = Cookies.get( cookieName( postType ) );
 			if ( cookie ) {
@@ -61,7 +58,7 @@ jQuery( document ).ready( function ( $ ) {
 			cookie.push( parseInt( objectId ) );
 			Cookies.set( cookieName( postType ), cookie.join( ',' ), {
 				expires: 365 * 2,
-				path: '/'
+				path: '/',
 			} );
 		}
 	};
@@ -69,7 +66,7 @@ jQuery( document ).ready( function ( $ ) {
 	const containers = $( '.afb_container' );
 
 	// Check if use is already posted
-	containers.each( function ( index, container ) {
+	containers.each( function( index, container ) {
 		const objectId = parseInt( $( container ).find( 'input[name=object_id]' ).val() );
 		const postType = $( container ).find( 'input[name=post_type]' ).val();
 		if ( cookieExists( postType, objectId ) ) {
@@ -80,32 +77,32 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 	// Add event listener.
-	containers.on( 'click', 'a', function ( e ) {
+	containers.on( 'click', 'a', function( e ) {
 		e.preventDefault();
 		// Check posted?
-		const target = $( this ).parent( ".afb_container" );
+		const target = $( this ).parent( '.afb_container' );
 		if ( ! target.hasClass( 'afb_posted' ) ) {
-			const object_id = parseInt( target.find( "input[name=object_id]" ).val() );
+			const objectId = parseInt( target.find( 'input[name=object_id]' ).val() );
 			const postType = target.find( 'input[name=post_type]' ).val();
 			const affirmative = $( this ).hasClass( 'bad' ) ? 0 : 1;
 			wp.apiFetch( {
-				path: 'afb/v1/feedback/' + postType + '/' + object_id,
+				path: 'afb/v1/feedback/' + postType + '/' + objectId,
 				data: {
-					affirmative: affirmative
+					affirmative,
 				},
-				method: 'post'
+				method: 'post',
 			} ).then( function( response ) {
 				target.find( 'a, .input' ).remove();
 				target.find( '.message' ).addClass( 'success' ).text( response.message );
 				target.find( '.status' ).text( response.status );
 				// Save cookie
-				saveCookie( postType, object_id );
+				saveCookie( postType, objectId );
 				// Record Google Analytics 4
 				if ( '1' === AFBP.ga ) {
 					try {
 						gtag( 'event', 'feedback', {
 							type: ( postType === 'comment' ? 'comment' : 'post' ),
-							id: object_id,
+							id: objectId,
 							value: affirmative ? 1 : -1,
 						} );
 					} catch ( err ) {
@@ -113,7 +110,7 @@ jQuery( document ).ready( function ( $ ) {
 					}
 				}
 				// Trigger event
-				target.trigger( 'feedback.afb', [ ( postType === 'comment' ? 'comment' : 'post' ), object_id, affirmative ] );
+				target.trigger( 'feedback.afb', [ ( postType === 'comment' ? 'comment' : 'post' ), objectId, affirmative ] );
 			} ).catch( function( response ) {
 				target.find( 'a, .input' ).remove();
 				target.find( '.message' ).addClass( 'error' ).text( response.message );
