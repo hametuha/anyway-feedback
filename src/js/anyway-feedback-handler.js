@@ -2,30 +2,34 @@
  * Helper script for Anyway Feedback
  *
  * @handle anyway-feedback
- * @deps jquery,js-cookie,wp-api-fetch
+ * @deps wp-api-fetch,wp-i18n
  */
 
-/*global AFBP:true*/
+const { __ } = wp.i18n;
 
-jQuery( document ).ready( function( $ ) {
+document.addEventListener( 'DOMContentLoaded', () => {
 	/**
-	 * Check if cookie exists
+	 * Get cookie value by name.
 	 *
-	 * @param {string} postType Post type name.
-	 * @param {number} objectId post id or comment id.
-	 * @return {boolean} Whether the cookie exists.
+	 * @param {string} name Cookie name.
+	 * @return {string|null} Cookie value or null if not found.
 	 */
-	const cookieExists = function( postType, objectId ) {
-		let cookie = Cookies.get( cookieName( postType ) );
-		if ( cookie ) {
-			if ( typeof cookie !== 'string' ) {
-				cookie = cookie.toString();
-			}
-			cookie = cookie.replace( /[^0-9,]/g, '' );
-			cookie = cookie.split( ',' );
-			return ! ( cookie.indexOf( objectId.toString() ) < 0 );
-		}
-		return false;
+	const getCookie = ( name ) => {
+		const match = document.cookie.match( new RegExp( '(^|; )' + name + '=([^;]*)' ) );
+		return match ? decodeURIComponent( match[ 2 ] ) : null;
+	};
+
+	/**
+	 * Set cookie value.
+	 *
+	 * @param {string} name    Cookie name.
+	 * @param {string} value   Cookie value.
+	 * @param {number} expires Days until expiration.
+	 */
+	const setCookie = ( name, value, expires ) => {
+		const date = new Date();
+		date.setTime( date.getTime() + ( expires * 24 * 60 * 60 * 1000 ) );
+		document.cookie = name + '=' + encodeURIComponent( value ) + '; expires=' + date.toUTCString() + '; path=/';
 	};
 
 	/**
@@ -34,8 +38,25 @@ jQuery( document ).ready( function( $ ) {
 	 * @param {string} postType Post type name.
 	 * @return {string} Cookie name.
 	 */
-	const cookieName = function( postType ) {
+	const cookieName = ( postType ) => {
 		return 'afb_' + ( 'comment' === postType ? 'comment' : 'post' );
+	};
+
+	/**
+	 * Check if cookie exists
+	 *
+	 * @param {string} postType Post type name.
+	 * @param {number} objectId post id or comment id.
+	 * @return {boolean} Whether the cookie exists.
+	 */
+	const cookieExists = ( postType, objectId ) => {
+		let cookie = getCookie( cookieName( postType ) );
+		if ( cookie ) {
+			cookie = cookie.replace( /[^0-9,]/g, '' );
+			cookie = cookie.split( ',' );
+			return cookie.indexOf( objectId.toString() ) >= 0;
+		}
+		return false;
 	};
 
 	/**
@@ -44,77 +65,196 @@ jQuery( document ).ready( function( $ ) {
 	 * @param {string} postType
 	 * @param {number} objectId
 	 */
-	const saveCookie = function( postType, objectId ) {
+	const saveCookie = ( postType, objectId ) => {
 		if ( ! cookieExists( postType, objectId ) ) {
-			let cookie = Cookies.get( cookieName( postType ) );
+			let cookie = getCookie( cookieName( postType ) );
 			if ( cookie ) {
-				if ( typeof cookie !== 'string' ) {
-					cookie = cookie.toString();
-				}
 				cookie = cookie.split( ',' );
 			} else {
 				cookie = [];
 			}
-			cookie.push( parseInt( objectId ) );
-			Cookies.set( cookieName( postType ), cookie.join( ',' ), {
-				expires: 365 * 2,
-				path: '/',
-			} );
+			cookie.push( parseInt( objectId, 10 ) );
+			setCookie( cookieName( postType ), cookie.join( ',' ), 365 * 2 );
 		}
 	};
 
-	const containers = $( '.afb_container' );
+	/**
+	 * Show negative feedback reason dialog
+	 *
+	 * @param {string} postType Post type name.
+	 * @param {number} objectId Post id or comment id.
+	 */
+	const showNegativeReasonDialog = ( postType, objectId ) => {
+		// Create dialog element
+		const dialog = document.createElement( 'dialog' );
+		dialog.className = 'afb-negative-dialog';
+		dialog.innerHTML = `
+			<form method="dialog">
+				<p class="afb-dialog-prompt">${ __( 'Could you tell us the reason?', 'anyway-feedback' ) }</p>
+				<textarea class="afb-reason-text" rows="4"></textarea>
+				<div class="afb-dialog-buttons">
+					<button type="button" class="afb-dialog-cancel">${ __( 'Cancel', 'anyway-feedback' ) }</button>
+					<button type="submit" class="afb-dialog-submit">${ __( 'Submit', 'anyway-feedback' ) }</button>
+				</div>
+			</form>
+		`;
 
-	// Check if use is already posted
-	containers.each( function( index, container ) {
-		const objectId = parseInt( $( container ).find( 'input[name=object_id]' ).val() );
-		const postType = $( container ).find( 'input[name=post_type]' ).val();
+		document.body.appendChild( dialog );
+
+		const textarea = dialog.querySelector( '.afb-reason-text' );
+		const cancelBtn = dialog.querySelector( '.afb-dialog-cancel' );
+		const form = dialog.querySelector( 'form' );
+
+		// Handle cancel button
+		cancelBtn.addEventListener( 'click', () => {
+			dialog.close();
+		} );
+
+		// Handle backdrop click
+		dialog.addEventListener( 'click', ( e ) => {
+			if ( e.target === dialog ) {
+				dialog.close();
+			}
+		} );
+
+		// Handle form submit
+		form.addEventListener( 'submit', ( e ) => {
+			e.preventDefault();
+			const reason = textarea.value.trim();
+
+			if ( ! reason ) {
+				// No reason provided, just close
+				dialog.close();
+				return;
+			}
+
+			// Send reason to API
+			wp.apiFetch( {
+				path: `afb/v1/negative-reason/${ postType }/${ objectId }`,
+				data: { reason },
+				method: 'POST',
+			} ).then( () => {
+				// Show thank you message
+				dialog.innerHTML = `
+					<p class="afb-dialog-thanks">${ __( 'Thank you for your feedback.', 'anyway-feedback' ) }</p>
+					<div class="afb-dialog-buttons">
+						<button type="button" class="afb-dialog-close">${ __( 'Close', 'anyway-feedback' ) }</button>
+					</div>
+				`;
+				dialog.querySelector( '.afb-dialog-close' ).addEventListener( 'click', () => {
+					dialog.close();
+				} );
+			} ).catch( () => {
+				// On error, just close the dialog (vote is already recorded)
+				dialog.close();
+			} );
+		} );
+
+		// Clean up on close
+		dialog.addEventListener( 'close', () => {
+			dialog.remove();
+		} );
+
+		dialog.showModal();
+	};
+
+	const containers = document.querySelectorAll( '.afb_container' );
+
+	// Check if user is already posted
+	containers.forEach( ( container ) => {
+		const objectIdInput = container.querySelector( 'input[name=object_id]' );
+		const postTypeInput = container.querySelector( 'input[name=post_type]' );
+
+		if ( ! objectIdInput || ! postTypeInput ) {
+			return;
+		}
+
+		const objectId = parseInt( objectIdInput.value, 10 );
+		const postType = postTypeInput.value;
+
 		if ( cookieExists( postType, objectId ) ) {
-			$( container ).find( 'a, input' ).remove();
-			$( container ).find( '.message' ).text( AFBP.already );
-			$( container ).addClass( 'afb_posted' );
+			// Remove clickable elements and inputs
+			container.querySelectorAll( 'a, button, input' ).forEach( ( el ) => el.remove() );
+			const messageEl = container.querySelector( '.message' );
+			if ( messageEl ) {
+				messageEl.textContent = __( 'You have already voted.', 'anyway-feedback' );
+			}
+			container.classList.add( 'afb_posted' );
 		}
 	} );
 
-	// Add event listener.
-	containers.on( 'click', 'a', function( e ) {
-		e.preventDefault();
-		// Check posted?
-		const target = $( this ).parent( '.afb_container' );
-		if ( ! target.hasClass( 'afb_posted' ) ) {
-			const objectId = parseInt( target.find( 'input[name=object_id]' ).val() );
-			const postType = target.find( 'input[name=post_type]' ).val();
-			const affirmative = $( this ).hasClass( 'bad' ) ? 0 : 1;
+	// Add event listener using event delegation
+	containers.forEach( ( container ) => {
+		container.addEventListener( 'click', ( e ) => {
+			const clickedEl = e.target.closest( '.good, .bad' );
+			if ( ! clickedEl ) {
+				return;
+			}
+
+			e.preventDefault();
+
+			// Check if already posted
+			if ( container.classList.contains( 'afb_posted' ) ) {
+				return;
+			}
+
+			const objectIdInput = container.querySelector( 'input[name=object_id]' );
+			const postTypeInput = container.querySelector( 'input[name=post_type]' );
+
+			if ( ! objectIdInput || ! postTypeInput ) {
+				return;
+			}
+
+			const objectId = parseInt( objectIdInput.value, 10 );
+			const postType = postTypeInput.value;
+			const affirmative = clickedEl.classList.contains( 'bad' ) ? 0 : 1;
+
 			wp.apiFetch( {
-				path: 'afb/v1/feedback/' + postType + '/' + objectId,
-				data: {
-					affirmative,
-				},
-				method: 'post',
-			} ).then( function( response ) {
-				target.find( 'a, .input' ).remove();
-				target.find( '.message' ).addClass( 'success' ).text( response.message );
-				target.find( '.status' ).text( response.status );
+				path: `afb/v1/feedback/${ postType }/${ objectId }`,
+				data: { affirmative },
+				method: 'POST',
+			} ).then( ( response ) => {
+				// Remove clickable elements and inputs
+				container.querySelectorAll( 'a, button, .input' ).forEach( ( el ) => el.remove() );
+
+				const messageEl = container.querySelector( '.message' );
+				if ( messageEl ) {
+					messageEl.classList.add( 'success' );
+					messageEl.textContent = response.message;
+				}
+
+				const statusEl = container.querySelector( '.status' );
+				if ( statusEl ) {
+					statusEl.textContent = response.status;
+				}
+
 				// Save cookie
 				saveCookie( postType, objectId );
-				// Record Google Analytics 4
-				if ( '1' === AFBP.ga ) {
-					try {
-						gtag( 'event', 'feedback', {
-							type: ( postType === 'comment' ? 'comment' : 'post' ),
-							id: objectId,
-							value: affirmative ? 1 : -1,
-						} );
-					} catch ( err ) {
-						// Error.
-					}
+
+				// Trigger custom event (vanilla JS)
+				container.dispatchEvent( new CustomEvent( 'feedback.afb', {
+					bubbles: true,
+					detail: {
+						type: postType === 'comment' ? 'comment' : 'post',
+						objectId,
+						affirmative,
+					},
+				} ) );
+
+				// Show negative reason dialog for negative feedback
+				if ( affirmative === 0 ) {
+					showNegativeReasonDialog( postType, objectId );
 				}
-				// Trigger event
-				target.trigger( 'feedback.afb', [ ( postType === 'comment' ? 'comment' : 'post' ), objectId, affirmative ] );
-			} ).catch( function( response ) {
-				target.find( 'a, .input' ).remove();
-				target.find( '.message' ).addClass( 'error' ).text( response.message );
+			} ).catch( ( response ) => {
+				// Remove clickable elements and inputs
+				container.querySelectorAll( 'a, button, .input' ).forEach( ( el ) => el.remove() );
+
+				const messageEl = container.querySelector( '.message' );
+				if ( messageEl ) {
+					messageEl.classList.add( 'error' );
+					messageEl.textContent = response.message;
+				}
 			} );
-		}
+		} );
 	} );
 } );

@@ -99,17 +99,8 @@ class Screen extends Controller {
 		) {
 			// Main Style sheet
 			wp_enqueue_style( 'afb-admin' );
-			// Script
+			// Script (translations handled by wp-i18n)
 			wp_enqueue_script( 'afb-admin' );
-			if ( $is_statistic ) {
-				// todo: translation in JS
-				wp_localize_script('afb-admin', 'AFB', array(
-					'pieTitle'    => __( 'Feedback Ratio', 'anyway-feedback' ),
-					'piePositive' => __( 'Positive', 'anyway-feedback' ),
-					'pieNegative' => __( 'Negative', 'anyway-feedback' ),
-					'noData'      => __( 'No data', 'anyway-feedback' ),
-				));
-			}
 		}
 	}
 
@@ -152,14 +143,6 @@ class Screen extends Controller {
 			],
 			'hide_default_controller' => [ __( 'Hide default feedback controller', 'anyway-feedback' ), 'appearance', [] ],
 			'controller'              => [ __( 'Custom markup', 'anyway-feedback' ), 'appearance', [] ],
-			'ga'                      => [
-				__( 'Google Analytics Integration', 'anyway-feedback' ),
-				'option',
-				[
-					'' => __( 'Not Active', 'anyway-feedback' ),
-					1  => __( 'Track Event', 'anyway-feedback' ),
-				],
-			],
 		];
 		foreach ( $settings as $key => list( $label, $section, $options ) ) {
 			add_settings_field( 'afb_' . $key, $label, function () use ( $key, $options ) {
@@ -180,7 +163,6 @@ class Screen extends Controller {
 						break;
 					case 'comment':
 					case 'style':
-					case 'ga':
 						foreach ( $options as $val => $text ) {
 							printf( '<label style="display: inline-block; margin: 0 1.5em 1.5em 0"><input type="radio" name="%s" value="%s" %s /> %s</label>',
 								esc_attr( $option_key ),

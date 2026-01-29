@@ -90,10 +90,11 @@ class Table extends \WP_List_Table {
 		);
 
 		$args = array(
-			'post_type' => $this->post_type->name,
-			'order'     => strtoupper( $this->input->get( 'order' ) ?? '' ),
-			'orderby'   => $this->input->get( 'orderby' ),
-			's'         => $this->input->get( 's' ),
+			'post_type'   => $this->post_type->name,
+			'order'       => strtoupper( $this->input->get( 'order' ) ?? '' ),
+			'orderby'     => $this->input->get( 'orderby' ),
+			's'           => $this->input->get( 's' ),
+			'allow_empty' => false,
 		);
 
 		// Get data
