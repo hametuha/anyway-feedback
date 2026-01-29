@@ -5,8 +5,6 @@
  * @deps wp-api-fetch,wp-i18n
  */
 
-/* global AFBP:true */
-
 const { __ } = wp.i18n;
 
 document.addEventListener( 'DOMContentLoaded', () => {
@@ -232,20 +230,6 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
 				// Save cookie
 				saveCookie( postType, objectId );
-
-				// Record Google Analytics 4
-				if ( '1' === AFBP.ga || 1 === AFBP.ga ) {
-					try {
-						// eslint-disable-next-line no-undef
-						gtag( 'event', 'feedback', {
-							type: postType === 'comment' ? 'comment' : 'post',
-							id: objectId,
-							value: affirmative ? 1 : -1,
-						} );
-					} catch ( err ) {
-						// Error.
-					}
-				}
 
 				// Trigger custom event (vanilla JS)
 				container.dispatchEvent( new CustomEvent( 'feedback.afb', {

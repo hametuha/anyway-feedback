@@ -91,10 +91,6 @@ class Main extends Controller {
 				}
 			}
 		}
-		// Pass PHP options to JS (translations handled by wp-i18n).
-		wp_localize_script( 'anyway-feedback', 'AFBP', array(
-			'ga' => (int) $this->option['ga'],
-		) );
 	}
 
 	/**
