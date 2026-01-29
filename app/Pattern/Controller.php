@@ -76,7 +76,6 @@ abstract class Controller extends Singleton {
 				'hide_default_controller' => 'array',
 				'comment'                 => 'bool ',
 				'controller'              => 'string',
-				'ga'                      => 'bool',
 			] as $key => $format ) {
 				$value = $option[ $key ] ?? null;
 				switch ( $format ) {
@@ -131,7 +130,6 @@ abstract class Controller extends Singleton {
 					'hide_default_controller' => $this->force_array( get_option( 'afb_hide_default_controller', [] ) ),
 					'comment'                 => (bool) get_option( 'afb_comment', '' ),
 					'controller'              => get_option( 'afb_controller', '' ),
-					'ga'                      => (bool) get_option( 'afb_ga', '' ),
 				];
 			default:
 				return null;

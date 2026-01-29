@@ -16,12 +16,6 @@ defined( 'ABSPATH' ) or die();
 				__( 'In case of customization, You can use variables(<code>%POSITIVE%</code>, <code>%TOTAL%</code>, <code>%NEGATIVE%</code>, <code>%POSITIVE_RATE%</code>, <code>%NEGATIVE_RATE%</code>, <code>%POST_TYPE%</code>) and 2 clickable elements must have class name <code>good</code> and <code>bad</code>. Both <code>&lt;a&gt;</code> and <code>&lt;button&gt;</code> tags are supported. For <code>&lt;a&gt;</code> tags, use <code>%LINK%</code> as href attribute.', 'anyway-feedback' ),
 				__( 'Default markup is below:', 'anyway-feedback' ),
 			] ),
-			'ga'                      => sprintf(
-				// translators: %s is a url.
-				__( 'This feature send report as event tracking to Google Analytics. You can get chronological report there. For detail, see <a href="%s">Advanced Usage</a>. ', 'anyway-feedback' ),
-				// phpcs:ignore PHPCompatibility.FunctionDeclarations.NewClosure.ThisFoundOutsideClass
-				$this->setting_url( 'advanced' )
-			),
 		];
 
 		if ( ! empty( $messages[ $key ] ) ) {
