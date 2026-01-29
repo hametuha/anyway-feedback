@@ -49,7 +49,7 @@ There are currently 2 ways. 1st is a feedback controller which displays number o
 
 Since version 1.2.0, the plugin dispatches a custom JavaScript event `feedback.afb` when a user submits feedback. You can listen to this event and send data to Google Analytics (or any other analytics service) yourself.
 
-```js
+<pre>
 document.addEventListener( 'feedback.afb', function( e ) {
     // e.detail contains: { type: 'post'|'comment', objectId: number, affirmative: 0|1 }
     gtag( 'event', 'feedback', {
@@ -58,7 +58,7 @@ document.addEventListener( 'feedback.afb', function( e ) {
         is_positive: e.detail.affirmative === 1,
     } );
 } );
-```
+</pre>
 
 **Note:** The built-in GA4 integration was removed in version 1.2.0. Use the custom event approach above for more flexibility.
 
@@ -76,12 +76,12 @@ document.addEventListener( 'feedback.afb', function( e ) {
 * Remove js-cookie dependency in favor of native `document.cookie` API.
 * Use wp-i18n for JavaScript translations instead of `wp_localize_script`.
 * Change default markup from `<a>` tags to `<button>` tags. Custom markup with `<a>` tags still works.
-* Add negative feedback reason collection feature. When users click "Useless", a dialog prompts them to provide a reason.
+* **New Feature:** Add negative feedback reason collection feature. When users click "Useless", a dialog prompts them to provide a reason. The answers will be stored as comments.
 * Add REST API endpoint `POST /afb/v1/negative-reason/{post_type}/{object_id}` for storing feedback reasons.
-* Remove built-in GA4 integration. Use the `feedback.afb` custom event to send data to your analytics service.
+* **Breaking Change:** Remove built-in GA4 integration. Use the `feedback.afb` custom event to send data to your analytics service.
 * Add percentage rate display for feedback results.
 * **Breaking Change:** The custom event format changed from jQuery `.trigger()` to vanilla `CustomEvent`. Listen with `document.addEventListener('feedback.afb', (e) => { /* e.detail */ })`.
-* Requires PHP >= 7.4 and WordPress >= 6.6.
+* **Important** Requires PHP >= 7.4 and WordPress >= 6.6.
 
 ### 1.1.0
 
