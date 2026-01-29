@@ -7,24 +7,24 @@
 .afb_container {
 	padding: 1em;
 	color: #888;
-	font-size: 12px;
+	font-size: 16px;
 	background: #f9f9f9;
 	border-bottom: 1px solid #ddd;
 	border-top: 1px solid #ddd;
 	margin: 1em 0;
 
-	a {
-		font-size: 11px;
+	a,
+	button {
+		font-size: 14px;
 		border: 1px solid #999;
 		padding: 5px 8px;
 		text-decoration: none;
 		margin-left: 0.5em;
 		box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
-
-		&:link {
-			color: #333;
-			text-decoration: none;
-		}
+		cursor: pointer;
+		background: transparent;
+		color: #333;
+		font-family: inherit;
 
 		&:hover {
 			box-shadow: none;
@@ -36,9 +36,17 @@
 		}
 	}
 
+	a {
+
+		&:link {
+			color: #333;
+			text-decoration: none;
+		}
+	}
+
 	.status {
 		margin-top: 5px;
-		font-size: 11px;
+		font-size: 14px;
 		margin-left: 1em;
 	}
 }
@@ -51,4 +59,76 @@
 		display: none;
 	}
 
+}
+
+// Negative feedback reason dialog
+.afb-negative-dialog {
+	max-width: 480px;
+	width: 90vw;
+	padding: 1.5em;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+
+	&::backdrop {
+		background: rgba(0, 0, 0, 0.5);
+	}
+
+	.afb-dialog-prompt,
+	.afb-dialog-thanks {
+		margin: 0 0 1em;
+		font-size: 14px;
+		color: #333;
+	}
+
+	.afb-reason-text {
+		width: 100%;
+		box-sizing: border-box;
+		padding: 0.5em;
+		font-size: 14px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		resize: vertical;
+		min-height: 80px;
+		margin-bottom: 1em;
+		font-family: inherit;
+	}
+
+	.afb-dialog-buttons {
+		display: flex;
+		justify-content: flex-end;
+		gap: 0.5em;
+	}
+
+	.afb-dialog-cancel,
+	.afb-dialog-close,
+	.afb-dialog-submit {
+		padding: 0.5em 1em;
+		font-size: 14px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		cursor: pointer;
+		font-family: inherit;
+	}
+
+	.afb-dialog-cancel,
+	.afb-dialog-close {
+		background: #f5f5f5;
+		color: #333;
+
+		&:hover {
+			background: #e5e5e5;
+		}
+	}
+
+	.afb-dialog-submit {
+		background: #0073aa;
+		color: #fff;
+		border-color: #0073aa;
+
+		&:hover {
+			background: #005a87;
+			border-color: #005a87;
+		}
+	}
 }

@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) or die();
 			'hide_default_controller' => __( 'Checked post types are still active for feedbacks, but you need custom code to display the controller. See &quot;Advanced Usage&quot; section.', 'anyway-feedback' ),
 			'controller'              => implode( '<br />', [
 				__( 'You can customize markup of Feedback controller. If you don\'t want, leave it blank.', 'anyway-feedback' ),
-				__( 'In case of customization, You can use variables(<code>%POSITIVE%</code>, <code>%TOTAL%</code>, <code>%NEGATIVE%</code>, <code>%POSITIVE_RATE%</code>, <code>%NEGATIVE_RATE%</code>, <code>%POST_TYPE%</code>) and 2 link tags <code>&lt;a&gt;</code> must have class name <code>good</code> and <code>bad</code> and <code>%LINK%</code> as href attribute</strong>.', 'anyway-feedback' ),
+				__( 'In case of customization, You can use variables(<code>%POSITIVE%</code>, <code>%TOTAL%</code>, <code>%NEGATIVE%</code>, <code>%POSITIVE_RATE%</code>, <code>%NEGATIVE_RATE%</code>, <code>%POST_TYPE%</code>) and 2 clickable elements must have class name <code>good</code> and <code>bad</code>. Both <code>&lt;a&gt;</code> and <code>&lt;button&gt;</code> tags are supported. For <code>&lt;a&gt;</code> tags, use <code>%LINK%</code> as href attribute.', 'anyway-feedback' ),
 				__( 'Default markup is below:', 'anyway-feedback' ),
 			] ),
 			'ga'                      => sprintf(

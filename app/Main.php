@@ -41,6 +41,8 @@ class Main extends Controller {
 		add_action( 'after_delete_post', array( $this, 'after_delete_post' ) );
 		// Delete comment hook
 		add_action( 'deleted_comment', array( $this, 'deleted_comment' ) );
+		// Exclude afb_negative comments from frontend queries
+		add_filter( 'pre_get_comments', array( $this, 'exclude_negative_feedback_comments' ) );
 	}
 
 	/**
@@ -94,17 +96,22 @@ class Main extends Controller {
 			}
 		}
 		// todo: translation is available in JS.
-		wp_localize_script('anyway-feedback', 'AFBP', array(
-			'ga'      => (int) $this->option['ga'],
-			'already' => __( 'You have already voted.', 'anyway-feedback' ),
-		));
+		wp_localize_script( 'anyway-feedback', 'AFBP', array(
+			'ga'           => (int) $this->option['ga'],
+			'already'      => __( 'You have already voted.', 'anyway-feedback' ),
+			'reasonPrompt' => __( 'Could you tell us the reason?', 'anyway-feedback' ),
+			'submit'       => __( 'Submit', 'anyway-feedback' ),
+			'cancel'       => __( 'Cancel', 'anyway-feedback' ),
+			'close'        => __( 'Close', 'anyway-feedback' ),
+			'reasonThanks' => __( 'Thank you for your feedback.', 'anyway-feedback' ),
+		) );
 	}
 
 	/**
 	 * Default markup.
 	 *
 	 * @param string $message
-	 * @param string $link
+	 * @param string $link    Deprecated. Kept for backward compatibility.
 	 * @param string $useful
 	 * @param string $useless
 	 * @param string $status
@@ -114,8 +121,8 @@ class Main extends Controller {
 	public function default_controller_html( $message, $link, $useful, $useless, $status ) {
 		return <<<HTML
 <span class="message">{$message}</span>
-<a class="good" href="{$link}" rel="nofollow">{$useful}</a>
-<a class="bad" href="{$link}" rel="nofollow">{$useless}</a>
+<button class="good" type="button">{$useful}</button>
+<button class="bad" type="button">{$useless}</button>
 <span class="status">{$status}</span>
 HTML;
 	}
@@ -223,5 +230,29 @@ HTML;
 	 */
 	public function register_widgets() {
 		register_widget( 'AFB\\Widget\\Popular' );
+	}
+
+	/**
+	 * Exclude negative feedback comments from frontend comment queries.
+	 *
+	 * @param \WP_Comment_Query $query Comment query object.
+	 * @return \WP_Comment_Query
+	 */
+	public function exclude_negative_feedback_comments( $query ) {
+		// Only exclude on frontend
+		if ( is_admin() ) {
+			return $query;
+		}
+
+		// Get current type__not_in and add afb_negative
+		$type_not_in = $query->query_vars['type__not_in'] ?? array();
+		if ( ! is_array( $type_not_in ) ) {
+			$type_not_in = array( $type_not_in );
+		}
+		$type_not_in[] = 'afb_negative';
+
+		$query->query_vars['type__not_in'] = $type_not_in;
+
+		return $query;
 	}
 }
