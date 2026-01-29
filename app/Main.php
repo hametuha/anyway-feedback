@@ -60,10 +60,6 @@ class Main extends Controller {
 	 * @return void
 	 */
 	public function register_script() {
-		// Register libraries.
-		if ( ! wp_script_is( 'js-cookie', 'registered' ) ) {
-			wp_register_script( 'js-cookie', $this->url . 'assets/vendor/js.cookie.min.js', array(), '3.0.2', false );
-		}
 		// Google Chart
 		wp_register_script( 'google-chart-api', 'https://www.google.com/jsapi', null, null );
 		// Register from wp-dependencies.json

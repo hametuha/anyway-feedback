@@ -2,30 +2,34 @@
  * Helper script for Anyway Feedback
  *
  * @handle anyway-feedback
- * @deps js-cookie,wp-api-fetch
+ * @deps wp-api-fetch
  */
 
 /* global AFBP:true */
 
 document.addEventListener( 'DOMContentLoaded', () => {
 	/**
-	 * Check if cookie exists
+	 * Get cookie value by name.
 	 *
-	 * @param {string} postType Post type name.
-	 * @param {number} objectId post id or comment id.
-	 * @return {boolean} Whether the cookie exists.
+	 * @param {string} name Cookie name.
+	 * @return {string|null} Cookie value or null if not found.
 	 */
-	const cookieExists = ( postType, objectId ) => {
-		let cookie = Cookies.get( cookieName( postType ) );
-		if ( cookie ) {
-			if ( typeof cookie !== 'string' ) {
-				cookie = cookie.toString();
-			}
-			cookie = cookie.replace( /[^0-9,]/g, '' );
-			cookie = cookie.split( ',' );
-			return cookie.indexOf( objectId.toString() ) >= 0;
-		}
-		return false;
+	const getCookie = ( name ) => {
+		const match = document.cookie.match( new RegExp( '(^|; )' + name + '=([^;]*)' ) );
+		return match ? decodeURIComponent( match[ 2 ] ) : null;
+	};
+
+	/**
+	 * Set cookie value.
+	 *
+	 * @param {string} name    Cookie name.
+	 * @param {string} value   Cookie value.
+	 * @param {number} expires Days until expiration.
+	 */
+	const setCookie = ( name, value, expires ) => {
+		const date = new Date();
+		date.setTime( date.getTime() + ( expires * 24 * 60 * 60 * 1000 ) );
+		document.cookie = name + '=' + encodeURIComponent( value ) + '; expires=' + date.toUTCString() + '; path=/';
 	};
 
 	/**
@@ -39,6 +43,23 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	};
 
 	/**
+	 * Check if cookie exists
+	 *
+	 * @param {string} postType Post type name.
+	 * @param {number} objectId post id or comment id.
+	 * @return {boolean} Whether the cookie exists.
+	 */
+	const cookieExists = ( postType, objectId ) => {
+		let cookie = getCookie( cookieName( postType ) );
+		if ( cookie ) {
+			cookie = cookie.replace( /[^0-9,]/g, '' );
+			cookie = cookie.split( ',' );
+			return cookie.indexOf( objectId.toString() ) >= 0;
+		}
+		return false;
+	};
+
+	/**
 	 * Save cookie.
 	 *
 	 * @param {string} postType
@@ -46,20 +67,14 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	 */
 	const saveCookie = ( postType, objectId ) => {
 		if ( ! cookieExists( postType, objectId ) ) {
-			let cookie = Cookies.get( cookieName( postType ) );
+			let cookie = getCookie( cookieName( postType ) );
 			if ( cookie ) {
-				if ( typeof cookie !== 'string' ) {
-					cookie = cookie.toString();
-				}
 				cookie = cookie.split( ',' );
 			} else {
 				cookie = [];
 			}
 			cookie.push( parseInt( objectId, 10 ) );
-			Cookies.set( cookieName( postType ), cookie.join( ',' ), {
-				expires: 365 * 2,
-				path: '/',
-			} );
+			setCookie( cookieName( postType ), cookie.join( ',' ), 365 * 2 );
 		}
 	};
 
