@@ -91,15 +91,9 @@ class Main extends Controller {
 				}
 			}
 		}
-		// todo: translation is available in JS.
+		// Pass PHP options to JS (translations handled by wp-i18n).
 		wp_localize_script( 'anyway-feedback', 'AFBP', array(
-			'ga'           => (int) $this->option['ga'],
-			'already'      => __( 'You have already voted.', 'anyway-feedback' ),
-			'reasonPrompt' => __( 'Could you tell us the reason?', 'anyway-feedback' ),
-			'submit'       => __( 'Submit', 'anyway-feedback' ),
-			'cancel'       => __( 'Cancel', 'anyway-feedback' ),
-			'close'        => __( 'Close', 'anyway-feedback' ),
-			'reasonThanks' => __( 'Thank you for your feedback.', 'anyway-feedback' ),
+			'ga' => (int) $this->option['ga'],
 		) );
 	}
 

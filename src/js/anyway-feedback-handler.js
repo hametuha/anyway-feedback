@@ -2,10 +2,12 @@
  * Helper script for Anyway Feedback
  *
  * @handle anyway-feedback
- * @deps wp-api-fetch
+ * @deps wp-api-fetch,wp-i18n
  */
 
 /* global AFBP:true */
+
+const { __ } = wp.i18n;
 
 document.addEventListener( 'DOMContentLoaded', () => {
 	/**
@@ -90,11 +92,11 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		dialog.className = 'afb-negative-dialog';
 		dialog.innerHTML = `
 			<form method="dialog">
-				<p class="afb-dialog-prompt">${ AFBP.reasonPrompt }</p>
+				<p class="afb-dialog-prompt">${ __( 'Could you tell us the reason?', 'anyway-feedback' ) }</p>
 				<textarea class="afb-reason-text" rows="4"></textarea>
 				<div class="afb-dialog-buttons">
-					<button type="button" class="afb-dialog-cancel">${ AFBP.cancel }</button>
-					<button type="submit" class="afb-dialog-submit">${ AFBP.submit }</button>
+					<button type="button" class="afb-dialog-cancel">${ __( 'Cancel', 'anyway-feedback' ) }</button>
+					<button type="submit" class="afb-dialog-submit">${ __( 'Submit', 'anyway-feedback' ) }</button>
 				</div>
 			</form>
 		`;
@@ -136,9 +138,9 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			} ).then( () => {
 				// Show thank you message
 				dialog.innerHTML = `
-					<p class="afb-dialog-thanks">${ AFBP.reasonThanks }</p>
+					<p class="afb-dialog-thanks">${ __( 'Thank you for your feedback.', 'anyway-feedback' ) }</p>
 					<div class="afb-dialog-buttons">
-						<button type="button" class="afb-dialog-close">${ AFBP.close }</button>
+						<button type="button" class="afb-dialog-close">${ __( 'Close', 'anyway-feedback' ) }</button>
 					</div>
 				`;
 				dialog.querySelector( '.afb-dialog-close' ).addEventListener( 'click', () => {
@@ -177,7 +179,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			container.querySelectorAll( 'a, button, input' ).forEach( ( el ) => el.remove() );
 			const messageEl = container.querySelector( '.message' );
 			if ( messageEl ) {
-				messageEl.textContent = AFBP.already;
+				messageEl.textContent = __( 'You have already voted.', 'anyway-feedback' );
 			}
 			container.classList.add( 'afb_posted' );
 		}

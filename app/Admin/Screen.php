@@ -99,17 +99,8 @@ class Screen extends Controller {
 		) {
 			// Main Style sheet
 			wp_enqueue_style( 'afb-admin' );
-			// Script
+			// Script (translations handled by wp-i18n)
 			wp_enqueue_script( 'afb-admin' );
-			if ( $is_statistic ) {
-				// todo: translation in JS
-				wp_localize_script('afb-admin', 'AFB', array(
-					'pieTitle'    => __( 'Feedback Ratio', 'anyway-feedback' ),
-					'piePositive' => __( 'Positive', 'anyway-feedback' ),
-					'pieNegative' => __( 'Negative', 'anyway-feedback' ),
-					'noData'      => __( 'No data', 'anyway-feedback' ),
-				));
-			}
 		}
 	}
 
