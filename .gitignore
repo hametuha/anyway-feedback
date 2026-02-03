@@ -9,4 +9,5 @@
 readme.txt
 composer.lock
 /wordpress/
+/languages/
 .claude/settings.local.json

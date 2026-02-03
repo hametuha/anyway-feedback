@@ -1,21 +1,23 @@
 # Anyway Feedback
 
 Contributors: Takahashi_Fumiki,hametuha  
-Tags: feedback, analytics  
-Tested up to: 6.9  
-Stable Tag: nightly  
+Tags: feedback, analytics
+Tested up to: 6.9
+Stable Tag: nightly
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-This plugin enable users to send feedback with single click. This may support you to analyze your user's opinion. Works as a help center for your site.
+This plugin enable users to send feedback with single click.
 
 ## Description
 
-Anyway Feedback provides simple controller with 2 buttons(Useful and Useless). Users can send feedback to specific post or comment. 
+Anyway Feedback provides simple controller with 2 buttons(Useful and Useless). Users can send feedback to specific post or comment.
 
 What you get is amount of positive feed backs and negative ones per post types. Typical usage is for FAQ. You could know if your FAQs are usefull or not.
 
 Sidebar also supported. You can display sidebar which includes the most popular posts per post type.
 
-If you have some request, feel free to contact me. For experienced developper, I'm waiting  for pull requests on github.com.
+If you have some request, feel free to contact me. For experienced developper, I'm waiting for pull requests on github.com.
 
 **NOTICE** Requires PHP 7.4 and WordPress 6.6 or later.
 
@@ -70,51 +72,6 @@ document.addEventListener( 'feedback.afb', function( e ) {
 
 ## Changelog
 
-### 1.2.0
+See [GitHub Release](https://github.com/hametuha/anyway-feedback/releases) for change logs.
 
-* Remove jQuery dependency from frontend script.
-* Remove js-cookie dependency in favor of native `document.cookie` API.
-* Use wp-i18n for JavaScript translations instead of `wp_localize_script`.
-* Change default markup from `<a>` tags to `<button>` tags. Custom markup with `<a>` tags still works.
-* **New Feature:** Add negative feedback reason collection feature. When users click "Useless", a dialog prompts them to provide a reason. The answers will be stored as comments.
-* Add REST API endpoint `POST /afb/v1/negative-reason/{post_type}/{object_id}` for storing feedback reasons.
-* **Breaking Change:** Remove built-in GA4 integration. Use the `feedback.afb` custom event to send data to your analytics service.
-* Add percentage rate display for feedback results.
-* **Breaking Change:** The custom event format changed from jQuery `.trigger()` to vanilla `CustomEvent`. Listen with `document.addEventListener('feedback.afb', (e) => { /* e.detail */ })`.
-* **Important** Requires PHP >= 7.4 and WordPress >= 6.6.
-
-### 1.1.0
-
-* Change feedback endpoint from admin-ajax.php to REST API.
-* Drop jquery-cookie and use js-cookie.
-* Remove session_start() from admin screen.
-* Support GA4.
-* Requires PHP>=7.2 and WordPress >=5.9
-
-### 1.0.1
-
-* Fixed filename bug. Sorry for that.
-* Stop warning error.
-
-### 1.0
-
-* Requires PHP 5.4 and over. Name space is so cool! Template tags have backward compatibility.
-* Quit using session. Vote history will be stored in Cookie.
-* Refine admin screen.
-* Fix some style sheet.
-* Bug fix. trashed posts will be no longer displayed on widget.
-* **New Feature** Add [Google Analytics event tracking](https://developers.google.com/analytics/devguides/collection/analyticsjs/events). See detail at setting screen.
-
-### 0.6
-
-* Use $_SESSION to avoid user from repeated feedback.
-
-### 0.5
-
-* 1st release.
-
-## Upgrade Notice 
-
-### 0.5
-
-Nothing.
+CHANGELOG.md is also available.

@@ -10,7 +10,8 @@
  * Author URI: https://hametuha.co.jp
  * Text Domain: anyway-feedback
  * Domain Path: /language/
- * License: GPL2 or Later
+ * License: GPLv2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
 

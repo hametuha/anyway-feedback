@@ -4,14 +4,15 @@ WordPress プラグイン。投稿やコメントに対するフィードバッ�
 
 ## 技術スタック
 
-- PHP >= 7.4 / WordPress >= 6.6
-- Node >= 22（Volta で管理）
-- SCSS → CSS ビルド（sass + postcss + autoprefixer）
-- JS バンドル（@kunoichi/grab-deps）
+-   PHP >= 7.4 / WordPress >= 6.6
+-   Node >= 22（Volta で管理）
+-   SCSS → CSS ビルド（sass + postcss + autoprefixer）
+-   JS バンドル（@kunoichi/grab-deps）
 
 ## ディレクトリ構成
 
 ```
+README.md            … プラグインのメインファイル。ビルドでreadme.txtに変換される。
 anyway-feedback.php  … プラグインエントリーポイント
 app/                 … PHP クラス（PSR-4: AFB\）
   Admin/             … 管理画面（Screen, Table）
@@ -79,17 +80,17 @@ composer fix       # PHP 自動修正（phpcbf）
 
 husky + lint-staged により、コミット時にステージされたファイルの lint が自動実行される。
 
-- `*.php` → phpcs
-- `src/js/**/*.js` → wp-scripts lint-js
-- `src/scss/**/*.scss` → wp-scripts lint-style
+-   `*.php` → phpcs
+-   `src/js/**/*.js` → wp-scripts lint-js
+-   `src/scss/**/*.scss` → wp-scripts lint-style
 
 ## CI ワークフロー
 
-| ワークフロー | トリガー | 内容 |
-|---|---|---|
-| `test.yml` | PR / master push | phpcs, phplint, assets lint, status check |
-| `release-drafter.yml` | master push | リリース下書き自動更新 |
-| `wordpress.yml` | release published | WordPress.org デプロイ + zip をリリースに添付 |
+| ワークフロー          | トリガー          | 内容                                          |
+| --------------------- | ----------------- | --------------------------------------------- |
+| `test.yml`            | PR / master push  | phpcs, phplint, assets lint, status check     |
+| `release-drafter.yml` | master push       | リリース下書き自動更新                        |
+| `wordpress.yml`       | release published | WordPress.org デプロイ + zip をリリースに添付 |
 
 ## リリース手順
 
