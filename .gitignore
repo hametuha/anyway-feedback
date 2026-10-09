@@ -7,7 +7,6 @@
 /assets/vendor/
 /wp-dependencies.json
 readme.txt
-composer.lock
 /wordpress/
 /languages/
 .claude/settings.local.json
