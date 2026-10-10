@@ -106,7 +106,7 @@ echo esc_html( $tag );
 			</tr>
 			<tr>
 				<th>Label</th>
-				<td><?php wp_kses_post( __( '<code>Post ID</code> or <code>comment ID</code>', 'anyway-feedback' ) ); ?></td>
+				<td><?php echo wp_kses_post( __( '<code>Post ID</code> or <code>comment ID</code>', 'anyway-feedback' ) ); ?></td>
 			</tr>
 			<tr>
 				<th>Value</th>
