@@ -2,7 +2,7 @@
 
 Contributors: Takahashi_Fumiki,hametuha  
 Tags: feedback, analytics
-Tested up to: 6.9
+Tested up to: 7.1
 Stable Tag: nightly
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -17,7 +17,9 @@ What you get is amount of positive feed backs and negative ones per post types. 
 
 Sidebar also supported. You can display sidebar which includes the most popular posts per post type.
 
-If you have some request, feel free to contact me. For experienced developper, I'm waiting for pull requests on github.com.
+If you have some request, feel free to contact me. For experienced developper, I'm waiting for pull requests on [GitHub](https://github.com/hametuha/anyway-feedback).
+
+Thanks to all [contributors](https://github.com/hametuha/anyway-feedback/graphs/contributors)!
 
 **NOTICE** Requires PHP 7.4 and WordPress 6.6 or later.
 
@@ -71,6 +73,12 @@ document.addEventListener( 'feedback.afb', function( e ) {
 3. Simple setting. Documentations are also on admin screen!
 
 ## Changelog
+
+### 1.2.2
+
+* Bug fix: The label description in the "Advanced" settings page was not displayed. Props [@DAnn2012](https://github.com/DAnn2012) (#18)
+* Tested up to WordPress 7.1.
+* Development: Standardized CI (PHPUnit, PHPStan, WordPress.org deployment on release).
 
 See [GitHub Release](https://github.com/hametuha/anyway-feedback/releases) for change logs.
 
