@@ -74,6 +74,10 @@ document.addEventListener( 'feedback.afb', function( e ) {
 
 ## Changelog
 
+### 1.2.3
+
+* Bug fix: 1.2.2 was released with an invalid version string "v1.2.2", which prevented updates from 1.2.1.
+
 ### 1.2.2
 
 * Bug fix: The label description in the "Advanced" settings page was not displayed. Props [@DAnn2012](https://github.com/DAnn2012) (#18)

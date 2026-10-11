@@ -43,6 +43,7 @@ jobs:
         with:
           version: ${{ github.event.release.tag_name }}
           files: readme.txt,anyway-feedback.php
+          prefix: 'v'
 
       - name: Deploy to WordPress Directory
         uses: 10up/action-wordpress-plugin-deploy@stable
