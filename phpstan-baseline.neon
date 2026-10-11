@@ -1,0 +1,79 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Constructor of class AFB\\Admin\\Screen has an unused parameter \$arguments\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: app/Admin/Screen.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: app/Admin/Screen.php
+
+		-
+			message: '#^Parameter \#2 \$output of function get_post_types expects ''names''\|''objects'', ''OBJECT'' given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Admin/Screen.php
+
+		-
+			message: '#^Parameter \#1 \$args of method WP_List_Table\:\:set_pagination_args\(\) expects array\{total_items\?\: int, total_pages\?\: int, per_page\?\: int\}, array\{total_items\: int, per_page\: int, total_pages\: float\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Admin/Table.php
+
+		-
+			message: '#^Property AFB\\Admin\\Table\:\:\$post_type \(stdClass\) does not accept WP_Post_Type\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Admin/Table.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 4
+			path: app/Admin/Table.php
+
+		-
+			message: '#^Constructor of class AFB\\Api\\ApiFeedback has an unused parameter \$arguments\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: app/Api/ApiFeedback.php
+
+		-
+			message: '#^Constructor of class AFB\\Helper\\Input has an unused parameter \$arguments\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: app/Helper/Input.php
+
+		-
+			message: '#^Constructor of class AFB\\Main has an unused parameter \$arguments\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: app/Main.php
+
+		-
+			message: '#^Parameter \#3 \$deps of function wp_register_script expects array\<string\>, null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Main.php
+
+		-
+			message: '#^Constructor of class AFB\\Model\\Base has an unused parameter \$arguments\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: app/Model/Base.php
+
+		-
+			message: '#^Variable \$where_clause in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: app/Model/FeedBacks.php
+
+		-
+			message: '#^Function afb_negative\(\) never returns void so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: functions.php
