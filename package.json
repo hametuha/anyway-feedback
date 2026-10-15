@@ -16,23 +16,24 @@
 		"lint:js": "wp-scripts lint-js './src/js/**/*.js'",
 		"lint:css": "wp-scripts lint-style './src/scss/**/*.scss'",
 		"fix": "npm run fix:js && npm run fix:css",
-		"fix:js": "wp-scripts lint-js --fix './src/js/**/*.js'",
-		"fix:css": "wp-scripts lint-style --fix './src/scss/**/*.scss'",
+		"fix:js": "wp-scripts lint-js './src/js/**/*.js' --fix",
+		"fix:css": "wp-scripts lint-style './src/scss/**/*.scss' --fix",
 		"prepare": "husky"
 	},
 	"author": "Hametuha INC.",
 	"license": "LGPL-3.0-or-later",
 	"devDependencies": {
-		"@kunoichi/grab-deps": "^3.0.0",
-		"@wordpress/env": "^10.0",
-		"@wordpress/scripts": "^30",
-		"autoprefixer": "^10.4.19",
+		"@kunoichi/grab-deps": "^3.2.1",
+		"@wordpress/env": "^11.16",
+		"@wordpress/scripts": "^36.1.0",
+		"autoprefixer": "^10.6.1",
+		"globals": "^17.13.0",
 		"husky": "^9.1.7",
-		"lint-staged": "^16.2.7",
-		"npm-watch": "^0.11.0",
-		"postcss": "^8.4.38",
-		"postcss-cli": "^11.0.0",
-		"sass": "^1.72.0"
+		"lint-staged": "^17.6.0",
+		"npm-watch": "^0.13.0",
+		"postcss": "^8.5.29",
+		"postcss-cli": "^12.0.0",
+		"sass": "^1.105.1"
 	},
 	"watch": {
 		"build:js": {
@@ -61,9 +62,9 @@
 		"src/scss/**/*.scss": "wp-scripts lint-style"
 	},
 	"engines": {
-		"node": ">=22"
+		"node": "^22.22.2 || ^24.15.0"
 	},
 	"volta": {
-		"node": "22.22.0"
+		"node": "24.15.0"
 	}
 }
