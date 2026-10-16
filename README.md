@@ -66,6 +66,10 @@ document.addEventListener( 'feedback.afb', function( e ) {
 
 **Note:** The built-in GA4 integration was removed in version 1.2.0. Use the custom event approach above for more flexibility.
 
+### Where do I report security bugs found in this plugin?
+
+Please do not post it publicly. Report security bugs through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/report/wordpress/plugin/anyway-feedback). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
+
 ## Screenshots
 
 1. Controller looks like this. You can customize it with your own css and markup.
