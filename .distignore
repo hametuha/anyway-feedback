@@ -1,29 +1,42 @@
-.browserslistrc
-.claude
-.editorconfig
-.eslintrc
-.distignore
+# Version control / CI
 .git
 .github
 .gitignore
-.husky
-.node-version
-.stylelintrc.json
+.distignore
 .wordpress-org
+
+# Editor / environment / AI
+.editorconfig
+.node-version
 .wp-env.json
-/src
-/wordpress
+.husky
+.claude
+CLAUDE.md
+
+# Node.js and front-end build (assets/ holds the compiled files)
 node_modules
-composer.lock
+package.json
 package-lock.json
+.browserslistrc
+.stylelintrc.json
+eslint.config.mjs
+/src
+
+# Composer (keep composer.json because vendor/autoload.php is shipped)
+composer.lock
+
+# PHP lint / static analysis / tests
 phpcs.ruleset.xml
 phpstan.neon
 phpstan-baseline.neon
 phpstan-bootstrap.php
 phpunit.xml.dist
-README.md
-webpack.config.js
-bin
 tests
-anyway-feedback.php.bak
-readme.txt.bak
+
+# Build scripts and local WordPress install
+bin
+/wordpress
+*.bak
+
+# Docs (readme.txt is generated from README.md at deploy time)
+README.md
