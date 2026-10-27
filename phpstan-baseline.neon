@@ -55,12 +55,6 @@ parameters:
 			path: app/Main.php
 
 		-
-			message: '#^Parameter \#3 \$deps of function wp_register_script expects array\<string\>, null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Main.php
-
-		-
 			message: '#^Constructor of class AFB\\Model\\Base has an unused parameter \$arguments\.$#'
 			identifier: constructor.unusedParameter
 			count: 1

@@ -93,7 +93,7 @@ class Popular extends \WP_Widget {
 	 *
 	 * @see WP_Widget
 	 * @param array $instance
-	 * @return void
+	 * @return string|null
 	 */
 	public function form( $instance ) {
 		$current_post_type = esc_attr( isset( $instance['post_type'] ) ? $instance['post_type'] : 'post' );
@@ -125,6 +125,7 @@ class Popular extends \WP_Widget {
 				</label>
 			</p>
 		<?php
+		return null;
 	}
 
 	/**

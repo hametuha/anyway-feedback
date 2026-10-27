@@ -61,7 +61,7 @@ class Main extends Controller {
 	 */
 	public function register_script() {
 		// Google Chart
-		wp_register_script( 'google-chart-api', 'https://www.google.com/jsapi', null, null );
+		wp_register_script( 'google-chart-api', 'https://www.google.com/jsapi', [], null );
 		// Register from wp-dependencies.json
 		$json = dirname( __DIR__ ) . '/wp-dependencies.json';
 		if ( file_exists( $json ) ) {
