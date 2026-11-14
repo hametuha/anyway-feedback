@@ -28,7 +28,7 @@
 	"require-dev": {
 		"johnpbloch/wordpress": "6.9",
 		"phpstan/phpstan": "^2.1",
-		"php-stubs/wordpress-stubs": "^6.9",
+		"php-stubs/wordpress-stubs": "^7.1",
 		"szepeviktor/phpstan-wordpress": "^2.0",
 		"wp-coding-standards/wpcs": "^3.0",
 		"phpunit/phpunit": "^9.6",
