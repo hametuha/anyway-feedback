@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ba275dd183138f0468ab4eed8b6b23a4",
+    "content-hash": "59d29062ce8fdd38b2470fc7f3875154",
     "packages": [],
     "packages-dev": [
         {
@@ -175,20 +175,20 @@
         },
         {
             "name": "johnpbloch/wordpress",
-            "version": "6.9.0",
+            "version": "7.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "fbc8bf2209d0ab8d579d937b3df89003a3b86b8e"
+                "reference": "8fd3df90be180e75396bc3c5ad03ee11d8a957e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/fbc8bf2209d0ab8d579d937b3df89003a3b86b8e",
-                "reference": "fbc8bf2209d0ab8d579d937b3df89003a3b86b8e",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/8fd3df90be180e75396bc3c5ad03ee11d8a957e7",
+                "reference": "8fd3df90be180e75396bc3c5ad03ee11d8a957e7",
                 "shasum": ""
             },
             "require": {
-                "johnpbloch/wordpress-core": "6.9.0",
+                "johnpbloch/wordpress-core": "7.1.4",
                 "johnpbloch/wordpress-core-installer": "^1.0 || ^2.0",
                 "php": ">=7.0.0"
             },
@@ -217,28 +217,28 @@
                 "issues": "https://core.trac.wordpress.org/",
                 "source": "https://core.trac.wordpress.org/browser"
             },
-            "time": "2025-12-02T19:11:04+00:00"
+            "time": "2026-10-28T19:49:43+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core",
-            "version": "6.9.0",
+            "version": "7.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "4626d4e896c36ab77a69ce58627bc76243b5dd07"
+                "reference": "36ac9875ff3f09afe1d91f996bfac0ac261922ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/4626d4e896c36ab77a69ce58627bc76243b5dd07",
-                "reference": "4626d4e896c36ab77a69ce58627bc76243b5dd07",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/36ac9875ff3f09afe1d91f996bfac0ac261922ed",
+                "reference": "36ac9875ff3f09afe1d91f996bfac0ac261922ed",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "php": ">=7.2.24"
+                "php": ">=7.4"
             },
             "provide": {
-                "wordpress/core-implementation": "6.9.0"
+                "wordpress/core-implementation": "7.1.4"
             },
             "type": "wordpress-core",
             "notification-url": "https://packagist.org/downloads/",
@@ -265,7 +265,7 @@
                 "source": "https://core.trac.wordpress.org/browser",
                 "wiki": "https://codex.wordpress.org/"
             },
-            "time": "2025-12-02T19:10:58+00:00"
+            "time": "2026-10-28T19:49:26+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
